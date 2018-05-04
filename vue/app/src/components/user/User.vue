@@ -22,10 +22,10 @@
     <div id="boy">
 
 
-      <div class="boy1">
+      <router-link to="/money" class="boy1">
         <div class="bou1"><span style="color: #f90">0.00</span> <a>元</a></div>
         <p>我的余额</p>
-      </div>
+      </router-link>
       <div class="boy1">
         <div class="bou2">
           <span style="color:#ff5f3e">{{3}}</span>个
@@ -33,12 +33,12 @@
         <p>我的优惠</p>
       </div>
 
-      <div class="boy1">
+      <router-link to="/fen" class="boy1">
         <div class="bou2">
           <span style="color:#6ac20b">{{0}}</span>个
         </div>
         <p>我的积分</p>
-      </div>
+      </router-link>
     </div>
     <div>
       <ul class="ulo">
