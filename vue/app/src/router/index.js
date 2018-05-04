@@ -1,15 +1,48 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Show from "@/components/show/Show"
+import Search from '@/components/search/Search'
+import Eat from '@/components/eat/Eat'
+import Order from '@/components/order/Order'
+import User from '@/components/user/User'
 
-Vue.use(Router)
+
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    }
+      component: Show
+    },
+    {
+      path: '/show',
+      name: 'Show',
+      component: Show,
+      children: [
+        {
+          path: '/show',
+          name: 'Eat',
+          component: Eat
+        },
+        {
+          path: '/show/search',
+          name: 'Search',
+          component: Search
+        },
+        {
+          path: '/show/order',
+          name: 'Order',
+          component: Order
+        },
+        {
+          path: '/show/user',
+          name: 'User',
+          component: User
+        },
+      ]
+    },
+
+
   ]
 })
