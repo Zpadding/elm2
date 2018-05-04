@@ -5,6 +5,9 @@ import Search from '@/components/search/Search'
 import Eat from '@/components/eat/Eat'
 import Order from '@/components/order/Order'
 import User from '@/components/user/User'
+import Money from '@/components/user/money/Money'
+import Fen from '@/components/user/fen/Fen'
+
 
 
 Vue.use(Router);
@@ -38,10 +41,22 @@ export default new Router({
         {
           path: '/show/user',
           name: 'User',
-          component: User
+          component: User,
         },
+
       ]
     },
+    {
+      path:'/money',
+      name:'Money',
+      component:Money
+    },{
+      path:'/fen',
+      name:'Fen',
+      component:Fen
+    },
+
+
 
 
   ]

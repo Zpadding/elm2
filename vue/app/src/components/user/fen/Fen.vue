@@ -1,52 +1,48 @@
 <template>
-
   <div class="blue">
 
-   <div class="lan">
-     <router-link to="show/user"  class="hp1"> < </router-link>
-     <p class="hp2">我的余额</p>
+    <div class="lan">
+      <router-link to="show/user"  class="hp1"> < </router-link>
+      <p class="hp2">我的积分</p>
 
-   </div>
+    </div>
 
     <div class="bods">
 
 
-    <div class="white">
+      <div class="white">
 
-     <p class="im1">当前余额</p>
-     <img src="../../../assets/w1-4.png" alt="" class="im">
-      <p class="im2">余额说明</p>
-    </div>
-      <a class="mon"> 0.00</a><span class="yus">元</span>
+        <p class="im1">当前积分</p>
+        <img src="../../../assets/w1-4.png" alt="" class="im">
+        <p class="im2">余额说明</p>
+      </div>
+      <a class="mon"> 0</a><span class="yus">分</span>
 
       <br>
-      <button class="bu">提现</button>
+      <button class="bu">积分兑换商品</button>
       <div>
-    </div>
+      </div>
     </div>
 
   </div>
-
 
 
 </template>
 
 <script>
     export default {
-        name: "Money",
-        mon:"0.00"
-
+        name: "Fen"
     }
 </script>
 
 <style scoped>
-.blue{
- height: 1.87rem;
-  width: 100%;
-  background:#3190e8;
-  color: #fff;
+  .blue{
+    height: 1.87rem;
+    width: 100%;
+    background:#3190e8;
+    color: #fff;
 
-}
+  }
   .lan{
     overflow: hidden;
     height: 0.4rem;
@@ -104,8 +100,9 @@
     margin-left: 0.25em ;
     height: 0.4rem;
     width: 2.9rem;
-    background: #ccc;
+    background: #fe6d47;
   }
+
 
 
 </style>
