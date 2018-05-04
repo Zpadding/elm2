@@ -12,6 +12,9 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 import store from './store';
 
+var VueTouch = require("vue-touch")
+Vue.use(VueTouch, {name: "v-touch"})
+
 Vue.use(ElementUI);
 
 Vue.use(VueAxios, axios);

@@ -1,34 +1,23 @@
 <template>
   <div class="classify">
       <!-- <h2>商品分类</h2> -->
-      <div class="con" @touchmove="move">
-          <div class="one">
-              <router-link to="/" v-for="(mes, index) in data1">
+      <v-touch class="con" @swipeleft="onSwipeLeft" @swiperight="onSwipeRight">
+          <div class="infor" v-for="infor in infors">
+            <router-link to="/" v-for="mes in infor">
               <img :src="img_url+mes.image_url" alt="">
               <p>{{mes.title}}</p>
-              <!-- <p>{{mes.img_url}}</p> -->
-          </router-link>
+            </router-link>
           </div>
-          <div class="two">
-              <router-link to="/" v-for="(mes, index) in data2">
-              <img :src="img_url+mes.image_url" alt="">
-              <p>{{mes.title}}</p>
-              <!-- <p>{{mes.img_url}}</p> -->
-          </router-link>
-          </div>
-          
-          <div class="page">
-              <span :class="{select:countPage==1}" @click="countPage=1"></span>
-              <span :class="{select:countPage==2}" @click="countPage=2"></span>
-            </div>
+      </v-touch>
+      <div class="page">
+        <span :class="{select:countPage==1}"></span>
+        <span :class="{select:countPage==2}"></span>
       </div>
-      <!-- <p>{{img_url}}</p> -->
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import { mapState } from "vuex";
-// import index from "_vue@2.5.16@vue";
 export default {
   data() {
     return {
@@ -44,7 +33,6 @@ export default {
     this.$http
       .get(url)
       .then(result => {
-        // console.log(result.data);
         this.mess = result.data;
       })
       .catch(err => {
@@ -54,19 +42,47 @@ export default {
   computed: {
     ...mapState(["head_url"]),
     data1() {
-      var data = this.mess.slice(8 * (this.countPage - 1), this.countPage * 8);
-      // console.log(data);
+      var data = this.mess.slice(0, 8);
       return data;
     },
     data2() {
-      var data = this.mess.slice(8 * this.countPage, (this.countPage + 1) * 8);
-      // console.log(data);
+      var data = this.mess.slice(8, 16);
       return data;
+    },
+    infors() {
+      return [this.data2, this.data1, this.data2, this.data1]
     }
   },
   methods: {
-    move(event) {
-      //   console.log(event);
+    onSwipeLeft() {
+      var con = document.querySelector(".con");
+      var step = 0
+      var timer = setInterval(()=>{
+        step++;
+        con.style.left = con.offsetLeft/100 - 3.2/20 +"rem";
+        if (step >= 20) {
+          this.countPage==1?this.countPage=2:this.countPage=1;
+          if (con.offsetLeft/100 <= -9.6) {
+            con.style.left = -3.2 +"rem";
+          }
+          clearInterval(timer);
+        }
+      }, 20)
+    },
+    onSwipeRight() {
+      var con = document.querySelector(".con");
+      var step = 0
+      var timer = setInterval(()=>{
+        step++;
+        con.style.left = con.offsetLeft/100 + 3.2/20 +"rem";
+        if (step >= 20) {
+          this.countPage==1?this.countPage=2:this.countPage=1;
+          clearInterval(timer);
+          if (con.offsetLeft/100 >= 0) {
+            con.style.left = -6.4 +"rem";
+          }
+        }
+      }, 20)
     }
   }
 };
@@ -78,15 +94,19 @@ export default {
   width: 3.2rem;
   height: 1.7rem;
   overflow: hidden;
+  padding-bottom: .2rem;
+  position: relative;
 }
 .con {
-  width: 6.4rem;
+  width: 12.8rem;
   height: 1.7rem;
   overflow: hidden;
+  position: absolute;
+  left: -3.2rem;
+  top: .4rem;
 }
-.one,
-.two {
-    float: left;
+.infor {
+  float: left;
   width: 3.2rem;
   height: 1.7rem;
 }
@@ -109,6 +129,7 @@ export default {
   padding: 0.06rem 0;
 }
 .page {
+  margin-top: 1.5rem;
   text-align: center;
 }
 .page span {
