@@ -29,6 +29,7 @@
     display: flex;
     justify-content: space-around;
     background: yellowgreen;
+    z-index: 1;
     position: fixed;
     left: 0;
     right: 0;
