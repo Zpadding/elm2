@@ -17,7 +17,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { mapState } from "vuex";
+import {mapState} from "vuex";
 export default {
   data() {
     return {
@@ -93,8 +93,9 @@ export default {
   padding-top: 0.4rem;
   width: 3.2rem;
   height: 1.7rem;
+  border-bottom: .01rem solid #e3e3e3;
   overflow: hidden;
-  padding-bottom: .2rem;
+  padding-bottom: .05rem;
   position: relative;
 }
 .con {
