@@ -7,7 +7,7 @@ import Order from '@/components/order/Order'
 import User from '@/components/user/User'
 import Money from '@/components/user/money/Money'
 import Fen from '@/components/user/fen/Fen'
-
+import Coupon from '@/components/user/coupon/Coupon'
 
 
 Vue.use(Router);
@@ -54,6 +54,10 @@ export default new Router({
       path:'/fen',
       name:'Fen',
       component:Fen
+    },{
+      path:'/coupon',
+      name:'Coupon',
+      component:Coupon
     },
 
 

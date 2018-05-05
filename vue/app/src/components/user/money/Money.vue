@@ -79,6 +79,7 @@
     display: flex;
   }
   .im{
+
     padding-left: 1.36rem;
     margin-top: 0.1rem;
   }
@@ -87,6 +88,7 @@
     color: #3190e8;
   }
   .im1{
+    margin-left: 0.04rem;
     margin-top: 0.1rem;
     color: #666;
   }

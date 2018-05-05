@@ -13,7 +13,7 @@
       <div class="white">
 
         <p class="im1">当前积分</p>
-        <img src="../../../assets/w1-4.png" alt="" class="im">
+        <img src="../../../assets/w1-8.png" alt="" class="im">
         <p class="im2">余额说明</p>
       </div>
       <a class="mon"> 0</a><span class="yus">分</span>
@@ -60,8 +60,9 @@
     padding-right: 1.45rem;
   }
   .im{
-    height: 0.1rem;
-    width: 0.1rem;
+    height: 0.12rem;
+    width: 0.12rem;
+    margin-right: 0.04rem;
   }
   .bods{
     border: 1px solid yellowgreen;
@@ -83,6 +84,7 @@
     color: #3190e8;
   }
   .im1{
+    margin-left: 0.04rem;
     margin-top: 0.1rem;
     color: #666;
   }

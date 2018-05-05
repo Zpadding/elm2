@@ -26,12 +26,12 @@
         <div class="bou1"><span style="color: #f90">0.00</span> <a>元</a></div>
         <p>我的余额</p>
       </router-link>
-      <div class="boy1">
+      <router-link to="/coupon" class="boy1">
         <div class="bou2">
           <span style="color:#ff5f3e">{{3}}</span>个
         </div>
         <p>我的优惠</p>
-      </div>
+      </router-link>
 
       <router-link to="/fen" class="boy1">
         <div class="bou2">
