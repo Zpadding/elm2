@@ -8,7 +8,7 @@ import User from '@/components/user/User'
 import Money from '@/components/user/money/Money'
 import Fen from '@/components/user/fen/Fen'
 import Coupon from '@/components/user/coupon/Coupon'
-
+import Business from '@/components/business/Business'
 
 Vue.use(Router);
 
@@ -58,7 +58,11 @@ export default new Router({
       path:'/coupon',
       name:'Coupon',
       component:Coupon
-    },
+    },{
+      path: '/business',
+      name: 'Business',
+      component: Business
+    }
 
 
 
