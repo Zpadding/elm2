@@ -29,7 +29,7 @@
     display: flex;
     justify-content: space-around;
     background: yellowgreen;
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
