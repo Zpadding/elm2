@@ -18,22 +18,24 @@
          </span>
         <p class="im2">红包说明</p>
       </div>
-      <div>
+      <p class="qig">.</p>
+      <div class="qan">
+        <p class="qig"> ,</p>
         <div class="juan">
-          <span>￥1</span>
-          <span>1</span>
-          <span>.</span>
-          <span>0</span>
+          <span class="mon">￥</span>
+          <span class="one">1</span>
+          <span class="d">.</span>
+          <span class="mon1">0</span>
           <p>满20元可用</p>
 
         </div>
-        <div>
-          <h4>分享红包</h4>
+        <div class="juan2">
+          <h3>分享红包</h3>
           <p>2015-05-23到期</p>
           <p>限收货手机号为</p>
           <p>13681711254</p>
         </div>
-        <div>剩3日</div>
+        <div class="mon">剩3日</div>
 
 
       </div>
@@ -109,9 +111,51 @@
     margin-top: 0.08rem;
     margin-right: 0.02rem;
   }
+  .qan{
+
+    height: 1.06rem;
+    width: 2.92rem;
+    display: flex;
+
+  }
+  .qan,p{
+    font-size: 0.04rem;
+    color: #999;
+  }
+  .mon{
+    color: red;
+    font-size: 18px;
+    margin-bottom: 0.1rem;
+
+  }
+  .mon1{
+
+    color: red;
+    font-size: 18px;
+    margin-bottom: 0.1rem;
+    margin-right: 0.01rem;
+  }
+  .one{
+    color: red;
+    font-size: 35px;
+  }
   .juan{
-    height: 1.6rem ;
-    width: 2.92em ;
-    border: 2px solid ;
+    height: 0.68rem ;
+    width: 0.7rem ;
+    border-right: 2px dashed red;
+    margin-right: 0.2rem;
+  }
+  .juan2{
+    /*border: 1px solid red;*/
+    height: 0.68rem;
+    width: 1.49rem;
+    margin-left: 0.2rem;
+
+  }
+  .qig{
+    background:url("../../../assets/w1-9.png") repeat-x;
+    -webkit-background-size: 0.1rem 0.04rem;
+    background-size: 0.1rem 0.04rem ;
+
   }
 </style>
