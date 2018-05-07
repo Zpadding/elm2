@@ -7,7 +7,7 @@
       <p class="hep2">我的</p>
 
       <div class="in">
-        <img src="../../assets/w1-4.png" alt="" class="in1">
+        <img src="../../assets/w2-3.jpg" alt="" class="in1">
         <div class="in2">
           <p class="ip">登录/注册</p>
           <span class="spn">
@@ -24,26 +24,26 @@
 
       <router-link to="/money" class="boy1">
         <div class="bou1"><span style="color: #f90">0.00</span> <a>元</a></div>
-        <p>我的余额</p>
+        <p class="b1">我的余额</p>
       </router-link>
       <router-link to="/coupon" class="boy1">
         <div class="bou2">
           <span style="color:#ff5f3e">{{3}}</span>个
         </div>
-        <p>我的优惠</p>
+        <p class="b1">我的优惠</p>
       </router-link>
 
       <router-link to="/fen" class="boy1">
         <div class="bou2">
           <span style="color:#6ac20b">{{0}}</span>个
         </div>
-        <p>我的积分</p>
+        <p class="b1">我的积分</p>
       </router-link>
     </div>
     <div>
       <ul class="ulo">
-        <li v-for="content in mess" class="liz">
-          <img :src='content.pag'  class="li">
+        <li v-for="(content,index) in mess" class="liz" @click="din(index)">
+          <p class="pa"><img :src='content.pag' class="li"></p>
           <span  class="lic"> {{content.wz}} <a class="la"> > </a></span>
 
         </li>
@@ -67,7 +67,7 @@
     data (){
       return {
         mess:[
-          {pag:home,wz:"我的订单",pic:"#"},
+          {pag:user,wz:"我的订单",pic:"#",},
           {pag:user,wz:"积分商城",pic:"#"},
           {pag:ask,wz:"饿了么会员卡",pic:"#"},
           {pag:user,wz:"积分商城",pic:"#"},
@@ -76,7 +76,23 @@
          ]
       }
 
+    },
+    methods:{
+      din(index){
+        if (index == 0) {
+          this.$router.push({name: "Show", params: {}})
+        } else if(index== 1){
+          this.$router.push({name: "Ji",params:{}})
+        }else if(index == 2){
+          this.$router.push({name:"Vip",params:{}})
+        }else if(index ==3){
+          this.$router.push({name:"",params:{}})
+        }else if(index == 4){
+          this.$router.push({name:"Down",params:{}})
+        }
+      }
     }
+
 
 
     }
@@ -112,6 +128,7 @@
   }
 
   .in1 {
+    border-radius: 50%;
     padding-left: 0.1rem;
     height: 0.5rem;
     width: 0.5rem;
@@ -174,6 +191,14 @@
     align-items: center;
     margin-top: 0.25rem;
     margin-bottom: 0.1rem;
+    color: #666;
+  }
+  .b1{
+    font-size: 0.05rem;
+    color: #666;
+    font-weight: 400;
+    padding-bottom: 0.04rem;
+
   }
 
   .bou2 {
@@ -187,24 +212,34 @@
 
     height: 0.36rem;
     width: 100%;
+
+
   }
 
+
   .li{
-
-    /*margin-left: 0.02em; ;*/
-    margin-top: 0.1rem;
-    margin-left: 0.1rem;
-
+    margin-left: 0.2rem;
     height: 0.13rem;
     width: 0.13rem;
   }
+  .pa{
+    float: left;
+    width: 0.38rem;
+    height: 0.3rem;
+    margin-top: 0.1rem;
+  }
   .lic{
-    margin-bottom: 0.2rem;
-    height: 0.2rem;
-    width: 0.86rem;
+    margin-top: 0.1rem;
+
+    float: right;
+    height: 0.3rem;
+    width: 2.68rem ;
+    display:flex;
+    justify-content: space-between;
+
 
   }
   .la {
-    margin-left: 1.56rem;
+      margin-right: 0.5rem;
   }
 </style>
