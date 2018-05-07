@@ -62,15 +62,15 @@
               <div class="middle">
                 <div class="top">商家属性(可以多选)</div>
                 <ul>
-                  <li v-for="(typ, index) in types">
+                  <li v-for="(typ, index) in types" @click="option(index)">
                     <span :style="'border-color: '+colors[index]+';color:'+colors[index]">{{typ.logo}}</span>
                     <span>{{typ.title}}</span>
                   </li>
                 </ul>
               </div>
               <div class="foot">
-                <button>清空</button>
-                <button>确定</button>
+                <button @click="clear">清空</button>
+                <button @click="submit">确定</button>
               </div>
             </div>
             </div>
@@ -82,7 +82,7 @@
 <script type="text/ecmascript-6">
 import { mapState } from "vuex";
 import right from "../../../assets/z-1.jpg";
-import index from '_vue@2.5.16@vue';
+import index from "_vue@2.5.16@vue";
 export default {
   data() {
     return {
@@ -187,6 +187,10 @@ export default {
     choose(index, $event) {
       this.sign = index;
       this.show2 = false;
+
+      document.querySelectorAll(".down")[1].setAttribute("class", "down");
+      document.querySelectorAll(".type")[1].setAttribute("class", "type");
+
       switch (index) {
         case 0:
           this.$store.commit("changeOrder", "default");
@@ -212,11 +216,15 @@ export default {
     },
     classify(id) {
       this.show1 = !this.show1;
+      document.querySelector(".down").setAttribute("class", "down");
+      document.querySelector(".type").setAttribute("class", "type");
+      document.querySelector(".type").innerHTML = this.mes.title;
+
       let url = this.head_url + "/shopping/restaurants";
       let params = {
         latitude: 31.22967,
         longitude: 121.4762,
-        'restaurant_category_ids[]': id 
+        "restaurant_category_ids[]": id
       };
       this.$http
         .get(url, {
@@ -224,11 +232,83 @@ export default {
         })
         .then(result => {
           // console.log(result);
-          console.log(result.data);
-          var shop = result.data.map((value, index)=>value.name);
-          console.log(shop);
+          //console.log(result.data);
           this.$store.commit("classify", result.data);
         });
+    },
+    option(index, $event) {
+      let target = event.target;
+      if (target.tagName == "SPAN") {
+        if (target.parentNode.getAttribute("class")) {
+          target.parentNode.removeAttribute("class");
+          target.parentNode.firstElementChild.innerHTML = this.types[
+            index
+          ].logo;
+          target.parentNode.firstElementChild.style.borderColor = this.colors[
+            index
+          ];
+        } else {
+          target.parentNode.setAttribute("class", "blue");
+          target.parentNode.firstElementChild.innerHTML = "✔️";
+          target.parentNode.firstElementChild.style.borderColor = "transparent";
+        }
+      } else if (target.tagName == "LI") {
+        if (target.getAttribute("class")) {
+          target.removeAttribute("class");
+          target.firstElementChild.innerHTML = this.types[index].logo;
+          target.firstElementChild.style.borderColor = this.colors[index];
+        } else {
+          target.setAttribute("class", "blue");
+          target.firstElementChild.innerHTML = "✔️";
+          target.firstElementChild.style.borderColor = "transparent";
+        }
+      }
+    },
+    submit() {
+      this.show3 = !this.show3;
+
+      document.querySelectorAll(".down")[2].setAttribute("class", "down");
+      document.querySelectorAll(".type")[2].setAttribute("class", "type");
+
+      if (document.querySelectorAll(".middle .blue").length) {
+        let url = this.head_url + "/shopping/restaurants";
+        let params = {
+          latitude: 31.22967,
+          longitude: 121.4762,
+          "restaurant_category_ids[]": 213
+        };
+        this.$http
+          .get(url, {
+            params: params
+          })
+          .then(result => {
+            this.$store.commit("classify", result.data);
+          });
+      } else {
+        let url = this.head_url + "/shopping/restaurants";
+        let params = {
+          latitude: 31.22967,
+          longitude: 121.4762,
+          order_by: 4
+        };
+        this.$http
+          .get(url, {
+            params: params
+          })
+          .then(result => {
+            this.$store.commit("classify", result.data);
+          });
+      }
+    },
+    clear() {
+      let lis = document.querySelectorAll(".middle ul li");
+      for (let i = 0; i < lis.length; i++) {
+        if (lis[i].getAttribute("class")) {
+          lis[i].firstElementChild.innerHTML = this.types[i].logo;
+          lis[i].firstElementChild.style.borderColor = this.colors[i];
+          lis[i].removeAttribute("class");
+        }
+      }
     }
   },
   created() {
@@ -488,8 +568,9 @@ function img_path(img) {
   width: 1.5rem;
   height: 0.36rem;
   font-size: 0.16rem;
-  line-height: 0.36rem;
+  /* line-height: 0.36rem; */
   border-radius: 0.04rem;
+  outline: none;
 }
 .three .foot button:nth-of-type(1) {
   background: white;
@@ -508,5 +589,8 @@ function img_path(img) {
 .height-enter,
 .height-leave-to {
   opacity: 0;
+}
+.three .middle ul .blue {
+  color: rgb(49, 144, 232);
 }
 </style>
