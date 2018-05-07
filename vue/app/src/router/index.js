@@ -8,6 +8,10 @@ import User from '@/components/user/User'
 import Money from '@/components/user/money/Money'
 import Fen from '@/components/user/fen/Fen'
 import Coupon from '@/components/user/coupon/Coupon'
+import Ji from '@/components/user/ji/Ji'
+import Vip from '@/components/user/vip/Vip'
+import Down from '@/components/user/down/Down'
+import Account from '@/components/user/account/Account'
 import Business from '@/components/business/Business'
 
 Vue.use(Router);
@@ -59,6 +63,23 @@ export default new Router({
       name:'Coupon',
       component:Coupon
     },{
+      path:'/ji',
+      name:'Ji',
+      component:Ji
+    },{
+      path:"/vip",
+      name:"Vip",
+      component:Vip
+    },{
+      path:"/down",
+      name:"Down",
+      component:Down
+    },{
+      path:"/account",
+      name:"Account",
+      component:Account
+    }
+    ,{
       path: '/business',
       name: 'Business',
       component: Business
