@@ -1,40 +1,278 @@
 <template>
   <div class="selection">
       <div class="con">
-          <div class="left">
-              <span>甜品饮品</span>
-              <span class="down" @click="rotate"></span>
+        <!-- 下拉菜单 -->
+          <div class="left" @click="rotate(0)">
+              <span class="type">{{mes.title}}</span>
+              <span class="down"></span>
           </div>
-          <div class="middle">
-              <span>排序</span>
-              <span class="down" @click="rotate"></span>
+          <div class="middle" @click="rotate(1)">
+              <span class="type">排序</span>
+              <span class="down"></span>
           </div>
-          <div class="right">
-              <span>筛选</span>
-              <span class="down" @click="rotate"></span>
+          <div class="right" @click="rotate(2)">
+              <span class="type">筛选</span>
+              <span class="down"></span>
+          </div>
+          <div class="show" v-if="show1||show2||show3">
+            
+            <div class="mask">
+            <!-- 分类 -->
+            <div class="one"  v-if="show1">
+              <ul class="left">
+                <li v-for="(classify, index) in classifys" @click="select(classify.sub_categories)">
+                  <div>
+                    <img :src="img_url+image_url[index]" alt="">
+                    <span>{{classify.name}}</span>
+                  </div>
+                  <div>
+                    <span class="num">{{classify.count}}</span>
+                    <span class="arrow">></span>
+                  </div>
+                </li>
+              </ul>
+              <ul class="right">
+                <li v-for="infor in infors" @click="classify(infor.id)">
+                  <div>{{infor.name}}</div>
+                  <div>{{infor.count}}</div>
+                </li>
+              </ul>
+            </div>
+            <!-- 排序 -->
+            <div class="two" v-if="show2">
+              <ul>
+                <li v-for="(mes, index) in mess" @click="choose(index)">
+                  <img :src="img_url+image_url[index]" alt="">
+                  <div>
+                    <span>{{mes}}</span>
+                    <img :src="right" alt="" v-if="sign == index">
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <!-- 筛选 -->
+            <div class="three" v-if="show3">
+              <div class="head">
+                <div>配送方式</div>
+                <div>
+                  <img :src="right" alt="">
+                  <span>蜂鸟专送</span>
+                </div>
+              </div>
+              <div class="middle">
+                <div class="top">商家属性(可以多选)</div>
+                <ul>
+                  <li v-for="(typ, index) in types">
+                    <span :style="'border-color: '+colors[index]+';color:'+colors[index]">{{typ.logo}}</span>
+                    <span>{{typ.title}}</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="foot">
+                <button>清空</button>
+                <button>确定</button>
+              </div>
+            </div>
+            </div>
           </div>
       </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import { mapState } from "vuex";
+import right from "../../../assets/z-1.jpg";
+import index from '_vue@2.5.16@vue';
 export default {
   data() {
-    return {};
+    return {
+      classifys: [],
+      img_url: "https://fuss10.elemecdn.com/",
+      infors: [],
+      mess: [
+        "智能排序",
+        "距离最近",
+        "销量最高",
+        "起送价最低",
+        "配送速度最快",
+        "评分最高"
+      ],
+      right: right,
+      sign: 0,
+      show1: false,
+      show2: false,
+      show3: false,
+      types: [
+        { logo: "品", title: "品牌商家" },
+        { logo: "保", title: "外卖保" },
+        { logo: "准", title: "准时达" },
+        { logo: "新", title: "新店" },
+        { logo: "付", title: "在线支付" },
+        { logo: "票", title: "开发票" }
+      ],
+      colors: [
+        "rgb(63, 189, 230)",
+        "rgb(153, 153, 153)",
+        "rgb(87, 169, 255)",
+        "rgb(232, 132, 45)",
+        "rgb(255, 78, 0)",
+        "rgb(153, 153, 153)"
+      ]
+    };
   },
   components: {},
   methods: {
-     rotate(e) {
-         var down = e.target;
-         if (down.getAttribute("class") == "down") {
-             down.setAttribute("class", "down rotate");
-         }else {
-             down.setAttribute("class", "down");
-         }
-         
-     }
+    rotate(index, $event) {
+      if (index == 0) {
+        this.show2 = false;
+        this.show3 = false;
+        this.show1 = !this.show1;
+      } else if (index == 1) {
+        this.show1 = false;
+        this.show3 = false;
+        this.show2 = !this.show2;
+      } else if (index == 2) {
+        this.show1 = false;
+        this.show2 = false;
+        this.show3 = !this.show3;
+      }
+
+      var types = document.querySelectorAll(".type");
+      var downs = document.querySelectorAll(".down");
+      for (let i = 0; i < types.length; i++) {
+        types[i].setAttribute("class", "type");
+        if (i != index) {
+          downs[i].setAttribute("class", "down");
+        }
+        types[0].innerHTML = this.mes.title;
+      }
+
+      var down = event.target;
+      if (down.tagName == "SPAN") {
+        down = down.parentNode.lastElementChild;
+      } else {
+        down = down.lastElementChild;
+      }
+      var title = down.previousSibling.previousSibling;
+      if (down.getAttribute("class") == "down") {
+        down.setAttribute("class", "down rotate");
+        title.setAttribute("class", "type blue");
+        if (index == 0) {
+          title.innerHTML = "分类";
+        }
+      } else {
+        down.setAttribute("class", "down");
+        title.setAttribute("class", "type");
+        if (index == 0) {
+          title.innerHTML = this.mes.title;
+        }
+      }
+    },
+    select(data, $event) {
+      let infors = [...data];
+      infors.shift();
+      this.infors = infors;
+      let white = document.querySelector(".white");
+      if (white) {
+        white.removeAttribute("class");
+      }
+      if (event.target.tagName == "LI") {
+        event.target.setAttribute("class", "white");
+      } else if (event.target.tagName == "DIV") {
+        event.target.parentNode.setAttribute("class", "white");
+      } else {
+        event.target.parentNode.parentNode.setAttribute("class", "white");
+      }
+    },
+    choose(index, $event) {
+      this.sign = index;
+      this.show2 = false;
+      switch (index) {
+        case 0:
+          this.$store.commit("changeOrder", "default");
+          break;
+        case 1:
+          this.$store.commit("changeOrder", "distance");
+          break;
+        case 2:
+          this.$store.commit("changeOrder", "recent_order_num");
+          break;
+        case 3:
+          this.$store.commit("changeOrder", "float_minimum_order_amount");
+          break;
+        case 4:
+          this.$store.commit("changeOrder", "order_lead_time");
+          break;
+        case 5:
+          this.$store.commit("changeOrder", "rating");
+          break;
+        default:
+          break;
+      }
+    },
+    classify(id) {
+      this.show1 = !this.show1;
+      let url = this.head_url + "/shopping/restaurants";
+      let params = {
+        latitude: 31.22967,
+        longitude: 121.4762,
+        'restaurant_category_ids[]': id 
+      };
+      this.$http
+        .get(url, {
+          params: params
+        })
+        .then(result => {
+          // console.log(result);
+          console.log(result.data);
+          var shop = result.data.map((value, index)=>value.name);
+          console.log(shop);
+          this.$store.commit("classify", result.data);
+        });
+    }
+  },
+  created() {
+    let url = this.head_url + "/shopping/v2/restaurant/category";
+    this.$http.get(url).then(res => {
+      console.log(res.data);
+      this.classifys = res.data;
+    });
+    this.mes = JSON.parse(localStorage.classify);
+
+    let shop_url = this.head_url + "/shopping/v1/restaurants/delivery_modes";
+    this.$http.get(shop_url).then(res => {
+      // console.log(res.data);
+    });
+  },
+  computed: {
+    ...mapState(["head_url"]),
+    image_url() {
+      let image_url = this.classifys.map((value, index) => {
+        let img_url = img_path(value.image_url);
+        return img_url;
+      });
+      return image_url;
+    }
   }
 };
+
+function img_path(img) {
+  // console.log(img.split(""));
+  var a1 = img.split("");
+  if (a1.length > 0) {
+    a1.splice(1, 0, "/");
+    a1.splice(4, 0, "/");
+    if (a1.length == 37) {
+      var a2 = a1.join("") + ".png";
+    } else {
+      var a2 = a1.join("") + ".jpeg";
+    }
+    // console.log(a2);
+    return a2;
+  } else {
+    return "1/ba/bf6efbfdb0ef701f19689a5529e5fjpeg.jpeg";
+  }
+}
 </script>
 
 <style scoped>
@@ -49,6 +287,11 @@ export default {
   justify-content: space-around;
   align-items: center;
   font-size: 0.11rem;
+  position: fixed;
+  left: 0;
+  top: 0.4rem;
+  z-index: 1;
+  background: white;
 }
 .left,
 .middle,
@@ -68,12 +311,202 @@ export default {
   height: 0;
   border: 5px solid transparent;
   border-top-color: black;
-  vertical-align: sub;
-  transition: all .2s;
-  transform-origin: .05rem .025rem;
+  vertical-align: bottom;
+  transition: all 0.2s;
+  transform-origin: 0.05rem 0.025rem;
 }
 .rotate {
-    transform: rotate(180deg);
-    border-top-color: #3190e8;
+  transform: rotate(180deg);
+  border-top-color: #3190e8;
+}
+.blue {
+  color: #3190e8;
+}
+.show {
+  height: 5.68rem;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0.32rem;
+  right: 0;
+}
+.mask {
+  background: white;
+}
+.show .one ul {
+  padding-bottom: 0.1rem;
+}
+.show .one ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1.35rem;
+  height: 0.36rem;
+  padding: 0 0.1rem;
+}
+
+.show .one ul li img {
+  width: 0.16rem;
+  height: 0.16rem;
+  vertical-align: sub;
+}
+.one .num {
+  display: inline-block;
+  background-color: #ccc;
+  font-size: 0.08rem;
+  color: #fff;
+  padding: 0 0.02rem;
+  border: 0.005rem solid #ccc;
+  border-radius: 0.16rem;
+  vertical-align: middle;
+  margin-right: 0.05rem;
+}
+.one .arrow {
+  color: #ccc;
+}
+.show .one .left {
+  background: #f1f1f1;
+  width: 1.55rem;
+  height: 3.2rem;
+}
+.show .one .white {
+  background: white;
+}
+.show .one .right {
+  width: 1.64rem;
+  height: 3.2rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background: white;
+}
+.show .one .right::-webkit-scrollbar {
+  display: none;
+}
+
+.show .two ul li {
+  height: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+.show .two ul {
+  border-top: 0.01rem solid #e4e4e4;
+}
+.show .two ul li img {
+  width: 0.14rem;
+  height: 0.14rem;
+  margin: 0 0.06rem 0 0.16rem;
+}
+.show .two ul li div {
+  width: 2.84rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 0.01rem solid #e4e4e4;
+}
+.show .two ul li div span {
+  padding: 0.18rem 0.1rem;
+  color: #666;
+}
+
+.show .three .head {
+  width: 3.2rem;
+  height: 0.63rem;
+}
+.three .head div {
+  height: 0.3rem;
+  margin: 0 0.1rem;
+  font-size: 0.08rem;
+  color: #333;
+  line-height: 0.3rem;
+}
+.three .head div:nth-of-type(2) {
+  border: 0.005rem solid #eee;
+  display: flex;
+  align-items: center;
+  width: 0.84rem;
+  border-radius: 0.025rem;
+  padding: 0 0.05rem;
+  margin-bottom: 0.25rem;
+}
+.three .head div img {
+  width: 0.16rem;
+  height: 0.16rem;
+  margin-right: 0.025rem;
+}
+.three .middle {
+  width: 3.2rem;
+  height: 1.06rem;
+}
+.three .middle .top {
+  font-size: 0.08rem;
+  color: #333;
+  line-height: 0.3rem;
+  height: 0.3rem;
+  text-align: left;
+  padding-left: 0.1rem;
+}
+.three .middle ul {
+  width: 3rem;
+  height: 0.66rem;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 0.1rem;
+  padding-bottom: 0.1rem;
+}
+.three .middle ul li {
+  display: flex;
+  align-items: center;
+  border: 0.005rem solid #eee;
+  width: 0.84rem;
+  height: 0.28rem;
+  margin-right: 0.05rem;
+  border-radius: 0.025rem;
+  padding: 0 0.05rem;
+  margin-bottom: 0.05rem;
+}
+.three .middle ul li span:first-child {
+  width: 0.16rem;
+  height: 0.16rem;
+  font-size: 0.1rem;
+  border: 0.005rem solid #e4e4e4;
+  border-radius: 0.03rem;
+  margin-right: 0.05rem;
+  line-height: 0.16rem;
+  text-align: center;
+}
+.three .middle ul li span:last-child {
+  font-size: 0.08rem;
+}
+.three .foot {
+  display: flex;
+  width: 3.2rem;
+  padding: 0.06rem 0.04rem;
+  background-color: #f1f1f1;
+}
+.three .foot button {
+  width: 1.5rem;
+  height: 0.36rem;
+  font-size: 0.16rem;
+  line-height: 0.36rem;
+  border-radius: 0.04rem;
+}
+.three .foot button:nth-of-type(1) {
+  background: white;
+  border: white;
+  margin-right: 0.1rem;
+}
+.three .foot button:nth-of-type(2) {
+  background: #56d176;
+  border: 0.025rem solid #56d176;
+  color: white;
+}
+.height-enter-active,
+.height-leave-active {
+  transition: all 0.5s linear;
+}
+.height-enter,
+.height-leave-to {
+  opacity: 0;
 }
 </style>

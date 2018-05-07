@@ -32,7 +32,7 @@
                     </div>
                     <div class="three">
                         <div class="left">
-                            <span>¥20起送/配送费约¥5</span>
+                            <span>¥{{mes.float_minimum_order_amount}}起送/配送费约¥{{mes.float_delivery_fee}}</span>
                         </div>
                         <div class="right">
                             <span>{{mes.distance}} /</span>
@@ -49,6 +49,7 @@
 
 <script type="text/ecmascript-6">
 import { mapState } from "vuex";
+import index from "_vue@2.5.16@vue";
 export default {
   data() {
     return {
@@ -58,6 +59,7 @@ export default {
   },
   components: {},
   created() {
+    //float_minimum_order_amount  order_lead_time rating  distance  recent_order_num
     let url = this.head_url + "/shopping/restaurants";
     let params = {
       latitude: 31.22967,
@@ -68,7 +70,8 @@ export default {
         params: params
       })
       .then(result => {
-        // console.log(result.data);
+        // console.log(result);
+        console.log(result.data);
         this.mess = result.data;
       })
       .catch(err => {
@@ -76,9 +79,108 @@ export default {
       });
   },
   computed: {
-    ...mapState(["head_url"])
+    ...mapState(["head_url"]),
+    ...mapState(["order"]),
+    ...mapState(["classify"])
+  },
+  watch: {
+    order() {
+      console.log(this.order);
+      let url = this.head_url + "/shopping/restaurants";
+      var params = null;
+      //float_minimum_order_amount  order_lead_time rating  distance  recent_order_num
+      
+      if (this.order == "float_minimum_order_amount") {
+        params = {
+          latitude: 31.22967,
+          longitude: 121.4762,
+          order_by: 1
+        };
+      } else if (this.order == "order_lead_time") {
+        params = {
+          latitude: 31.22967,
+          longitude: 121.4762,
+          order_by: 2
+        };
+      } else if (this.order == "rating") {
+        params = {
+          latitude: 31.22967,
+          longitude: 121.4762,
+          order_by: 3
+        };
+      } else if (this.order == "default") {
+        params = {
+          latitude: 31.22967,
+          longitude: 121.4762,
+          order_by: 4
+        };
+      } else if (this.order == "distance") {
+        params = {
+          latitude: 31.22967,
+          longitude: 121.4762,
+          order_by: 5
+        };
+      } else if (this.order == "recent_order_num") {
+        params = {
+          latitude: 31.22967,
+          longitude: 121.4762,
+          order_by: 6
+        };
+      }
+      this.$http
+        .get(url, {
+          params: params
+        })
+        .then(result => {
+          this.mess = result.data;
+        });
+    },
+    classify() {
+      this.mess = this.classify;
+    }
   }
 };
+/*
+function arr_del(mess, rating) {
+  let tmp = null;
+
+  for (let i = 0; i < mess.length - 1; i++) {
+    for (let j = 0; j < mess.length - i - 1; j++) {
+      if (rating == "distance") {
+        let str = mess[j][rating];
+        if (parseFloat(mess[j][rating]) > parseFloat(mess[j + 1][rating])) {
+          let tmp = mess[j];
+          mess[j] = mess[j + 1];
+          mess[j + 1] = tmp;
+        }
+      } else if (rating == "order_lead_time") {
+        var num1 = 0;
+        var num2 = 0;
+
+        if (mess[j][rating].indexOf("小时") == -1) {
+          mess[j][rating] = "0小时" + mess[j][rating];
+        }
+        var hour_m = mess[j][rating].split("小时");
+        num1 = parseFloat(hour_m[0]) * 60 + parseFloat(hour_m[1]);
+        num2 =
+          parseFloat(mess[j + 1][rating].split("小时")[0]) * 60 +
+          parseFloat(mess[j + 1][rating].split("小时")[1]);
+
+        if (num1 > num2) {
+          let tmp = mess[j];
+          mess[j] = mess[j + 1];
+          mess[j + 1] = tmp;
+        }
+      }else if (mess[j].rating < mess[j + 1].rating) {
+        let tmp = mess[j];
+        mess[j] = mess[j + 1];
+        mess[j + 1] = tmp;
+      }
+    }
+  }
+  console.log(mess);
+  return mess;
+}*/
 </script>
 
 <style scoped>
@@ -138,9 +240,9 @@ export default {
   border-radius: 0.03rem;
 }
 .two .left span {
-    display: inline-block;
+  display: inline-block;
   font-weight: 200;
-  line-height: .17rem;
+  line-height: 0.17rem;
 }
 .two .left span:nth-child(2) {
   display: inline-block;
@@ -149,7 +251,7 @@ export default {
 }
 .two .right {
   transform: scale(0.7);
-  margin-right: -.08rem;
+  margin-right: -0.08rem;
 }
 .two .right span {
   display: inline-block;
@@ -174,18 +276,18 @@ export default {
   font-weight: 100;
 }
 .three span {
-    line-height: .15rem;
+  line-height: 0.15rem;
 }
 .three .left {
   font-size: 0.1rem;
   transform: scale(0.9);
 }
 .three .right {
-  margin-right: -.08rem;
-  transform: scale(.9);
+  margin-right: -0.08rem;
+  transform: scale(0.9);
 }
 .three .right span {
-    font-size: .1rem
+  font-size: 0.1rem;
 }
 .three .right span:nth-of-type(2) {
   color: #3190e8;
