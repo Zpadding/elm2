@@ -1,8 +1,8 @@
 <template>
   <div class="business">
       <div class="nav">
-        <div class="left" :style="left"></div>
-        <div class="middle">甜点饮品</div>
+        <router-link to="/show" class="left" :style="left"></router-link>
+        <div class="middle">{{mes.title}}</div>
         <div class="right"></div>
       </div> 
       <Selection></Selection>
@@ -11,20 +11,30 @@
 </template>
 
 <script type="text/ecmascript-6">
-import Shop from '../eat/shop/Shop'
-import Selection from './selection/Selection'
+import Shop from '../eat/shop/Shop';
+import Selection from './selection/Selection';
 export default {
   data() {
     return {
         left: {
             background: "url("+require("../../assets/z-1.jpg")+") no-repeat",
             backgroundSize: "100% 100%"
-        }
+        },
+        mes: null
     }
   },
   components: {
       Shop,
       Selection
+  },
+  created() {
+      if (Object.keys(this.$route.params).length) {
+        this.mes = this.$route.params;
+        localStorage.classify = JSON.stringify(this.$route.params);
+      } else {
+        this.mes = JSON.parse(localStorage.classify);
+      }
+      
   }
 }
 </script>

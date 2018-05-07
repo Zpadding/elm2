@@ -68,7 +68,8 @@ export default {
         params: params
       })
       .then(result => {
-        // console.log(result.data);
+        // console.log(result);
+        console.log(result.data);
         this.mess = result.data;
       })
       .catch(err => {
