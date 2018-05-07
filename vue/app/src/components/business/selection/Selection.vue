@@ -32,7 +32,7 @@
                 </li>
               </ul>
               <ul class="right">
-                <li v-for="infor in infors" @click="show1=!show1">
+                <li v-for="infor in infors" @click="classify(infor.id)">
                   <div>{{infor.name}}</div>
                   <div>{{infor.count}}</div>
                 </li>
@@ -82,6 +82,7 @@
 <script type="text/ecmascript-6">
 import { mapState } from "vuex";
 import right from "../../../assets/z-1.jpg";
+import index from '_vue@2.5.16@vue';
 export default {
   data() {
     return {
@@ -109,13 +110,19 @@ export default {
         { logo: "付", title: "在线支付" },
         { logo: "票", title: "开发票" }
       ],
-      colors: ["rgb(63, 189, 230)", "rgb(153, 153, 153)", "rgb(87, 169, 255)", "rgb(232, 132, 45)", "rgb(255, 78, 0)", "rgb(153, 153, 153)"]
+      colors: [
+        "rgb(63, 189, 230)",
+        "rgb(153, 153, 153)",
+        "rgb(87, 169, 255)",
+        "rgb(232, 132, 45)",
+        "rgb(255, 78, 0)",
+        "rgb(153, 153, 153)"
+      ]
     };
   },
   components: {},
   methods: {
     rotate(index, $event) {
-
       if (index == 0) {
         this.show2 = false;
         this.show3 = false;
@@ -177,18 +184,65 @@ export default {
         event.target.parentNode.parentNode.setAttribute("class", "white");
       }
     },
-    choose(index) {
+    choose(index, $event) {
       this.sign = index;
       this.show2 = false;
+      switch (index) {
+        case 0:
+          this.$store.commit("changeOrder", "default");
+          break;
+        case 1:
+          this.$store.commit("changeOrder", "distance");
+          break;
+        case 2:
+          this.$store.commit("changeOrder", "recent_order_num");
+          break;
+        case 3:
+          this.$store.commit("changeOrder", "float_minimum_order_amount");
+          break;
+        case 4:
+          this.$store.commit("changeOrder", "order_lead_time");
+          break;
+        case 5:
+          this.$store.commit("changeOrder", "rating");
+          break;
+        default:
+          break;
+      }
+    },
+    classify(id) {
+      this.show1 = !this.show1;
+      let url = this.head_url + "/shopping/restaurants";
+      let params = {
+        latitude: 31.22967,
+        longitude: 121.4762,
+        'restaurant_category_ids[]': id 
+      };
+      this.$http
+        .get(url, {
+          params: params
+        })
+        .then(result => {
+          // console.log(result);
+          console.log(result.data);
+          var shop = result.data.map((value, index)=>value.name);
+          console.log(shop);
+          this.$store.commit("classify", result.data);
+        });
     }
   },
   created() {
     let url = this.head_url + "/shopping/v2/restaurant/category";
     this.$http.get(url).then(res => {
-      //console.log(res.data);
+      console.log(res.data);
       this.classifys = res.data;
     });
     this.mes = JSON.parse(localStorage.classify);
+
+    let shop_url = this.head_url + "/shopping/v1/restaurants/delivery_modes";
+    this.$http.get(shop_url).then(res => {
+      // console.log(res.data);
+    });
   },
   computed: {
     ...mapState(["head_url"]),
@@ -235,7 +289,7 @@ function img_path(img) {
   font-size: 0.11rem;
   position: fixed;
   left: 0;
-  top: .4rem;
+  top: 0.4rem;
   z-index: 1;
   background: white;
 }
@@ -270,7 +324,7 @@ function img_path(img) {
 }
 .show {
   height: 5.68rem;
-  background: rgba(0, 0, 0, .3);
+  background: rgba(0, 0, 0, 0.3);
   z-index: 1;
   position: absolute;
   left: 0;
@@ -278,10 +332,10 @@ function img_path(img) {
   right: 0;
 }
 .mask {
-background: white;
+  background: white;
 }
 .show .one ul {
-  padding-bottom: .1rem;
+  padding-bottom: 0.1rem;
 }
 .show .one ul li {
   display: flex;
@@ -412,17 +466,17 @@ background: white;
   margin-bottom: 0.05rem;
 }
 .three .middle ul li span:first-child {
-    width: .16rem;
-    height: .16rem;
-    font-size: .1rem;
-    border: .005rem solid #e4e4e4;
-    border-radius: .03rem;
-    margin-right: .05rem;
-    line-height: .16rem;
-    text-align: center;
+  width: 0.16rem;
+  height: 0.16rem;
+  font-size: 0.1rem;
+  border: 0.005rem solid #e4e4e4;
+  border-radius: 0.03rem;
+  margin-right: 0.05rem;
+  line-height: 0.16rem;
+  text-align: center;
 }
 .three .middle ul li span:last-child {
-  font-size: .08rem;
+  font-size: 0.08rem;
 }
 .three .foot {
   display: flex;
@@ -440,17 +494,19 @@ background: white;
 .three .foot button:nth-of-type(1) {
   background: white;
   border: white;
-  margin-right: .1rem;
+  margin-right: 0.1rem;
 }
 .three .foot button:nth-of-type(2) {
   background: #56d176;
   border: 0.025rem solid #56d176;
   color: white;
 }
-.height-enter-active, .height-leave-active {
-  transition: all .5s linear;
+.height-enter-active,
+.height-leave-active {
+  transition: all 0.5s linear;
 }
-.height-enter, .height-leave-to {
+.height-enter,
+.height-leave-to {
   opacity: 0;
 }
 </style>
