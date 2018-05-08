@@ -13,6 +13,7 @@ import Vip from '@/components/user/vip/Vip'
 import Down from '@/components/user/down/Down'
 import Account from '@/components/user/account/Account'
 import Business from '@/components/business/Business'
+import Detail from '@/components/detail/Detail'
 
 Vue.use(Router);
 
@@ -78,11 +79,14 @@ export default new Router({
       path:"/account",
       name:"Account",
       component:Account
-    }
-    ,{
+    },{
       path: '/business',
       name: 'Business',
       component: Business
+    },{
+      path: '/detail',
+      name: "Detail",
+      component: Detail
     }
 
 

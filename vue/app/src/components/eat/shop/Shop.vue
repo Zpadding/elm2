@@ -2,7 +2,7 @@
   <div class="shop">
       <div>
           <div class="body">
-              <router-link to="/show" v-for="mes in mess">
+              <router-link :to="{name: 'Detail', params: mes}" v-for="mes in mess">
                 <div class="pic">
                     <img class="logo" :src="img_url+mes.image_path" alt="">
                 </div>
@@ -71,7 +71,7 @@ export default {
       })
       .then(result => {
         // console.log(result);
-        console.log(result.data);
+        // console.log(result.data);
         this.mess = result.data;
       })
       .catch(err => {
