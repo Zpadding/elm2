@@ -29,7 +29,7 @@ export default new Router({
       component: Show,
       children: [
         {
-          path: '/show',
+          path: '',
           name: 'Eat',
           component: Eat
         },

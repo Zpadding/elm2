@@ -3,7 +3,7 @@
       <div class="body">
           <div class="logo">
               <img :src="img_url+shop.image_path" alt="">
-              <div class="back"></div>
+              <div class="back" @click="back"></div>
           </div>
           <div class="detail">
               <div class="top">
@@ -48,6 +48,11 @@ export default {
   },
   computed: {
     ...mapState(["head_url"])
+  },
+  methods: {
+    back() {
+      this.$router.push({name: "Eat"});
+    }
   }
 };
 </script>
