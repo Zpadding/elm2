@@ -3,7 +3,8 @@ let state = {
     port: "8001",
     head_url: "http://cangdu.org:8001",
     order: "",
-    classify: []
+    classify: [],
+    shopDetail: {}
 };
 
 export default state;

@@ -195,6 +195,11 @@ export default {
           }
         }, 400);
       }
+    },
+    show() {
+      if (this.show == false) {
+        this.number = 0;
+      }
     }
   }
 };

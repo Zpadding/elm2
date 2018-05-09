@@ -4,7 +4,7 @@ import Show from "@/components/show/Show"
 import Gain from "@/components/gain/Gain"
 import Enter from "@/components/gain/enter/Enter"
 import Forget from "@/components/gain/forget/Forget"
-import City from  '@/components/gain/city/City'
+import City from '@/components/gain/city/City'
 import Search from '@/components/search/Search'
 import Eat from '@/components/eat/Eat'
 import Order from '@/components/order/Order'
@@ -18,6 +18,7 @@ import Down from '@/components/user/down/Down'
 import Account from '@/components/user/account/Account'
 import Business from '@/components/business/Business'
 import Detail from '@/components/detail/Detail'
+import ShopDetail from '@/components/detail/shopDetail/ShopDetail'
 
 Vue.use(Router);
 
@@ -30,29 +31,28 @@ export default new Router({
       path: '/gain',
       name: 'Gain',
       component: Gain,
-      children:[
+      children: [
 
       ]
-    },{
-      path:"/enter",
-      name:'Enter',
-      component:Enter
+    }, {
+      path: "/enter",
+      name: 'Enter',
+      component: Enter
     },
     {
-      path:"/forget",
-      name:'Forget',
-      component:Forget
+      path: "/forget",
+      name: 'Forget',
+      component: Forget
     },
     {
-      path:"/city",
-      name:'City',
-      component:City
+      path: "/city",
+      name: 'City',
+      component: City
     }, {
       path: '/show',
       name: 'Show',
       component: Show,
-      children: [
-        {
+      children: [{
           path: '',
           name: 'Eat',
           component: Eat
@@ -72,45 +72,48 @@ export default new Router({
           name: 'User',
           component: User,
         },
-
       ]
     },
     {
-      path:'/money',
-      name:'Money',
-      component:Money
-    },{
-      path:'/fen',
-      name:'Fen',
-      component:Fen
-    },{
-      path:'/coupon',
-      name:'Coupon',
-      component:Coupon
-    },{
-      path:'/ji',
-      name:'Ji',
-      component:Ji
-    },{
-      path:"/vip",
-      name:"Vip",
-      component:Vip
-    },{
-      path:"/down",
-      name:"Down",
-      component:Down
-    },{
-      path:"/account",
-      name:"Account",
-      component:Account
-    },{
+      path: '/money',
+      name: 'Money',
+      component: Money
+    }, {
+      path: '/fen',
+      name: 'Fen',
+      component: Fen
+    }, {
+      path: '/coupon',
+      name: 'Coupon',
+      component: Coupon
+    }, {
+      path: '/ji',
+      name: 'Ji',
+      component: Ji
+    }, {
+      path: "/vip",
+      name: "Vip",
+      component: Vip
+    }, {
+      path: "/down",
+      name: "Down",
+      component: Down
+    }, {
+      path: "/account",
+      name: "Account",
+      component: Account
+    }, {
       path: '/business',
       name: 'Business',
       component: Business
-    },{
+    }, {
       path: '/detail',
       name: "Detail",
       component: Detail
+    }, {
+      path: '/shopDetail',
+      name: "ShopDetail",
+      component: ShopDetail
     }
   ]
 })
