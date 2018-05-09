@@ -41,7 +41,7 @@ export default {
     }
     let shop_url = this.head_url + "/shopping/restaurant/" + id;
     this.$http.get(shop_url).then(res => {
-      console.log(res.data);
+      //console.log(res.data);
       this.shop = res.data;
       //console.log(this.shop)
     });

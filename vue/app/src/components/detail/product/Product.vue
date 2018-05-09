@@ -12,7 +12,7 @@
       
       <div class="goods">
         <!-- <div v-for="(food, index) in foods" :id="'food'+index" :style="index==0?'paddingTop: 1.37rem':'paddingTop: 1.37rem; marginTop: -1.37rem'"> -->
-        <div v-for="(food, index) in foods" :id="'food'+index" :style="animation" class="ani" @touchstart="scroll" @mousewheel="scroll">
+        <div v-for="(food, index) in foods" :id="'food'+index" :style="animation"  @touchstart="scroll" @mousewheel="scroll">
           
         <div class="title">
           <div class="big">{{food.name}}</div>
@@ -23,11 +23,18 @@
         
         <ul class="food" v-for="product in food.foods">
           <li>
+            <span class="new" v-if="product.attributes.length && product.attributes[0].icon_name=='新'">新品</span>
+            
+
             <div class="logo">
               <img :src="img_path+product.image_path" alt="">
             </div>
             <div class="detail">
-              <div class="one">{{product.name}}</div>
+              <div class="one">
+                <div>{{product.name}}</div>
+                <span class="sign" v-if="product.attributes.length? product.attributes[0].icon_name=='招牌'? true: product.attributes.length == 2? product.attributes[1].icon_name=='招牌'? true:false :false :false">招牌</span>
+              </div>
+              
               <div class="two">{{product.description}}</div>
               <div class="count">
                 <span>月售{{product.month_sales}}份</span>
@@ -36,17 +43,38 @@
               <div v-if="product.activity" class="promotion">{{product.activity.image_text}}</div>
               <div class="price">
                 <div class="left">
-                  <span>¥20</span>
+                  <span>¥{{product.specfoods[0].price}}</span>
                   <span>起</span>
                 </div>
-                <div class="right">选规格</div>
+                <div class="right" v-if="product.specfoods.length>1" @click="choose(product)">选规格</div>
+                <div class="add" v-if="product.specfoods.length<=1">+</div>
               </div>
             </div>
           </li>
         </ul>
         </div>
-
       </div>
+
+      <div class="specfoods" v-if="show">
+          <div class="all">
+            <div class="top">
+              <span></span>
+              <span>1</span>
+              <span @click="show=!show">×</span>
+            </div>
+            <div class="middle">
+              <p>规格</p>
+              <div>
+                <span v-for="(specfood, index) in specfoods" @click="number = index" :class="{active: index==number}">{{specfood.specs_name}}</span>
+              </div>
+            </div>
+            <div class="bottom">
+              <div class="left">¥ {{specfoods[number].price}}</div>
+              <div class="right">加入购物车</div>
+            </div>
+          </div>
+          
+        </div>
       
     </div>
   </div>
@@ -64,14 +92,15 @@ export default {
       animation: {
         paddingTop: "1.37rem",
         marginTop: "-1.37rem"
-      }
+      },
+      show: false,
+      specfoods: {},
+      number: 0
     };
   },
   components: {},
   created() {
-    //  console.log(this.$route.params);
     if (this.$route.params.id) {
-      food_url;
       var id = this.$route.params.id;
       localStorage.id = id;
     } else {
@@ -79,15 +108,15 @@ export default {
     }
     let food_url = this.head_url + "/shopping/v2/menu?restaurant_id=" + id;
     this.$http.get(food_url).then(res => {
-      //console.log(res.data);
       this.foods = res.data;
+      console.log(this.foods);
     });
   },
   computed: {
     ...mapState(["head_url"]),
     image_url() {
       if (Object.keys(this.foods).length) {
-        console.log(this.foods);
+        //console.log(this.foods);
         let image_url = this.foods.map((value, index) => {
           let img_url = img_path(value.icon_url);
           return img_url;
@@ -98,18 +127,17 @@ export default {
   },
   methods: {
     scroll(e) {
-      console.log(e.currentTarget);
       let id = e.currentTarget.getAttribute("id").substring(4);
-      console.log(id);
       this.num = id;
     },
     classify(index) {
+      let fontSize = parseFloat(document.documentElement.style.fontSize);
       this.num = index;
       let begin_scroll = document.documentElement.scrollTop;
       let target = document.querySelector("#food" + index);
       let step = 0;
       var timer1 = setInterval(() => {
-        let end_scroll = target.offsetTop + 137;
+        let end_scroll = target.offsetTop + 1.37 * fontSize;
         step++;
         document.documentElement.scrollTop =
           begin_scroll + (end_scroll - begin_scroll) / 20 * step;
@@ -117,38 +145,17 @@ export default {
           clearInterval(timer1);
         }
       }, 20);
-
-      // let mark = document.querySelector(".classify");
-      // let begin = mark.offsetTop / 100;
-      // let end = -(this.num - 3) * 0.565;
-      // if (end < 0 && end > -14 * 0.565) {
-      //   let count = 0;
-      //   var timer = setInterval(() => {
-      //     count++;
-      //     mark.style.top = mark.offsetTop / 100 + (end - begin) / 20 + "rem";
-      //     if (count >= 20) {
-      //       clearInterval(timer);
-      //     }
-      //   }, 20);
-      // } else if (end >= 0 && end < 3 * 0.565) {
-      //   let count = 0;
-      //   var timer = setInterval(() => {
-      //     count++;
-      //     mark.style.top = mark.offsetTop / 100 + (0 - begin) / 20 + "rem";
-      //     if (count >= 20) {
-      //       clearInterval(timer);
-      //     }
-      //   }, 20);
-      // }
-
-      // }
     },
     handleScroll() {
       var scrollTop =
         window.pageYOffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop;
-      // console.log(scrollTop);
+    },
+    choose(data) {
+      console.log(data);
+      this.show = !this.show;
+      this.specfoods = data.specfoods;
     }
   },
   mounted() {
@@ -159,35 +166,39 @@ export default {
   },
   watch: {
     num() {
-      setTimeout(() => {
-        let mark = document.querySelector(".classify");
-        let begin = mark.offsetTop / 100;
-        let end = -(this.num - 3) * 0.565;
-        if (end < 0 && end > -14 * 0.565) {
-          let count = 0;
-          var timer = setInterval(() => {
-            count++;
-            mark.style.top = mark.offsetTop / 100 + (end - begin) / 20 + "rem";
-            if (count >= 20) {
-              clearInterval(timer);
-            }
-          }, 20);
-        } else if (end >= 0 && end < 3 * 0.565) {
-          let count = 0;
-          var timer = setInterval(() => {
-            count++;
-            mark.style.top = mark.offsetTop / 100 + (0 - begin) / 20 + "rem";
-            if (count >= 20) {
-              clearInterval(timer);
-            }
-          }, 20);
-        }
-      }, 400);
+      if (this.foods.length && this.foods.length > 7) {
+        let fontSize = parseFloat(document.documentElement.style.fontSize);
+        setTimeout(() => {
+          let mark = document.querySelector(".classify");
+          let begin = mark.offsetTop / fontSize;
+          let end = -(this.num - 3) * 0.565;
+          if (end < 0 && end > -14 * 0.565) {
+            let count = 0;
+            var timer = setInterval(() => {
+              count++;
+              mark.style.top =
+                mark.offsetTop / fontSize + (end - begin) / 20 + "rem";
+              if (count >= 20) {
+                clearInterval(timer);
+              }
+            }, 20);
+          } else if (end >= 0 && end < 3 * 0.565) {
+            let count = 0;
+            var timer = setInterval(() => {
+              count++;
+              mark.style.top =
+                mark.offsetTop / fontSize + (0 - begin) / 20 + "rem";
+              if (count >= 20) {
+                clearInterval(timer);
+              }
+            }, 20);
+          }
+        }, 400);
+      }
     }
   }
 };
 function img_path(img) {
-  // console.log(img.split(""));
   var a1 = img.split("");
   if (a1.length > 0) {
     a1.splice(1, 0, "/");
@@ -197,7 +208,6 @@ function img_path(img) {
     } else {
       var a2 = a1.join("") + ".jpeg";
     }
-    // console.log(a2);
     return a2;
   } else {
     return "1/ba/bf6efbfdb0ef701f19689a5529e5fjpeg.jpeg";
@@ -210,17 +220,10 @@ function img_path(img) {
   width: 3.2rem;
   display: flex;
 }
-/* :target {
-  background: black;
-  animation: fromBtm .4s;
-}
-@keyframes fromBtm {
-  from { transform: translateY(-100%); }
-  to { transform: translateY(0); }
-} */
 .fixed {
-  width: 0.61rem;
+  width: 0.77rem;
   height: 100%;
+  background: #f5f5f5;
   position: fixed;
   top: 1.37rem;
   left: 0;
@@ -256,10 +259,36 @@ function img_path(img) {
   background-color: #fff;
 }
 .goods {
+  width: 2.44rem;
   margin-left: 0.76rem;
   position: absolute;
   top: 1.37rem;
-  /* margin-top: 1.37rem; */
+}
+.food {
+  position: relative;
+  overflow: hidden;
+}
+.logo {
+  width: 0.4rem;
+  height: 0.4rem;
+  display: flex;
+  align-items: flex-end;
+}
+.new {
+  padding-top: 0.2rem;
+  align-items: center;
+  font-size: 0.08rem;
+  color: #fff;
+  text-align: center;
+  flex: 1;
+  position: absolute;
+  top: 0.86rem;
+  left: 0.97rem;
+  background-color: #4cd964;
+  width: 0.4rem;
+  height: 0.12rem;
+  display: -ms-flexbox;
+  transform: rotate(-45deg) translate(-0.1rem, -1.5rem);
 }
 .logo img {
   width: 0.4rem;
@@ -274,7 +303,6 @@ function img_path(img) {
   align-items: center;
   white-space: nowrap;
   background: #f5f5f5;
-  /* overflow: hidden; */
 }
 .title .big {
   font-size: 0.14rem;
@@ -302,6 +330,20 @@ function img_path(img) {
 }
 .detail .one {
   margin-bottom: 0.04rem;
+  display: flex;
+  justify-content: space-between;
+}
+.one .sign {
+  box-sizing: border-box;
+  color: rgb(240, 115, 115);
+  font-size: 0.06rem;
+  height: 0.12rem;
+  line-height: 0.07rem;
+  padding: 0.02rem;
+  border: 0.01rem solid rgb(240, 115, 115);
+  border-radius: 0.06rem;
+  margin-right: 0.02rem;
+  transform: scale(0.8);
 }
 .detail .two {
   font-size: 0.1rem;
@@ -313,6 +355,7 @@ function img_path(img) {
   color: #333;
 }
 .promotion {
+  max-width: 1rem;
   display: inline-block;
   color: rgb(241, 136, 79);
   border-color: rgb(240, 115, 115);
@@ -322,15 +365,18 @@ function img_path(img) {
   padding: 0.016rem;
   transform: scale(0.8);
   margin-left: -0.07rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .price {
   width: 1.8rem;
   height: 0.23rem;
   font-size: 0.1rem;
   color: #666;
-  /* margin-left: .48rem; */
   font-size: 0;
   margin-top: 0.06rem;
+  display: flex;
+  justify-content: space-between;
 }
 .price .left span:first-child {
   font-size: 0.1rem;
@@ -339,12 +385,116 @@ function img_path(img) {
   margin-right: 0.06rem;
 }
 .price .right {
-  display: block;
+  display: flex;
+  align-items: center;
   font-size: 0.11rem;
   color: #fff;
   padding: 0.02rem 0.04rem;
   background-color: #3190e8;
   border-radius: 0.04rem;
   border: 0.01rem solid #3190e8;
+  margin-right: 0.1rem;
+}
+.add {
+  width: 0.15rem;
+  height: 0.15rem;
+  display: inline-block;
+  text-align: center;
+  line-height: 0.12rem;
+  font-size: 0.15rem;
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  background-color: #3190e8;
+  border: 0.01rem solid #3190e8;
+  margin-right: 0.15rem;
+}
+.specfoods {
+  width: 3.2rem;
+  height: 5.68rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+.all {
+  position: fixed;
+  top: 35%;
+  left: 15%;
+  width: 70%;
+  background-color: #fff;
+  border: 0.01rem;
+  border-radius: 0.04rem;
+}
+.all .top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.14rem;
+  color: #222;
+  font-weight: 400;
+  text-align: center;
+  padding: 0.1rem;
+}
+.all .top span:last-child {
+  display: inline-block;
+  color: #888;
+  font-weight: 200;
+  height: 0.2rem;
+  font-size: 0.3rem;
+  vertical-align: top;
+  margin-top: -0.15rem;
+}
+.all .middle {
+  padding: 0.1rem;
+}
+.all .middle p {
+  font-size: 0.12rem;
+  color: #666;
+}
+.all .middle div {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.08rem 0;
+}
+.all .middle div span {
+  font-size: 0.12rem;
+  padding: 0.06rem 0.1rem;
+  border: 0.005rem solid #ddd;
+  border-radius: 0.04rem;
+  margin-right: 0.1rem;
+  margin-bottom: 0.04rem;
+}
+.all .middle div .active {
+  border-color: #3199e8;
+  color: #3199e8;
+}
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 0.1rem;
+  border: 0.01rem;
+  border-bottom-left-radius: 0.04rem;
+  border-bottom-right-radius: 0.04rem;
+}
+.bottom .left {
+  font-size: 0.16rem;
+  font-weight: 700;
+  color: #ff6000;
+}
+.bottom .right {
+  width: 0.8rem;
+  height: 0.26rem;
+  background-color: #3199e8;
+  border: 0.01rem;
+  border-radius: 0.03rem;
+  font-size: 0.12rem;
+  color: #fff;
+  text-align: center;
+  line-height: 0.26rem;
 }
 </style>
