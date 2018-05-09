@@ -44,7 +44,7 @@ export default {
   },
   created() {
     //console.log(this.$route.params);
-    // if (this.$route.params.id) {food_url
+    // if (this.$route.params.id) {
     //   var id = this.$route.params.id;
     //   localStorage.id = id;
     // } else {
@@ -73,6 +73,7 @@ export default {
 .detail {
   overflow: hidden;
   width: 3.2rem;
+  height: 5.68rem;
   -webkit-font-smoothing: antialiased;
 }
 .select {
