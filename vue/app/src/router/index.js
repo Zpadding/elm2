@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Show from "@/components/show/Show"
+import Gain from "@/components/gain/Gain"
+import Enter from "@/components/gain/enter/Enter"
+import Forget from "@/components/gain/forget/Forget"
+import City from  '@/components/gain/city/City'
 import Search from '@/components/search/Search'
 import Eat from '@/components/eat/Eat'
 import Order from '@/components/order/Order'
@@ -22,8 +26,28 @@ export default new Router({
     {
       path: '/',
       component: Show
+    }, {
+      path: '/gain',
+      name: 'Gain',
+      component: Gain,
+      children:[
+
+      ]
+    },{
+      path:"/enter",
+      name:'Enter',
+      component:Enter
     },
     {
+      path:"/forget",
+      name:'Forget',
+      component:Forget
+    },
+    {
+      path:"/city",
+      name:'City',
+      component:City
+    }, {
       path: '/show',
       name: 'Show',
       component: Show,
