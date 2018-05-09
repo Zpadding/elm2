@@ -58,6 +58,12 @@ export default {
 </script>
 
 <style scoped>
+.head {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
 .body {
   width: 3.2rem;
   height: 0.84rem;
