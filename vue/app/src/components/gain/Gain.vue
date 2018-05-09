@@ -71,13 +71,7 @@
           })
         },
 
-        methods:{
-          din(index){
-            if(index == groupCity){
-              this.$router.push({name:"/Show",params:{}})
-            }
-          }
-        },
+
       methods: {
           din(id) {
             this.$router.push({

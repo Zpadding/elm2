@@ -12,7 +12,7 @@
       </section>
     <div class="sec">
       <input type=""  placeholder="密码"  class="cip" v-model="word">
-      <el-switch @click="types"
+      <el-switch
         v-model="value2"
         active-color="blue"
         inactive-color="red">
@@ -72,6 +72,9 @@
           login() {
             let mes = {username: this.name, password: this.word}
             console.log(mes);
+            this.$router.push({name: "Account",params:{mes:mes}});
+            // this.$router.push({name:"/show/user",params:{mes:mes}});
+
           },
         change() {
           let pic_url = "http://cangdu.org:8001/v1/captchas";
@@ -126,7 +129,7 @@
   .im{
     height: 0.3rem;
     width: 0.7rem;
-    background: red;
+    background: whitesmoke;
     float: left;
     margin-left: 0.3rem;
   }

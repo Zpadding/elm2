@@ -58,13 +58,18 @@
         this.$http.post(url).then(res=>this.pic=res.data.code)
       },
       methods:{
-         forget() {
+
+        login() {
            let msk = {username:this.username,oldPassWord:this.oldPassWord,newPassWord:this.newPassWord,conFirmPassWord:this.conFirmPassWord}
-    },
-        change() {
-          let pic_url = "http://cangdu.org:8001/v1/captchas";
-          this.$http.post(pic_url).then(res=>this.pic=res.data.code);
-        }
+           console.log(msk)
+
+        },
+        change(){
+            let pic_url = "http://cangdu.org:8001/v1/captchas";
+            this.$http.post(pic_url).then(res=>this.pic=res.data.code);
+          }
+
+
 
       },
 

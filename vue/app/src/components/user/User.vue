@@ -6,18 +6,23 @@
 
       <p class="hep2">我的</p>
 
-      <div class="in">
-        <img src="../../assets/w2-3.jpg" alt="" class="in1">
-        <div class="in2">
-          <p class="ip">登录/注册</p>
-          <span class="spn">
+      <router-link to="/enter">
+        <div class="in">
+          <img src="../../assets/w2-3.jpg" alt="" class="in1">
+          <div class="in2">
+
+            <p class="ip">{{sk}}</p>
+            <span class="spn">
           <img src="../../assets/w1-5.png" class="spn1">
           <p class="spn2">暂无手机号</p>
 
         </span>
-          <p class="spn3"> > </p>
+            <p class="spn3"> > </p>
+          </div>
         </div>
-      </div>
+      </router-link>
+
+
     </div>
     <div id="boy">
 
@@ -72,11 +77,15 @@
           {pag:ask,wz:"饿了么会员卡",pic:"#"},
           {pag:user,wz:"积分商城",pic:"#"},
           {pag:ask,wz:"饿了么会员卡",pic:"#"},
-
-         ]
+         ],
+        sk:''
       }
 
     },
+   created(){
+      this.sk = this.$route.params.mes
+      // console.log(this.$route.params.mes.username)
+   },
     methods:{
       din(index){
         if (index == 0) {
@@ -125,6 +134,7 @@
     height: 0.8rem;
     margin-top: 0.5rem;
     width: 2.5rem;
+    color: #fff;
   }
 
   .in1 {
@@ -158,6 +168,7 @@
 
   .spn2 {
     float: right;
+    color: #fff;
   }
 
   .spn3 {

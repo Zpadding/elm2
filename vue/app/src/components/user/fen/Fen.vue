@@ -18,12 +18,19 @@
       </div>
       <a class="mon"> 0</a><span class="yus">分</span>
 
-      <br>
-      <button class="bu">积分兑换商品</button>
-      <div>
-      </div>
-    </div>
 
+    <div @click="show=!show" >
+      <button  class="bou"> 积分兑换商品 </button>
+
+      <transition name="bounce">
+        <div v-if="!show"  id="wit">
+          <p class="p"><img src="../../../assets/w1-1.png" class="p1"> </p>
+          <p class="p3">ios用户请前往AppStore下载</p>
+          <button   class="bou1">确认</button>
+        </div>
+      </transition>
+    </div>
+    </div>
   </div>
 
 
@@ -31,7 +38,12 @@
 
 <script>
     export default {
-        name: "Fen"
+        name: "Fen",
+      data(){
+        return{
+          show:true
+        }
+      }
     }
 </script>
 
@@ -97,14 +109,72 @@
     color: #333;
   }
 
-  .bu{
-    margin-top: 0.2rem;
-    margin-left: 0.25em ;
-    height: 0.4rem;
-    width: 2.9rem;
-    background: #fe6d47;
-  }
 
+  .bou{
+    height: 0.36rem ;
+    width: 2.9rem;
+    text-align: center;
+    background-color: #fe6d47;
+    color:#fff;
+    margin-left: 0.04rem;
+    margin-top: 0.3rem;
+  }
+  .bou1{
+
+    height: 0.4rem ;
+    width: 2.4rem;
+    text-align: center;
+    background-color: #4cd964;
+    color:#fff;
+
+  }
+  #wit{
+
+    height: 1.58rem;
+    width: 2.4rem;
+
+    background: white;
+    margin-left: 0.4rem;
+    position: absolute;
+    left: 0;
+    top:1.6rem;
+    margin-bottom: 0.2rem;
+  }
+  .p{
+    text-align: center;
+    margin-bottom: 0.2rem;
+    margin-top: 0.2rem;
+  }
+  .p1{
+    height: 0.6rem;
+    width: 0.6rem;
+  }
+  .p3{
+    text-align: center;
+    margin-left: 0.1rem;
+
+  }
+  .bounce-enter-active {
+    animation: bounce-in .5s;
+  }
+  .bounce-leave-active {
+    /*animation: bounce-in .5s reverse;*/
+  }
+  @keyframes bounce-in {
+    0% {
+      transform: scale(1);
+    }
+    35% {
+      transform: scale(.8);
+    }
+    70% {
+      transform: scale(1.1);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
 
 
 </style>

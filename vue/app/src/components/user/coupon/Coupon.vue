@@ -7,9 +7,9 @@
         <p class="hep2">我的</p>
       </div>
       <div class="hon">
-        <span class="hon1">红包</span>
+        <button  class="hon1"  >红包</button>
 
-        <span class="hon2">商家代金券</span>
+        <span class="hon2" @click=sq >商家代金券</span>
       </div>
       <div class="suo">
         <span class="im1">有 <a>3</a>个红包即将过期 </span>
@@ -47,7 +47,13 @@
 
 <script>
     export default {
-        name: "Coupon"
+        name: "Coupon",
+      data(){
+        sq:""
+      },
+      created(){
+
+      }
     }
 </script>
 
