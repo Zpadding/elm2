@@ -8,14 +8,14 @@
 
     <form action="">
       <section class="sec">
-        <input type="text" placeholder="账号" class="cip1">
+        <input type="text" placeholder="账号" class="cip1" v-model="name">
       </section>
     <div class="sec">
-      <input type="text"  placeholder="密码"  class="cip">
-      <el-switch
+      <input type=""  placeholder="密码"  class="cip" v-model="word">
+      <el-switch @click="types"
         v-model="value2"
-        active-color="#13ce66"
-        inactive-color="#ff4949">
+        active-color="blue"
+        inactive-color="red">
       </el-switch>
 
     </div>
@@ -23,19 +23,21 @@
       <section class="sec">
           <p> <input type="text" placeholder="验证码" class="cip3"></p>
           <div class="rig">
-            <img src="captchas" alt="" class="im">
+            <img :src="pic" alt="" class="im">
           </div>
         <div class="di">
           <p>看不清</p>
-          <p class="p2">换一张</p>
+          <p class="p2" @click="change">换一张</p>
         </div>
       </section>
 
 
     <p class="spa">温馨提示：未注册过得账号，登录时将自动注册。注册过的用户可凭账号密码登录</p>
 
-    <button class="de">登录</button>
-      <p class="p">重置密码？</p>
+    <button class="de" @click="login">登录</button>
+    <router-link to="/forget"><p class="p">重置密码？</p>
+    </router-link>
+
   </div>
 
 </template>
@@ -45,18 +47,36 @@
         name: "Enter",
       data() {
         return {
-          value1: true,
-          value2: true,
-          username: []
-
+          value1: 'password',
+          value2: 'text',
+          username: [],
+          password:[],
+          name: "",
+          word: "",
+          pic: ''
         }
       },
+
+
+
       created(){
-          let url = "http://cangdu.org:8001/v1/user"
-          this.$http.get(url).then(res=>{
-            console.log(res.data());
-            this.username = res.data
-          })
+
+
+
+        let pic_url = "http://cangdu.org:8001/v1/captchas";
+          this.$http.post(pic_url).then(res=>this.pic=res.data.code);
+      },
+      methods: {
+
+
+          login() {
+            let mes = {username: this.name, password: this.word}
+            console.log(mes);
+          },
+        change() {
+          let pic_url = "http://cangdu.org:8001/v1/captchas";
+          this.$http.post(pic_url).then(res=>this.pic=res.data.code);
+        }
       }
     }
 </script>
