@@ -6,7 +6,7 @@
 
       <p class="hep2">我的</p>
 
-      <router-link to="/enter">
+      <router-link to="/forget">
         <div class="in">
           <img src="../../assets/w2-3.jpg" alt="" class="in1">
           <div class="in2">

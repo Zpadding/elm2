@@ -2,12 +2,13 @@
   <div id="City">
     <div id="head">
       <router-link to="/gain" class="hep1"> <</router-link>
-      <span class="hep2">{{sa}}</span>
+      <span class="hep2" v-model="city_id">{{sa}}</span>
       <router-link to="/gain" class="hep3">切换城市</router-link>
     </div>
     <div class="da">
-      <input type="text" placeholder="输入学习，商业楼，地址" class="su">
-      <button class="tj">提交</button>
+      <input type="text" placeholder="输入学习，商业楼，地址" class="su" v-model="keyword">
+
+      <button class="tj" v-model="cty">提交</button>
      <p class="p"> <span >搜索历史</span></p>
 
     </div>
@@ -23,11 +24,21 @@
         name: "City",
       data(){
           return{
-            sa:``
+            sa:``,
+            cty:``,
+            city_id:'',
+            keyword:``
+
           }
       },
       created(){
-       this.sa= this.$route.params.id
+       this.sa= this.$route.params.id;
+
+          let url= "http://cangdu.org:8001/v1/pois";
+          this.$http.get(url).then(res=>{this.cty =res.data.cty
+            console.log(res.data)}
+
+          )
       }
     }
 </script>
