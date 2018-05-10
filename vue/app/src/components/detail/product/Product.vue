@@ -11,7 +11,6 @@
       </div>
       
       <div class="goods">
-        <!-- <div v-for="(food, index) in foods" :id="'food'+index" :style="index==0?'paddingTop: 1.37rem':'paddingTop: 1.37rem; marginTop: -1.37rem'"> -->
         <div v-for="(food, index) in foods" :id="'food'+index" :style="animation"  @touchstart="scroll" @mousewheel="scroll">
           
         <div class="title">
@@ -46,8 +45,12 @@
                   <span>¥{{product.specfoods[0].price}}</span>
                   <span>起</span>
                 </div>
-                <div class="right" v-if="product.specfoods.length>1" @click="choose(product)">选规格</div>
-                <div class="add" v-if="product.specfoods.length<=1">+</div>
+                <div class="right">
+                  <span class="reduce">-</span>
+                  <span class="count">1</span>
+                  <span class="type" v-if="product.specfoods.length>1" @click="choose(product)">选规格</span>
+                  <span class="add" v-if="product.specfoods.length<=1" @click="add(product)">+</span>
+                </div>
               </div>
             </div>
           </li>
@@ -70,18 +73,22 @@
             </div>
             <div class="bottom">
               <div class="left">¥ {{specfoods[number].price}}</div>
-              <div class="right">加入购物车</div>
+              <div class="right" @click="increase(specfoods[number])">加入购物车</div>
             </div>
           </div>
           
         </div>
       
     </div>
+    <Car></Car>
+    
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import { mapState } from "vuex";
+import Car from "../car/Car";
+
 export default {
   data() {
     return {
@@ -95,10 +102,14 @@ export default {
       },
       show: false,
       specfoods: {},
-      number: 0
+      number: 0,
+      shopCar: [],
+      price: 0
     };
   },
-  components: {},
+  components: {
+    Car
+  },
   created() {
     if (this.$route.params.id) {
       var id = this.$route.params.id;
@@ -156,6 +167,90 @@ export default {
       console.log(data);
       this.show = !this.show;
       this.specfoods = data.specfoods;
+    },
+    add(data) {
+      //购物车数据[{attrs:[],extra:{},id:食品id,name:食品名称,packing_fee:打包费,price:价格,quantity:数量,sku_id:规格id,specs:规格,stock:存量,}]
+      let food = data.specfoods[0];
+      let product = {
+        attrs: [],
+        extra: {},
+        id: food.food_id,
+        name: food.name,
+        packing_fee: food.packing_fee,
+        price: food.price,
+        quantity: 1,
+        sku_id: food.sku_id,
+        specs: [],
+        stock: food.stock
+      };
+      //console.log(product);
+      let isExist = null;
+      if (this.shopCar.length > 0) {
+        for (let i = 0; i < this.shopCar.length; i++) {
+          if (this.shopCar[i].id == product.id) {
+            isExist = true;
+            var index = i;
+            break;
+          } else {
+            isExist = false;
+          }
+        }
+        if (isExist) {
+          this.shopCar[index].quantity++;
+        } else {
+          this.shopCar.push(product);
+        }
+      } else {
+        this.shopCar.push(product);
+      }
+      let price = 0;
+      for (let i = 0; i < this.shopCar.length; i++) {
+        price += this.shopCar[i].price * this.shopCar[i].quantity;
+      }
+      this.price = price;
+      this.$store.commit("car", this.shopCar);
+      this.$store.commit("price", this.price);
+    },
+    increase(food) {
+      //购物车数据[{attrs:[],extra:{},id:食品id,name:食品名称,packing_fee:打包费,price:价格,quantity:数量,sku_id:规格id,specs:规格,stock:存量,}]
+      let product = {
+        attrs: [],
+        extra: {},
+        id: food.food_id,
+        name: food.name,
+        packing_fee: food.packing_fee,
+        price: food.price,
+        quantity: 1,
+        sku_id: food.sku_id,
+        specs: food.specs,
+        stock: food.stock
+      };
+      let isExist = null;
+      if (this.shopCar.length > 0) {
+        for (let i = 0; i < this.shopCar.length; i++) {
+          if (this.shopCar[i].id == product.id) {
+            isExist = true;
+            var index = i;
+            break;
+          } else {
+            isExist = false;
+          }
+        }
+        if (isExist) {
+          this.shopCar[index].quantity++;
+        } else {
+          this.shopCar.push(product);
+        }
+      } else {
+        this.shopCar.push(product);
+      }
+      let price = 0;
+      for (let i = 0; i < this.shopCar.length; i++) {
+        price += this.shopCar[i].price * this.shopCar[i].quantity;
+      }
+      this.price = price;
+      this.$store.commit("car", this.shopCar);
+      this.$store.commit("price", this.price);
     }
   },
   mounted() {
@@ -389,7 +484,12 @@ function img_path(img) {
   font-weight: 700;
   margin-right: 0.06rem;
 }
-.price .right {
+/* .right {
+  
+}
+.count {} */
+.type {
+  float: right;
   display: flex;
   align-items: center;
   font-size: 0.11rem;
@@ -413,6 +513,20 @@ function img_path(img) {
   background-color: #3190e8;
   border: 0.01rem solid #3190e8;
   margin-right: 0.15rem;
+}
+.reduce {
+  width: 0.15rem;
+  height: 0.15rem;
+  display: inline-block;
+  text-align: center;
+  line-height: 0.12rem;
+  font-size: 0.15rem;
+  color: #3190e8;
+  border-radius: 50%;
+  font-weight: bold;
+  /* background-color: #3190e8; */
+  border: 0.01rem solid #3190e8;
+  /* margin-right: 0.15rem; */
 }
 .specfoods {
   width: 3.2rem;

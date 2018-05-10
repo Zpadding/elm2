@@ -8,7 +8,6 @@
       </div>
     <Product v-if="productComment"></Product>
     <Comment v-if="!productComment"></Comment>
-    <Car></Car>
   </div>
 </template>
 
@@ -16,7 +15,6 @@
 import Head from "./head/Head";
 import Product from "./product/Product";
 import Comment from "./comment/Comment";
-import Car from "./car/Car";
 export default {
   data() {
     return {
@@ -26,8 +24,7 @@ export default {
   components: {
     Head,
     Product,
-    Comment,
-    Car
+    Comment
   },
   methods: {
     select(index, $event) {
@@ -66,10 +63,6 @@ export default {
 </script>
 
 <style scoped>
-/* .hold {
-    width: 3.2rem;
-    height: 1.37rem;
-} */
 .detail {
   overflow: hidden;
   width: 3.2rem;
