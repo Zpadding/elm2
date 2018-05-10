@@ -9,6 +9,7 @@
     <form action="">
       <section class="sec">
         <input type="text" placeholder="账号" class="cip1" v-model="name">
+
       </section>
     <div class="sec">
       <input type=""  placeholder="密码"  class="cip" v-model="word">
@@ -21,7 +22,7 @@
     </div>
     </form>
       <section class="sec">
-          <p> <input type="text" placeholder="验证码" class="cip3"></p>
+          <p> <input type="text" placeholder="验证码" class="cip3" v-model="code"></p>
           <div class="rig">
             <img :src="pic" alt="" class="im">
           </div>
@@ -37,7 +38,16 @@
     <button class="de" @click="login">登录</button>
     <router-link to="/forget"><p class="p">重置密码？</p>
     </router-link>
-
+    <transition name="bounce">
+    <div class="boll" v-if="show">
+      <img src="../../../assets/w1-2.png" alt="">
+    <!--<div v-if="this.name == ``" > 请输入账号/邮箱/账户名</div>-->
+    <!--<div  v-else-if="this.word == ``" > 输入密码</div>-->
+    <!--<div v-else-if="this.code == ``" > 请输入验证码</div>-->
+      <div>{{err}}</div>
+      <button @click="show=!show">确认</button>
+    </div>
+    </transition>
   </div>
 
 </template>
@@ -53,7 +63,10 @@
           password:[],
           name: "",
           word: "",
-          pic: ''
+          code:"",
+          pic: '',
+          err:'',
+          show: false
         }
       },
 
@@ -70,10 +83,26 @@
 
 
           login() {
-            let mes = {username: this.name, password: this.word}
-            console.log(mes);
-            this.$router.push({name: "Account",params:{mes:mes}});
-            // this.$router.push({name:"/show/user",params:{mes:mes}});
+
+            if (this.name) {
+              if(this.word) {
+                if(this.code) {
+                  let mes = {username: this.name, password: this.word}
+                  console.log(mes);
+                  this.$router.push({name: "Account",params:{mes:mes}});
+                  // this.$router.push({name:"/show/user",params:{mes:mes}});
+                }else {
+                  this.show = true;
+                  this.err = "请输入验证码"
+                }
+              }else {
+                this.show = true;
+                this.err = "请输入密码"
+              }
+            } else {
+              this.show = true;
+              this.err = "请输入手机号/邮箱/用户名"
+            }
 
           },
         change() {
@@ -86,12 +115,17 @@
 
 <style scoped>
 
+  input {
+    outline: none;
+
+  }
   #head {
     height: 0.39rem;
     width: 100%;
     background: #3190e8;
     color: #fff;
     overflow: hidden;
+    margin-bottom: 0.15rem;
   }
 
   .hep1 {
@@ -111,6 +145,8 @@
     justify-content: space-around;
     height: 0.25rem;
     padding: 0.02rem 0.03rem;
+    padding-top: 0.05rem;
+    padding-bottom: 0.05rem;
 
   }
   .cip1{
@@ -170,5 +206,51 @@
     margin-right: 0.1rem;
     color:#3b95e9;
     text-align: right;
+  }
+  .boll{
+    position: absolute;
+    left: 0.4rem;
+    top: 1.3rem;
+    border:1px solid white;
+    height: 1.5rem;
+    width: 2.4rem;
+    background: white;
+  }
+  .boll>img{
+    margin-left: 0.8rem;
+    margin-top: 0.1rem;
+  }
+  .boll>div{
+    text-align: center;
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+  }
+  .boll>button{
+    width: 2.4rem;
+    height: 0.36rem;
+    background: #4cd964;
+    border-radius:5px;
+  }
+
+  .bounce-enter-active {
+    animation: bounce-in .5s;
+  }
+  .bounce-leave-active {
+    animation: bounce-in .5s reverse;
+  }
+  @keyframes bounce-in {
+    0% {
+      transform: scale(1);
+    }
+    35% {
+      transform: scale(.8);
+    }
+    70% {
+      transform: scale(1.1);
+    }
+
+    100% {
+      transform: scale(1);
+    }
   }
 </style>
