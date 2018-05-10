@@ -3,7 +3,7 @@
       <!-- <h2>商品分类</h2> -->
       <v-touch class="con" @swipeleft="onSwipeLeft" @swiperight="onSwipeRight">
           <div class="infor" v-for="infor in infors">
-            <router-link :to="{name: 'Business', params: mes }" v-for="mes in infor">
+            <router-link v-for="(mes, index) in infor" :to="{name: 'Business', params: {mes: mes} }" :key="index" >
               <img :src="img_url+mes.image_url" alt="">
               <p>{{mes.title}}</p>
             </router-link>
@@ -97,6 +97,7 @@ export default {
   overflow: hidden;
   padding-bottom: .05rem;
   position: relative;
+  background: white;
 }
 .con {
   width: 12.8rem;

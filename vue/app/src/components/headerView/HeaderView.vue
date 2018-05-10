@@ -14,7 +14,7 @@
     data() {
       return {
         mess: [
-          {name: "美食", to: "/"},
+          {name: "美食", to: "/eat"},
           {name: "搜索", to: "/search"},
           {name: "订单", to: "/order"},
           {name: "我的", to: "/user"}

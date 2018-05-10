@@ -4,6 +4,9 @@ let mutations = {
     },
     classify(state, data) {
         state.classify = data;
+    },
+    shopDetail(state, data) {
+        state.shopDetail = data;
     }
 }
 

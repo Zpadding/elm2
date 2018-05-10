@@ -1,6 +1,6 @@
 <template>
   <div class="head" :style="'background: url('+img_url+shop.image_path+') 0% 0% / cover no-repeat'">
-      <div class="body">
+      <div class="body" @click="detail">
           <div class="logo">
               <img :src="img_url+shop.image_path" alt="">
               <div class="back" @click="back"></div>
@@ -24,6 +24,7 @@
 
 <script type="text/ecmascript-6">
 import { mapState } from "vuex";
+// import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -51,7 +52,12 @@ export default {
   },
   methods: {
     back() {
-      this.$router.push({name: "Eat"});
+      this.$router.go(-1);
+    },
+    // ...mapMutations({detail: this.shopDetail({data: this.shop})})
+    detail() {
+      this.$store.commit("shopDetail", this.shop);
+      this.$router.push({name: "ShopDetail"});
     }
   }
 };
