@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     back() {
-      this.$router.push({name: "Eat"});
+      this.$router.go(-1);
     },
     // ...mapMutations({detail: this.shopDetail({data: this.shop})})
     detail() {

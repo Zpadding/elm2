@@ -2,7 +2,7 @@
   <div class="shop">
       <div>
           <div class="body">
-              <router-link :to="{name: 'Detail', params: mes}" v-for="mes in mess">
+              <router-link :to="{name: 'Detail', params: mes}" v-for="(mes, index) in mess" :key="index">
                 <div class="pic">
                     <img class="logo" :src="img_url+mes.image_path" alt="">
                 </div>
@@ -187,6 +187,7 @@ function arr_del(mess, rating) {
 .shop {
   font-size: 0.12rem;
   color: #999;
+  background: white;
 }
 .body a {
   padding: 0.14rem 0.08rem;

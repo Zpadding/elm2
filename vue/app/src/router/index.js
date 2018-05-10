@@ -19,15 +19,18 @@ import Account from '@/components/user/account/Account'
 import Business from '@/components/business/Business'
 import Detail from '@/components/detail/Detail'
 import ShopDetail from '@/components/detail/shopDetail/ShopDetail'
+import Safe from '@/components/detail/shopDetail/safe/Safe'
+
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
+    // {
+    //   path: '/',
+    //   component: Show
+    // }, 
     {
-      path: '/',
-      component: Show
-    }, {
       path: '/gain',
       name: 'Gain',
       component: Gain,
@@ -58,17 +61,17 @@ export default new Router({
           component: Eat
         },
         {
-          path: '/show/search',
+          path: 'search',
           name: 'Search',
           component: Search
         },
         {
-          path: '/show/order',
+          path: 'order',
           name: 'Order',
           component: Order
         },
         {
-          path: '/show/user',
+          path: 'user',
           name: 'User',
           component: User,
         },
@@ -114,6 +117,10 @@ export default new Router({
       path: '/shopDetail',
       name: "ShopDetail",
       component: ShopDetail
+    }, {
+      path: '/safe',
+      name: "Safe",
+      component: Safe
     }
   ]
 })

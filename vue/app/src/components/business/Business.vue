@@ -1,7 +1,7 @@
 <template>
   <div class="business">
       <div class="nav">
-        <router-link to="/show" class="left" :style="left"></router-link>
+        <div class="left" @click="back"></div>
         <div class="middle">{{mes.title}}</div>
         <div class="right"></div>
       </div> 
@@ -11,60 +11,66 @@
 </template>
 
 <script type="text/ecmascript-6">
-import Shop from '../eat/shop/Shop';
-import Selection from './selection/Selection';
+import Shop from "../eat/shop/Shop";
+import Selection from "./selection/Selection";
 export default {
   data() {
     return {
-        left: {
-            background: "url("+require("../../assets/z-1.jpg")+") no-repeat",
-            backgroundSize: "100% 100%"
-        },
-        mes: null
-    }
+      mes: {}
+    };
   },
   components: {
-      Shop,
-      Selection
+    Shop,
+    Selection
   },
   created() {
-      if (Object.keys(this.$route.params).length) {
-        this.mes = this.$route.params;
-        localStorage.classify = JSON.stringify(this.$route.params);
-      } else {
-        this.mes = JSON.parse(localStorage.classify);
-      }
-      
+    if (this.$route.params.mes) {
+      this.mes = this.$route.params.mes;
+      localStorage.classify = JSON.stringify(this.$route.params.mes);
+    } else {
+      this.mes = JSON.parse(localStorage.classify);
+    }
+  },
+  methods: {
+    back() {
+      this.$router.go(-1);
+    }
   }
-}
+};
 </script>
 
 <style scoped>
 .business {
-    padding-top: .4rem;
+  padding-top: 0.4rem;
 }
 .nav {
-    width: 3.2rem;
-    height: 0.4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color:#3190e8;
-    z-index: 1;
-    position: fixed;
-    top: 0;
-    left: 0; 
+  width: 3.2rem;
+  height: 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #3190e8;
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 .left {
-    width: 0.18rem;
-    height: 0.18rem;
-    margin-left: .1rem;
+  width: 0.1rem;
+  height: 0.1rem;
+  margin-left: 0.1rem;
+  border-top: 0.015rem solid white;
+  border-left: 0.015rem solid white;
+  transform: rotate(-45deg);
 }
 .middle {
-    width: .64rem;
-    height: 0.22rem;
-    line-height: .22rem;
-    color: white;
-    font-weight: 400;
+  width: 0.64rem;
+  height: 0.22rem;
+  line-height: 0.22rem;
+  color: white;
+  font-weight: 400;
+}
+.right {
+  width: 0.2rem;
 }
 </style>
