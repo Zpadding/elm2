@@ -56,7 +56,7 @@ export default new Router({
       name: 'Show',
       component: Show,
       children: [{
-          path: '',
+          path: 'eat',
           name: 'Eat',
           component: Eat
         },
