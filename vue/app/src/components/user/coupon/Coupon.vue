@@ -1,63 +1,125 @@
 <template>
-    <div id="Coupon">
-      <div id="head">
+  <div id="Coupon">
+    <div id="head">
 
-        <router-link to="/show/user" class="hep1"> < </router-link>
+      <router-link to="show/user" class="hep1"> < </router-link>
 
-        <p class="hep2">我的</p>
-      </div>
-      <div class="hon">
-        <button  class="hon1"  >红包</button>
+      <p class="hep2">我的优惠</p>
+    </div>
+    <div class="hon">
+      <span class="hon1">红包</span>
 
-        <span class="hon2" @click=sq >商家代金券</span>
-      </div>
-      <div class="suo">
-        <span class="im1">有 <a>3</a>个红包即将过期 </span>
-       <span>
+      <span class="hon2">商家代金券</span>
+    </div>
+    <div id="zan" @click="show=!show">
+    <div class="suo">
+      <span class="im1">有 <a>3</a>个红包即将过期 </span>
+      <span>
          <img src="../../../assets/w1-8.png" class="im "  >
          </span>
-        <p class="im2">红包说明</p>
-      </div>
-      <p class="qig">.</p>
-      <div class="qan">
-        <p class="qig"> ,</p>
-        <div class="juan">
-          <span class="mon">￥</span>
-          <span class="one">1</span>
-          <span class="d">.</span>
-          <span class="mon1">0</span>
-          <p>满20元可用</p>
-
-        </div>
-        <div class="juan2">
-          <h3>分享红包</h3>
-          <p>2015-05-23到期</p>
-          <p>限收货手机号为</p>
-          <p>13681711254</p>
-        </div>
-        <div class="mon">剩3日</div>
-
+      <p class="im2">红包说明</p>
+    </div>
+    <p class="qig">.</p>
+    <div class="qan">
+      <p class="qig"> ,</p>
+      <div class="juan">
+        <span class="mon">￥</span>
+        <span class="one">1</span>
+        <span class="d">.</span>
+        <span class="mon1">0</span>
+        <p>满20元可用</p>
 
       </div>
+      <div class="juan2">
+        <h3 class="h3">分享红包</h3>
+        <p>2015-05-23到期</p>
+        <p>限收货手机号为</p>
+        <p>13681711254</p>
+      </div>
+      <div class="mom">剩3日</div>
+    </div>
 
-
+    <p class="qig">.</p>
+    <div class="qan">
+      <p class="qig"> ,</p>
+      <div class="juan">
+        <span class="mon">￥</span>
+        <span class="one">2</span>
+        <span class="d">.</span>
+        <span class="mon1">0</span>
+        <p>满20元可用</p>
 
       </div>
+      <div class="juan2">
+        <h3 class="h3">分享红包</h3>
+        <p>2015-05-23到期</p>
+        <p>限收货手机号为</p>
+        <p>13681711254</p>
+      </div>
+      <div class="mom">剩3日</div>
+    </div>
+    <p class="qig">.</p>
+    <div class="qan">
+      <p class="qig"> ,</p>
+      <div class="juan">
+        <span class="mon">￥</span>
+        <span class="one">4</span>
+        <span class="d">.</span>
+        <span class="mon1">5</span>
+        <p>满20元可用</p>
+
+      </div>
+      <div class="juan2">
+        <h3 class="h3">分享红包</h3>
+        <p>2015-05-23到期</p>
+        <p>限收货手机号为</p>
+        <p>13681711254</p>
+      </div>
+      <div class="mom">剩3日</div>
+    </div>
+    <p>限品类：快餐便当，特色菜系，小吃夜宵，甜品饮品，异国料理</p>
+
+    <p class="pp">查看历史红包></p>
+    <div class="foot">
+      <div><p class="fou1">兑换红包</p> </div>
+      <div><p class="fou1">推荐有奖</p></div>
+
+  </div>
+    </div>
+    <div class="you" @click="show=!show">
+      <div class="rig"><img src="../../../assets/w1-8.png" alt="">
+      <span>商家代金券说明</span>
+      </div>
+      <div class="cen">
+        <img src="../../../assets/下载.png" class="img">
+        <p class="p1">无法使用代金券</p>
+        <p class="p2">非客户端或客户端版本较低</p>
+
+        <button class="bu">下载或升级客户端</button>
+      </div>
+
+    </div>
+
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "Coupon",
-      data(){
-        sq:""
-      },
-      created(){
-
+  export default {
+    name: "Coupon",
+    data(){
+      return{
+        show:false
       }
     }
+  }
 </script>
 
 <style scoped>
+
+  #zan{
+
+  }
+
   #head {
     height: 0.39rem;
     width: 100%;
@@ -72,6 +134,7 @@
   }
 
   .hep2 {
+    color: #fff;
     height: 0.4rem;
     float: right;
     padding-right: 1.5rem;
@@ -132,7 +195,13 @@
     color: red;
     font-size: 18px;
     margin-bottom: 0.1rem;
-
+  }
+  .mom{
+    margin-top: 0.1rem;
+    height: 038rem ;
+    width: 0.49rem;
+    color: red;
+    font-size: 15px;
   }
   .mon1{
 
@@ -146,22 +215,86 @@
     font-size: 35px;
   }
   .juan{
-    height: 0.68rem ;
+    margin-top: 0.1rem;
+    margin-left: 0.05rem;
+    /*margin-right: 0.05rem;*/
+    height: 0.6rem ;
     width: 0.7rem ;
-    border-right: 2px dashed red;
+    border-right: 2px dashed #fff;
     margin-right: 0.2rem;
   }
   .juan2{
+    margin-top: 0.1rem;
     /*border: 1px solid red;*/
     height: 0.68rem;
     width: 1.49rem;
     margin-left: 0.2rem;
-
+  }
+  .h3{
+    font-size: 0.18rem;
   }
   .qig{
     background:url("../../../assets/w1-9.png") repeat-x;
     -webkit-background-size: 0.1rem 0.04rem;
     background-size: 0.1rem 0.04rem ;
+  }
+  .foot{
 
+   display: flex;
+    justify-content: space-around;
+    position: fixed;
+    top: 5.2rem;
+
+  }
+  .foot>div{
+    font-size: 0.15rem;
+    text-align: center;
+    border: 1px solid white;
+    align-items:center;
+    width: 1.58rem;
+    height: 0.4rem;
+  }
+  .fou1{
+    font-size: 0.18rem;
+    margin-top: 0.1rem;
+    color: #595757;
+  }
+  .pp{
+    text-align: center;
+    margin-top: 0.75rem;
+  }
+  .rig{
+    text-align: right;
+    font-size: 0.1rem;
+    margin-right: 0.2rem;
+  }
+  .rig>img{
+    height: 0.12rem;
+    width: 0.12rem;
+  }
+  .cen{
+    margin-top: 1.3rem;
+    text-align: center;
+  }
+
+  .img{
+    height: 0.68rem;
+    width: 1.2rem;
+  }
+  .p1{
+    font-size: 0.15rem;
+    margin: 0.1rem;
+    color:#666;
+  }
+  .p2{
+    font-size: 0.1rem;
+  }
+  .bu{
+    width: 1.16rem;
+    height: 0.3rem;
+    background-color:#56d176 ;
+    border-radius:0.02rem ;
+    color: white;
+    margin: 0.15rem;
   }
 </style>

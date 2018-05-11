@@ -12,12 +12,13 @@
 
       </section>
     <div class="sec">
-      <input type=""  placeholder="密码"  class="cip" v-model="word">
-      <el-switch
-        v-model="value2"
-        active-color="blue"
-        inactive-color="red">
-      </el-switch>
+      <input :type="show1?'text':'password'"  placeholder="密码"  class="cip" v-model="word">
+
+
+      <div class="kg" @click="show1=!show1">
+        <p class="s1"></p>
+      </div>
+
 
     </div>
     </form>
@@ -41,9 +42,7 @@
     <transition name="bounce">
     <div class="boll" v-if="show">
       <img src="../../../assets/w1-2.png" alt="">
-    <!--<div v-if="this.name == ``" > 请输入账号/邮箱/账户名</div>-->
-    <!--<div  v-else-if="this.word == ``" > 输入密码</div>-->
-    <!--<div v-else-if="this.code == ``" > 请输入验证码</div>-->
+
       <div>{{err}}</div>
       <button @click="show=!show">确认</button>
     </div>
@@ -66,7 +65,8 @@
           code:"",
           pic: '',
           err:'',
-          show: false
+          show: false,
+          show1: false
         }
       },
 
@@ -231,6 +231,23 @@
     background: #4cd964;
     border-radius:5px;
   }
+  .kg{
+    border: 1px solid red;
+    width: 0.35rem;
+    height: 0.15rem;
+    border-radius: 35%;
+    background: black;
+  }
+  .s1{
+    background-color: white;
+    border-radius: 50%;
+    height: 0.15rem;
+    width: 0.15rem;
+    padding-top: 0.2rem;
+
+  }
+
+
 
   .bounce-enter-active {
     animation: bounce-in .5s;

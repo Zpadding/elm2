@@ -92,6 +92,8 @@
 </script>
 
 <style scoped>
+
+
   .head {
     height: 0.39rem;
     width: 100%;
@@ -103,6 +105,8 @@
   .hep1 {
     float: left;
     padding: 0.1rem;
+    font-size: 0.11rem;
+
 
   }
 
@@ -111,20 +115,19 @@
     float: right;
     padding-right: 0.3rem;
     padding-top: 0.1rem;
+    font-size: 0.15rem;
   }
   .che{
     margin-top: 0.18rem;
     margin-left: 0.05rem;
-    font-size: 0.04rem;
+    font-size: 0.1rem;
     font-weight: 900;
   }
   .che1{
     margin-left: 0.5rem;
   }
   .huo{
-
     padding-bottom: 0.08rem;
-
     margin-top: 0.08rem;
     border-bottom: #e4e4e4 1px solid;
     border-top:#e4e4e4 1px solid;
@@ -135,6 +138,7 @@
     padding-top: 0.08rem;
     float: left;
     margin-left: 0.2rem;
+    font-size: 0.15rem;
 
   }
   .huo2{
@@ -149,6 +153,7 @@
     line-height: 0.2rem;
   }
   .sp1{
+    font-size: 0.11rem;
     margin-top: 0.06rem;
   }
   .rr{
@@ -157,6 +162,7 @@
 
   }
   .rm{
+    font-size: 0.15rem;
     color: #3190e8;
     text-align: center;
     margin-top: 0.1rem;
@@ -177,12 +183,14 @@
     margin-left: 0.2rem;
     height: 0.32rem;
     line-height: 0.3rem;
+
   }
 
   .sp3{
     margin-top: 0.4rem;
   }
   .rn{
+    font-size: 0.15rem;
     text-align: center;
     margin-top: 0.1rem;
     overflow: hidden;
