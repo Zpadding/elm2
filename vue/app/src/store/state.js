@@ -4,7 +4,9 @@ let state = {
     head_url: "http://cangdu.org:8001",
     order: "",
     classify: [],
-    shopDetail: {}
+    shopDetail: {},
+    car: [],
+    price: 0
 };
 
 export default state;

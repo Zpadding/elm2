@@ -2,29 +2,38 @@
   <div class="car">
       <div class="bottom">
           <div class="left">
-              <div class="shopCar">
+              <div class="shopCar" :style="this.price!=0?bg:''">
                   <img :src="car" alt="">
               </div>
               <div class="money">
-                  <div class="head">¥ 0.00</div>
+                  <div class="head">¥ {{price}}.00</div>
                   <div class="foot">配送费¥5</div>
               </div>
           </div>
-          <div class="right">还差¥20起送</div>
+          <div class="right" v-if="price < 15">还差¥20起送</div>
+          <div class="right pay" v-else>去结算</div>
       </div>
+      
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import car from "../../../assets/car.png";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
-        car: car
+        car: car,
+        bg: {
+            backgroundColor: "#3190e8"
+        }
     }
   },
   components: {
 
+  },
+  computed: {
+      ...mapState(["price"])
   }
 }
 </script>
@@ -48,7 +57,7 @@ export default {
     justify-content: space-between;
     align-items: center;
 }
-.shopCar img {
+.shopCar {
     width: 0.24rem;
     height: 0.24rem;
     display: flex;
@@ -60,6 +69,13 @@ export default {
     left: .1rem;
     top: -.15rem;
 }
+.shopCar img {
+    width: 0.35rem;
+    height: 0.35rem;
+    position: absolute;
+    top: .03rem;
+    left: .02rem;
+}
 .money {
     margin-left: .7rem;
 }
@@ -67,7 +83,6 @@ export default {
     font-size: .16rem;
     font-weight: 700;
     margin-bottom: .02rem;
-    
 }
 .foot {
     font-size: .08rem;
@@ -79,5 +94,9 @@ export default {
     background: #535356;
     text-align: center;
     font-size: .14rem;
+}
+.pay {
+    color: white;
+    background-color: #4cd964;
 }
 </style>

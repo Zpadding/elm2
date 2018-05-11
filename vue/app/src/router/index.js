@@ -27,10 +27,10 @@ Vue.use(Router);
 
 export default new Router({
   routes: [
-    // {
-    //   path: '/',
-    //   component: Show
-    // },
+    {
+      path: '/',
+      component: Show
+    },
     {
       path: '/gain',
       name: 'Gain',
