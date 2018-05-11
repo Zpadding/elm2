@@ -11,8 +11,8 @@
       <button class="tj" v-model="cty">提交</button>
      <p class="p"> <span >搜索历史</span></p>
 
-    </div>
 
+    </div>
 
   </div>
 
