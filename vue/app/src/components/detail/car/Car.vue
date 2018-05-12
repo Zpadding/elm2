@@ -104,6 +104,7 @@ export default {
     },
     clear() {
       this.car.splice(0);
+      this.$store.commit("price", 0);
     }
   }
 };

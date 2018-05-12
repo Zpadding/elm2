@@ -26,10 +26,12 @@
               </div>
           </div>
       </div>
+      <Car></Car>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import Car from '../car/Car'
 export default {
   data() {
     return {
@@ -37,7 +39,9 @@ export default {
       img_path: "//elm.cangdu.org/img/",
     };
   },
-  components: {},
+  components: {
+    Car
+  },
   created() {
     console.log(this.$route.params);
     this.food = this.$route.params;
