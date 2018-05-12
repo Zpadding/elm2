@@ -10,63 +10,59 @@
     </div>
 
     <span class="sp">热门问题</span>
-    <ul>
-        <li>{{pc}}</li>
-    </ul>
+
+    <div class="dis " v-for="lis in txts">
+      <ul class="bi">{{lis.name}} </ul>
+    </div>
 
   </div>
 </template>
 
 <script>
-    export default {
-        name: "Serve",
 
-      data(){
-          return{
-            pc:"",
-
-
-
+  import Vue from 'vue'
+  let les="http://cangdu.org:8001/v3/profile/explain"
+  export default {
+    name: "Service",
+    data(){
+      return{
+        txts:""
+      }
+    },
+    created(){
+      Vue.axios.get(les).then((response)=>{
+        function dealjson(obj) {
+          var arr = []
+          var Jsonarr = []
+          let object = {}
+          for (var key in obj) {
+            arr.push(obj[key]); //属性
           }
-      },
-
-      created(){
-        let url = "http://cangdu.org:8001/v3/profile/explain";
-        this.$http.get(url).then(res=>{
-          this.pc=res.data.pc
-          console.log(res.data);
-        })
-        // console.log(this.$http.get(url))
-      },
-
-    }
-    function dealjson(obj) {
-      var arr = []
-      var Jsonarr = []
-      let object = {}
-      for (var key in obj) {
-        arr.push(obj[key]); //属性
-      }
-      for (let i = 0; i < arr.length; i++) {
-        if (i % 2 != 0) {
-          object.name = arr[i]
-          Jsonarr.push(object)
-          object = {}
-        } else {
-          object.des = arr[i]
-          object.id = i
+          for (let i = 0; i < arr.length; i++) {
+            if (i % 2 != 0) {
+              object.name = arr[i]
+              Jsonarr.push(object)
+              object = {}
+            } else {
+              object.des = arr[i]
+              object.id = i
+            }
+          }
+          var one = Jsonarr.slice(0, 13)
+          var two = Jsonarr.slice(13, 23)
+          for (let j = 0; j < two.length; j++) {
+            [two[j].des, two[j].name] = [two[j].name, two[j].des]
+          }
+          var three = one.concat(two)
+          three.splice(12, 1)
+          three.splice(4, 1)
+          return three
         }
-      }
-      var one = Jsonarr.slice(0, 13)
-      var two = Jsonarr.slice(13, 23)
-      for (let j = 0; j < two.length; j++) {
-        [two[j].des, two[j].name] = [two[j].name, two[j].des]
-      }
-      var three = one.concat(two)
-      three.splice(12, 1)
-      three.splice(4, 1)
-      return three
+        this.txts=dealjson(response.data)
+        console.log(dealjson(response.data))
+      })
     }
+  }
 </script>
 
 <style scoped>
@@ -120,6 +116,10 @@
   }
   .sp{
     margin: 0.1rem;
+  }
+  .bi{
+    height: 0.4rem;
+
   }
 
 </style>

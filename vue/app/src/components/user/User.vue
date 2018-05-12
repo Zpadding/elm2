@@ -11,7 +11,7 @@
           <img src="../../assets/w2-3.jpg" alt="" class="in1">
           <div class="in2">
 
-            <p class="ip">{{sk}}</p>
+            <p class="ip">{{888886666}}</p>
             <span class="spn">
           <img src="../../assets/w1-5.png" class="spn1">
           <p class="spn2">暂无手机号</p>
@@ -64,18 +64,19 @@
 </template>
 
 <script>
-  import home from "../../assets/w1-1.png"
-  import user from "../../assets/w1-2.png"
+  import home from "../../assets/w1-guan.png"
+  import user from "../../assets/w1-din.png"
   import ask from '../../assets/w1-3.jpeg'
+  import din from '../../assets/w1-din.png'
   export default {
     name: "User",
     data (){
       return {
         mess:[
-          {pag:user,wz:"我的订单",pic:"#",},
+          {pag:din,wz:"我的订单",pic:"#",},
           {pag:user,wz:"积分商城",pic:"#"},
-          {pag:ask,wz:"饿了么会员卡",pic:"#"},
-          {pag:user,wz:"积分商城",pic:"#"},
+          {pag:home,wz:"饿了么会员卡",pic:"#"},
+          {pag:user,wz:"服务中心",pic:"#"},
           {pag:ask,wz:"饿了么会员卡",pic:"#"},
          ],
         sk:''
@@ -123,6 +124,7 @@
   }
 
   .hep2 {
+    font-size: 0.17rem;
     height: 0.4rem;
     float: right;
     padding-right: 1.5rem;
@@ -146,7 +148,7 @@
   }
 
   .in2 {
-
+    font-size: 0.15rem;
     float: right;
     padding-top: 0.1rem;
     padding-bottom: 0.3rem;
@@ -205,7 +207,7 @@
     color: #666;
   }
   .b1{
-    font-size: 0.05rem;
+    font-size: 0.15rem;
     color: #666;
     font-weight: 400;
     padding-bottom: 0.04rem;
@@ -229,19 +231,22 @@
 
 
   .li{
-    margin-left: 0.2rem;
-    height: 0.13rem;
-    width: 0.13rem;
+    margin-left: 0.1rem;
+    height: 0.15rem;
+    width: 0.15rem;
   }
   .pa{
     float: left;
-    width: 0.38rem;
+    width: 0.30rem;
     height: 0.3rem;
     margin-top: 0.1rem;
   }
   .lic{
+    margin-right: 0.16rem;
     margin-top: 0.1rem;
-
+    font-size: 0.15rem;
+    color: #595757;
+    font-weight: 400;
     float: right;
     height: 0.3rem;
     width: 2.68rem ;
