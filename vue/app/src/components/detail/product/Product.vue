@@ -47,10 +47,10 @@
                   <span>起</span>
                 </div>
                 <div class="right">
-                  <span class="reduce" style="display: none" @click="reduce(product)">-</span>
+                  <span class="reduce" style="display: none" @click.stop="reduce(product)">-</span>
                   <span class="num" style="display: none">0</span>
-                  <span class="type" v-if="product.specfoods.length>1" @click="choose(product, index)">选规格</span>
-                  <span class="add" v-if="product.specfoods.length<=1" @click="add(product)">+</span>
+                  <span class="type" v-if="product.specfoods.length>1" @click.stop="choose(product, index)">选规格</span>
+                  <span class="add" v-if="product.specfoods.length<=1" @click.stop="add(product)">+</span>
                 </div>
               </div>
             </div>
@@ -89,7 +89,7 @@
 <script type="text/ecmascript-6">
 import { mapState } from "vuex";
 import Car from "../car/Car";
-
+import FoodDetail from '../foodDetail/FoodDetail';
 export default {
   data() {
     return {
@@ -123,6 +123,25 @@ export default {
       this.foods = res.data;
       console.log(this.foods);
     });
+
+    //console.log(localStorage.car);
+    
+    // if (localStorage.car) {
+    //   let car = JSON.parse(localStorage.car);
+    //   console.log(car);
+    //   console.log(this.car);
+    //   for (let i = 0; i < car.length; i++) {
+    //     let num = car[i].dom;
+    //     console.log(num);
+    //     console.log(car[i].quantity);
+    //     num.innerHTML = car[i].quantity;
+    //     console.log(num.innerHTML);
+        // if (Number(num.innerHTML)) {
+        //   num.style.display = "inline-block";
+        //   num.previousElementSibling.style.display = "inline-block";
+        // }
+    //   }
+    // }
   },
   computed: {
     ...mapState(["head_url", "car", "price"]),
@@ -214,28 +233,30 @@ export default {
       for (let i = 0; i < this.shopCar.length; i++) {
         price += this.shopCar[i].price * this.shopCar[i].quantity;
       }
-      
+
       console.log(this.shopCar, price);
 
       this.$store.commit("car", this.shopCar);
       this.$store.commit("price", price);
       var num = event.target.previousElementSibling;
-      
+
+      localStorage.car = JSON.stringify(this.car);
+
       console.log(this.car);
       console.log(index);
       num.innerHTML = this.car[index].quantity;
       if (num.innerHTML) {
         num.style.display = "inline-block";
-        num.className = "num fadeIn";        
+        num.className = "num fadeIn";
         num.previousElementSibling.style.display = "inline-block";
-        num.previousElementSibling.className = "reduce offset";        
+        num.previousElementSibling.className = "reduce offset";
       }
     },
     increase(food) {
       //购物车数据[{attrs:[],extra:{},id:食品id,name:食品名称,packing_fee:打包费,price:价格,quantity:数量,sku_id:规格id,specs:规格,stock:存量,}]
-      var num = document.querySelectorAll(".num")[this.index];      
+      var num = document.querySelectorAll(".num")[this.index];
 
-      this.show=!this.show
+      this.show = !this.show;
       let product = {
         attrs: [],
         extra: {},
@@ -272,12 +293,13 @@ export default {
       for (let i = 0; i < this.shopCar.length; i++) {
         price += this.shopCar[i].price * this.shopCar[i].quantity;
       }
-      
 
       console.log(this.shopCar, price);
 
       this.$store.commit("car", this.shopCar);
       this.$store.commit("price", price);
+
+      localStorage.car = JSON.stringify(this.car);
 
       var num = document.querySelectorAll(".num")[this.index];
       num.innerHTML++;
@@ -317,17 +339,20 @@ export default {
               num.previousElementSibling.className = "reduce leave";
               setTimeout(() => {
                 num.style.display = "none";
-                num.previousElementSibling.style.display = "none";  
-              }, 500);
+                num.previousElementSibling.style.display = "none";
+              }, 490);
             }
 
             let price = 0;
             for (let i = 0; i < this.shopCar.length; i++) {
               price += this.shopCar[i].price * this.shopCar[i].quantity;
             }
-            
+
             this.$store.commit("car", this.shopCar);
             this.$store.commit("price", price);
+
+            localStorage.car = JSON.stringify(this.car);
+
             break;
           }
         }
@@ -339,8 +364,8 @@ export default {
     },
     foodDetail(data) {
       setTimeout(() => {
-        this.$router.push({name: "FoodDetail", params: data});
-      }, 1000);
+        this.$router.push({ name: "FoodDetail", params: data });
+      }, 300);
     }
   },
   mounted() {
@@ -408,7 +433,7 @@ function img_path(img) {
 <style scoped>
 @keyframes offset {
   from {
-    transform: translate(.5rem);
+    transform: translate(0.5rem);
     opacity: 0;
   }
   to {
@@ -418,7 +443,7 @@ function img_path(img) {
 }
 @keyframes leave {
   to {
-    transform: translate(.5rem);
+    transform: translate(0.5rem);
     opacity: 0;
   }
   from {
@@ -443,16 +468,16 @@ function img_path(img) {
   }
 }
 .offset {
-  animation: offset .5s;
+  animation: offset 0.5s;
 }
 .leave {
-  animation: leave .5s;
+  animation: leave 0.5s;
 }
 .fadeIn {
-  animation: fadeIn .5s;
+  animation: fadeIn 0.5s;
 }
 .fadeOut {
-  animation: fadeOut .5s;
+  animation: fadeOut 0.5s;
 }
 .body {
   width: 3.2rem;
@@ -557,6 +582,9 @@ function img_path(img) {
   width: 0.1rem;
   height: 0.2rem;
 }
+.food {
+  position: relative;
+}
 .food li {
   display: flex;
   background-color: #fff;
@@ -587,7 +615,7 @@ function img_path(img) {
   font-size: 0.1rem;
   color: #999;
   line-height: 0.12rem;
-  margin-bottom: .03rem;
+  margin-bottom: 0.03rem;
 }
 .detail .count {
   font-size: 0.1rem;
@@ -626,6 +654,10 @@ function img_path(img) {
 .right {
   display: flex;
   align-items: center;
+  /* position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 1; */
 }
 .num {
   display: inline-block;
