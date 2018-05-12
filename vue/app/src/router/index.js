@@ -15,6 +15,8 @@ import Coupon from '@/components/user/coupon/Coupon'
 import Ji from '@/components/user/ji/Ji'
 import Vip from '@/components/user/vip/Vip'
 import Pay from  '@/components/user/pay/Pay'
+import Buy from  '@/components/user/buy/Buy'
+import Cash from '@/components/user/cash/Cash'
 import Down from '@/components/user/down/Down'
 import Serve from '@/components/user/serve/Serve'
 // import Sev from '@/components/user/serve/sev'
@@ -102,12 +104,20 @@ export default new Router({
       path: "/vip",
       name: "Vip",
       component: Vip,
-    },{
+    },
+    {
       path:"/pay",
       name:'Pay',
       component:Pay
-    },
-    {
+    }, {
+      path:"/cash",
+      name:'Cash',
+      component:Cash
+    },{
+      path:"/buy",
+      name:'Buy',
+      component:Buy
+    }, {
       path: "/down",
       name: "Down",
       component: Down

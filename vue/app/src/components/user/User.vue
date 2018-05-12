@@ -231,20 +231,21 @@
 
 
   .li{
-    margin-left: 0.2rem;
+    margin-left: 0.1rem;
     height: 0.15rem;
     width: 0.15rem;
   }
   .pa{
     float: left;
-    width: 0.38rem;
+    width: 0.30rem;
     height: 0.3rem;
     margin-top: 0.1rem;
   }
   .lic{
+    margin-right: 0.16rem;
     margin-top: 0.1rem;
-    font-size: 0.2rem;
-    color: #333;
+    font-size: 0.15rem;
+    color: #595757;
     font-weight: 400;
     float: right;
     height: 0.3rem;
