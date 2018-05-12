@@ -6,6 +6,7 @@
         <li v-for="(food, index) in foods" :class="{active:index == num}" @click="classify(index)">
           <img :src="img_url+image_url[index]" alt="">
           <span>{{food.name}}</span>
+          <!-- <span class="number"></span> -->
         </li>
       </ul>
       </div>
@@ -20,7 +21,7 @@
         </div>
 
         
-        <ul class="food" v-for="product in food.foods">
+        <ul class="food" v-for="(product, index) in food.foods" @click="foodDetail(product)">
           <li>
             <span class="new" v-if="product.attributes.length && product.attributes[0].icon_name=='新'">新品</span>
             
@@ -46,9 +47,9 @@
                   <span>起</span>
                 </div>
                 <div class="right">
-                  <span class="reduce">-</span>
-                  <span class="count">1</span>
-                  <span class="type" v-if="product.specfoods.length>1" @click="choose(product)">选规格</span>
+                  <span class="reduce" style="display: none" @click="reduce(product)">-</span>
+                  <span class="num" style="display: none">0</span>
+                  <span class="type" v-if="product.specfoods.length>1" @click="choose(product, index)">选规格</span>
                   <span class="add" v-if="product.specfoods.length<=1" @click="add(product)">+</span>
                 </div>
               </div>
@@ -62,18 +63,18 @@
           <div class="all">
             <div class="top">
               <span></span>
-              <span>1</span>
+              <span>{{specfoods.name}}</span>
               <span @click="show=!show">×</span>
             </div>
             <div class="middle">
               <p>规格</p>
               <div>
-                <span v-for="(specfood, index) in specfoods" @click="number = index" :class="{active: index==number}">{{specfood.specs_name}}</span>
+                <span v-for="(specfood, index) in specfoods.specfoods" @click="number = index" :class="{active: index==number}">{{specfood.specs_name}}</span>
               </div>
             </div>
             <div class="bottom">
-              <div class="left">¥ {{specfoods[number].price}}</div>
-              <div class="right" @click="increase(specfoods[number])">加入购物车</div>
+              <div class="left">¥ {{specfoods.specfoods[number].price}}</div>
+              <div class="right" @click="increase(specfoods.specfoods[number])">加入购物车</div>
             </div>
           </div>
           
@@ -104,7 +105,7 @@ export default {
       specfoods: {},
       number: 0,
       shopCar: [],
-      price: 0
+      index: ""
     };
   },
   components: {
@@ -124,7 +125,7 @@ export default {
     });
   },
   computed: {
-    ...mapState(["head_url"]),
+    ...mapState(["head_url", "car", "price"]),
     image_url() {
       if (Object.keys(this.foods).length) {
         //console.log(this.foods);
@@ -163,13 +164,17 @@ export default {
         document.documentElement.scrollTop ||
         document.body.scrollTop;
     },
-    choose(data) {
+    choose(data, index) {
       console.log(data);
       this.show = !this.show;
-      this.specfoods = data.specfoods;
+      this.specfoods = data;
+      this.index = index;
     },
-    add(data) {
+    add(data, $event) {
       //购物车数据[{attrs:[],extra:{},id:食品id,name:食品名称,packing_fee:打包费,price:价格,quantity:数量,sku_id:规格id,specs:规格,stock:存量,}]
+      var num = event.target.previousElementSibling;
+
+      var index = 0;
       let food = data.specfoods[0];
       let product = {
         attrs: [],
@@ -181,7 +186,8 @@ export default {
         quantity: 1,
         sku_id: food.sku_id,
         specs: [],
-        stock: food.stock
+        stock: food.stock,
+        dom: num
       };
       //console.log(product);
       let isExist = null;
@@ -189,10 +195,11 @@ export default {
         for (let i = 0; i < this.shopCar.length; i++) {
           if (this.shopCar[i].id == product.id) {
             isExist = true;
-            var index = i;
+            index = i;
             break;
           } else {
             isExist = false;
+            index = this.shopCar.length;
           }
         }
         if (isExist) {
@@ -207,12 +214,28 @@ export default {
       for (let i = 0; i < this.shopCar.length; i++) {
         price += this.shopCar[i].price * this.shopCar[i].quantity;
       }
-      this.price = price;
+      
+      console.log(this.shopCar, price);
+
       this.$store.commit("car", this.shopCar);
-      this.$store.commit("price", this.price);
+      this.$store.commit("price", price);
+      var num = event.target.previousElementSibling;
+      
+      console.log(this.car);
+      console.log(index);
+      num.innerHTML = this.car[index].quantity;
+      if (num.innerHTML) {
+        num.style.display = "inline-block";
+        num.className = "num fadeIn";        
+        num.previousElementSibling.style.display = "inline-block";
+        num.previousElementSibling.className = "reduce offset";        
+      }
     },
     increase(food) {
       //购物车数据[{attrs:[],extra:{},id:食品id,name:食品名称,packing_fee:打包费,price:价格,quantity:数量,sku_id:规格id,specs:规格,stock:存量,}]
+      var num = document.querySelectorAll(".num")[this.index];      
+
+      this.show=!this.show
       let product = {
         attrs: [],
         extra: {},
@@ -223,7 +246,8 @@ export default {
         quantity: 1,
         sku_id: food.sku_id,
         specs: food.specs,
-        stock: food.stock
+        stock: food.stock,
+        dom: num
       };
       let isExist = null;
       if (this.shopCar.length > 0) {
@@ -248,9 +272,75 @@ export default {
       for (let i = 0; i < this.shopCar.length; i++) {
         price += this.shopCar[i].price * this.shopCar[i].quantity;
       }
-      this.price = price;
+      
+
+      console.log(this.shopCar, price);
+
       this.$store.commit("car", this.shopCar);
-      this.$store.commit("price", this.price);
+      this.$store.commit("price", price);
+
+      var num = document.querySelectorAll(".num")[this.index];
+      num.innerHTML++;
+      if (num.innerHTML) {
+        num.style.display = "inline-block";
+        num.className = "num fadeIn";
+        num.previousElementSibling.style.display = "inline-block";
+        num.previousElementSibling.className = "reduce offset";
+      }
+    },
+    reduce(data, $event) {
+      if (data.specfoods.length <= 1) {
+        let food = data.specfoods[0];
+        let product = {
+          attrs: [],
+          extra: {},
+          id: food.food_id,
+          name: food.name,
+          packing_fee: food.packing_fee,
+          price: food.price,
+          quantity: 1,
+          sku_id: food.sku_id,
+          specs: food.specs,
+          stock: food.stock
+        };
+        for (let i = 0; i < this.shopCar.length; i++) {
+          if (this.shopCar[i].id == product.id) {
+            this.shopCar[i].quantity--;
+            if (!this.shopCar[i].quantity) {
+              this.shopCar.splice(i, 1);
+            }
+            var num = event.target.nextElementSibling;
+            num.innerHTML--;
+            if (!Number(num.innerHTML)) {
+              // num.previousElementSibling.className = "reduce";
+              num.className = "num fadeOut";
+              num.previousElementSibling.className = "reduce leave";
+              setTimeout(() => {
+                num.style.display = "none";
+                num.previousElementSibling.style.display = "none";  
+              }, 500);
+            }
+
+            let price = 0;
+            for (let i = 0; i < this.shopCar.length; i++) {
+              price += this.shopCar[i].price * this.shopCar[i].quantity;
+            }
+            
+            this.$store.commit("car", this.shopCar);
+            this.$store.commit("price", price);
+            break;
+          }
+        }
+      } else {
+        alert("多规格商品需要去购物车删除");
+      }
+      // console.log(this.shopCar);
+      // console.log(this.price);
+    },
+    foodDetail(data) {
+      setTimeout(() => {
+        this.$router.push({name: "FoodDetail", params: data});
+      }, 1000);
     }
   },
   mounted() {
@@ -316,6 +406,54 @@ function img_path(img) {
 </script>
 
 <style scoped>
+@keyframes offset {
+  from {
+    transform: translate(.5rem);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
+@keyframes leave {
+  to {
+    transform: translate(.5rem);
+    opacity: 0;
+  }
+  from {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+  from {
+    opacity: 1;
+  }
+}
+.offset {
+  animation: offset .5s;
+}
+.leave {
+  animation: leave .5s;
+}
+.fadeIn {
+  animation: fadeIn .5s;
+}
+.fadeOut {
+  animation: fadeOut .5s;
+}
 .body {
   width: 3.2rem;
   display: flex;
@@ -449,6 +587,7 @@ function img_path(img) {
   font-size: 0.1rem;
   color: #999;
   line-height: 0.12rem;
+  margin-bottom: .03rem;
 }
 .detail .count {
   font-size: 0.1rem;
@@ -484,12 +623,19 @@ function img_path(img) {
   font-weight: 700;
   margin-right: 0.06rem;
 }
-/* .right {
-  
+.right {
+  display: flex;
+  align-items: center;
 }
-.count {} */
+.num {
+  display: inline-block;
+  width: 0.2rem;
+  height: 0.15rem;
+  font-size: 0.11rem;
+  text-align: center;
+  line-height: 0.15rem;
+}
 .type {
-  float: right;
   display: flex;
   align-items: center;
   font-size: 0.11rem;
@@ -606,6 +752,7 @@ function img_path(img) {
   color: #ff6000;
 }
 .bottom .right {
+  display: inline-block;
   width: 0.8rem;
   height: 0.26rem;
   background-color: #3199e8;

@@ -24,6 +24,7 @@ import Business from '@/components/business/Business'
 import Detail from '@/components/detail/Detail'
 import ShopDetail from '@/components/detail/shopDetail/ShopDetail'
 import Safe from '@/components/detail/shopDetail/safe/Safe'
+import FoodDetail from '@/components/detail/foodDetail/FoodDetail'
 
 
 Vue.use(Router);
@@ -134,6 +135,10 @@ export default new Router({
       path: '/safe',
       name: "Safe",
       component: Safe
+    }, {
+      path: '/foodDetail',
+      name: "FoodDetail",
+      component: FoodDetail
     }
   ]
 })
