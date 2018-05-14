@@ -65,17 +65,18 @@
                 <div class="top">商家属性(可以多选)</div>
                 <ul>
                   <li v-for="(typ, index) in types" @click="option(index)">
-                    <span :style="'border-color: '+colors[index]+';color:'+colors[index]">{{typ.logo}}</span>
-                    <!-- <span>
+                    
+                    <span v-if="typ.show" class="icon">
                       <svg t="1526188402386" class="right" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2373" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32"><path d="M416.832 798.08C400.64 798.08 384.512 791.872 372.16 779.52L119.424 525.76C94.784 500.992 94.784 460.8 119.424 436.032 144.128 411.264 184.128 411.264 208.768 436.032L416.832 644.928 814.4 245.76C839.04 220.928 879.04 220.928 903.744 245.76 928.384 270.528 928.384 310.656 903.744 335.424L461.504 779.52C449.152 791.872 432.96 798.08 416.832 798.08Z" p-id="2374" fill="#1296db"></path></svg>
-                    </span> -->
+                    </span>
+                    <span class="text" :style="'border-color: '+colors[index]+';color:'+colors[index]" v-else>{{typ.logo}}</span>
                     <span>{{typ.title}}</span>
                   </li>
                 </ul>
               </div>
               <div class="foot">
                 <button @click="clear">清空</button>
-                <button @click="submit">确定</button>
+                <button @click="submit">确定<span v-if="count!=0">({{count}})</span></button>
               </div>
             </div>
             </div>
@@ -122,7 +123,8 @@ export default {
         "rgb(232, 132, 45)",
         "rgb(255, 78, 0)",
         "rgb(153, 153, 153)"
-      ]
+      ],
+      count: 0
     };
   },
   components: {},
@@ -248,32 +250,14 @@ export default {
         });
     },
     option(index, $event) {
-      let target = event.target;
-      if (target.tagName == "SPAN") {
-        if (target.parentNode.getAttribute("class")) {
-          target.parentNode.removeAttribute("class");
-          target.parentNode.firstElementChild.innerHTML = this.types[
-            index
-          ].logo;
-          target.parentNode.firstElementChild.style.borderColor = this.colors[
-            index
-          ];
-        } else {
-          target.parentNode.setAttribute("class", "blue");
-          target.parentNode.firstElementChild.innerHTML = "✔️";
-          target.parentNode.firstElementChild.style.borderColor = "transparent";
-        }
-      } else if (target.tagName == "LI") {
-        if (target.getAttribute("class")) {
-          target.removeAttribute("class");
-          target.firstElementChild.innerHTML = this.types[index].logo;
-          target.firstElementChild.style.borderColor = this.colors[index];
-        } else {
-          target.setAttribute("class", "blue");
-          target.firstElementChild.innerHTML = "✔️";
-          target.firstElementChild.style.borderColor = "transparent";
-        }
+      if (this.types[index].show == true) {
+        this.types[index].show = false;
+        this.count--;
+      } else {
+        this.types[index].show = true;
+        this.count++;
       }
+
     },
     submit() {
       this.show3 = !this.show3;
@@ -312,14 +296,11 @@ export default {
       }
     },
     clear() {
-      let lis = document.querySelectorAll(".middle ul li");
-      for (let i = 0; i < lis.length; i++) {
-        if (lis[i].getAttribute("class")) {
-          lis[i].firstElementChild.innerHTML = this.types[i].logo;
-          lis[i].firstElementChild.style.borderColor = this.colors[i];
-          lis[i].removeAttribute("class");
-        }
-      }
+      this.count = 0;
+      this.types = this.types.map((value, index) => {
+        value.show = false;
+        return value;
+      })
     }
   },
   created() {
@@ -564,7 +545,17 @@ function img_path(img) {
   padding: 0 0.05rem;
   margin-bottom: 0.05rem;
 }
-.three .middle ul li span:first-child {
+.three ul li .right {
+  width: 0.14rem;
+  height: 0.14rem;
+  margin: 0 0.06rem 0 0.16rem;
+}
+.three .middle .icon {
+  width: 0.16rem;
+  height: 0.16rem;
+  padding-left: .06rem;
+}
+.three .middle ul li .text {
   width: 0.16rem;
   height: 0.16rem;
   font-size: 0.1rem;

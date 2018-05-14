@@ -13,6 +13,9 @@ let mutations = {
     },
     price(state, data) {
         state.price = data;
+    },
+    allFood(state, data) {
+        state.allFood = data;
     }
 }
 

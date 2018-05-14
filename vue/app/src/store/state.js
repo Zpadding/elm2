@@ -6,7 +6,8 @@ let state = {
     classify: [],
     shopDetail: {},
     car: [],
-    price: 0
+    price: 0,
+    allFood: []
 };
 
 export default state;

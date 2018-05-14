@@ -3,16 +3,15 @@
     <div class="body">
       <div class="fixed">
       <ul class="classify">
-        <li v-for="(food, index) in foods" :class="{active:index == num}" @click="classify(index)">
+        <li v-for="(food, index) in allFood" :class="{active:index == num}" @click="classify(index)">
           <img :src="img_url+image_url[index]" alt="">
           <span>{{food.name}}</span>
-          <!-- <span class="number"></span> -->
         </li>
       </ul>
       </div>
       
       <div class="goods">
-        <div v-for="(food, index) in foods" :id="'food'+index" :style="animation"  @touchstart="scroll" @mousewheel="scroll">
+        <div v-for="(food, index) in allFood" :id="'food'+index" :style="animation"  @touchstart="scroll" @mousewheel="scroll">
           
         <div class="title">
           <div class="big">{{food.name}}</div>
@@ -48,9 +47,10 @@
                 </div>
                 <div class="right">
                   <span class="reduce" style="display: none" @click.stop="reduce(product)">-</span>
-                  <span class="num" style="display: none">0</span>
+                  <span class="num" style="display: none">{{product.number}}</span>
                   <span class="type" v-if="product.specfoods.length>1" @click.stop="choose(product, index)">选规格</span>
                   <span class="add" v-if="product.specfoods.length<=1" @click.stop="add(product)">+</span>
+                  <span class="ani"  style="display: none" v-if="product.specfoods.length<=1">+</span>
                 </div>
               </div>
             </div>
@@ -74,7 +74,7 @@
             </div>
             <div class="bottom">
               <div class="left">¥ {{specfoods.specfoods[number].price}}</div>
-              <div class="right" @click="increase(specfoods.specfoods[number])">加入购物车</div>
+              <div class="right" @click="increase(specfoods)">加入购物车</div>
             </div>
           </div>
           
@@ -89,7 +89,7 @@
 <script type="text/ecmascript-6">
 import { mapState } from "vuex";
 import Car from "../car/Car";
-import FoodDetail from '../foodDetail/FoodDetail';
+import FoodDetail from "../foodDetail/FoodDetail";
 export default {
   data() {
     return {
@@ -105,7 +105,8 @@ export default {
       specfoods: {},
       number: 0,
       shopCar: [],
-      index: ""
+      index: "",
+      isAni: false
     };
   },
   components: {
@@ -120,12 +121,19 @@ export default {
     }
     let food_url = this.head_url + "/shopping/v2/menu?restaurant_id=" + id;
     this.$http.get(food_url).then(res => {
-      this.foods = res.data;
+      this.foods = res.data.map(value => {
+        value.foods.map(value => {
+          value.number = 0;
+          return value;
+        });
+        return value;
+      });
       console.log(this.foods);
+      this.$store.commit("allFood", this.foods);
     });
-
-    //console.log(localStorage.car);
     
+    //console.log(localStorage.car);
+
     // if (localStorage.car) {
     //   let car = JSON.parse(localStorage.car);
     //   console.log(car);
@@ -136,15 +144,15 @@ export default {
     //     console.log(car[i].quantity);
     //     num.innerHTML = car[i].quantity;
     //     console.log(num.innerHTML);
-        // if (Number(num.innerHTML)) {
-        //   num.style.display = "inline-block";
-        //   num.previousElementSibling.style.display = "inline-block";
-        // }
+    // if (Number(num.innerHTML)) {
+    //   num.style.display = "inline-block";
+    //   num.previousElementSibling.style.display = "inline-block";
+    // }
     //   }
     // }
   },
   computed: {
-    ...mapState(["head_url", "car", "price"]),
+    ...mapState(["head_url", "car", "price", "allFood"]),
     image_url() {
       if (Object.keys(this.foods).length) {
         //console.log(this.foods);
@@ -154,7 +162,8 @@ export default {
         });
         return image_url;
       }
-    }
+    },
+    
   },
   methods: {
     scroll(e) {
@@ -191,69 +200,105 @@ export default {
     },
     add(data, $event) {
       //购物车数据[{attrs:[],extra:{},id:食品id,name:食品名称,packing_fee:打包费,price:价格,quantity:数量,sku_id:规格id,specs:规格,stock:存量,}]
-      var num = event.target.previousElementSibling;
-
-      var index = 0;
-      let food = data.specfoods[0];
-      let product = {
-        attrs: [],
-        extra: {},
-        id: food.food_id,
-        name: food.name,
-        packing_fee: food.packing_fee,
-        price: food.price,
-        quantity: 1,
-        sku_id: food.sku_id,
-        specs: [],
-        stock: food.stock,
-        dom: num
-      };
-      //console.log(product);
-      let isExist = null;
-      if (this.shopCar.length > 0) {
-        for (let i = 0; i < this.shopCar.length; i++) {
-          if (this.shopCar[i].id == product.id) {
-            isExist = true;
-            index = i;
-            break;
-          } else {
-            isExist = false;
-            index = this.shopCar.length;
+      if (!this.isAni) {
+        this.isAni = true;
+        var num = event.target.previousElementSibling;
+        var index = 0;
+        let food = data.specfoods[0];
+        let product = {
+          attrs: [],
+          extra: {},
+          id: food.food_id,
+          name: food.name,
+          packing_fee: food.packing_fee,
+          price: food.price,
+          quantity: 1,
+          sku_id: food.sku_id,
+          specs: [],
+          stock: food.stock,
+          data: data,
+          dom: num
+        };
+        //console.log(product);
+        let isExist = null;
+        if (this.shopCar.length > 0) {
+          for (let i = 0; i < this.shopCar.length; i++) {
+            if (this.shopCar[i].id == product.id) {
+              isExist = true;
+              index = i;
+              break;
+            } else {
+              isExist = false;
+              index = this.shopCar.length;
+            }
           }
-        }
-        if (isExist) {
-          this.shopCar[index].quantity++;
+          if (isExist) {
+            this.shopCar[index].quantity++;
+          } else {
+            this.shopCar.push(product);
+          }
         } else {
           this.shopCar.push(product);
         }
-      } else {
-        this.shopCar.push(product);
-      }
-      let price = 0;
-      for (let i = 0; i < this.shopCar.length; i++) {
-        price += this.shopCar[i].price * this.shopCar[i].quantity;
-      }
+        let price = 0;
+        for (let i = 0; i < this.shopCar.length; i++) {
+          price += this.shopCar[i].price * this.shopCar[i].quantity;
+        }
 
-      console.log(this.shopCar, price);
+        console.log(this.shopCar, price);
 
-      this.$store.commit("car", this.shopCar);
-      this.$store.commit("price", price);
-      var num = event.target.previousElementSibling;
+        this.$store.commit("car", this.shopCar);
+        this.$store.commit("price", price);
+        var num = event.target.previousElementSibling;
 
-      localStorage.car = JSON.stringify(this.car);
+        localStorage.car = JSON.stringify(this.car);
 
-      console.log(this.car);
-      console.log(index);
-      num.innerHTML = this.car[index].quantity;
-      if (num.innerHTML) {
-        num.style.display = "inline-block";
-        num.className = "num fadeIn";
-        num.previousElementSibling.style.display = "inline-block";
-        num.previousElementSibling.className = "reduce offset";
+        console.log(this.car);
+        data.number++;
+        // console.log(this.$store.state.allFood);
+        if (data.number) {
+          num.style.display = "inline-block";
+          num.className = "num fadeIn";
+          num.previousElementSibling.style.display = "inline-block";
+          num.previousElementSibling.className = "reduce offset";
+        }
+
+        //抛物线动画
+        let ani = event.target.nextElementSibling;
+        let fontSize = parseFloat(document.documentElement.style.fontSize);
+        ani.style.display = "inline-block";
+        ani.style.left = event.clientX - ani.offsetWidth / 2 + "px";
+        ani.style.top = event.clientY - ani.offsetHeight / 2 + "px";
+        //26 527
+        //S=(V+AT)/2*T A=(S/T*2-V)/T
+        let step = 40;
+        let beginX = ani.offsetLeft;
+        let beginY = ani.offsetTop;
+        let endX = 26;
+        let endY = 527;
+        let count = 0;
+        let speedX = -10;
+        let speedY = -10;
+        let time = (endX - beginX) / speedX;
+        let a = (endY - beginY - speedY * time) * 2 / (time * time);
+        let timer = setInterval(() => {
+          count++;
+          ani.style.left = ani.offsetLeft + speedX + "px";
+          ani.style.top = ani.offsetTop + speedY + "px";
+          speedY += a;
+          if (count >= step) {
+            clearInterval(timer);
+            ani.style.display = "none";
+          }
+        }, 20);
+        setTimeout(() => {
+          this.isAni = false;
+        }, 1200);
       }
     },
-    increase(food) {
+    increase(data) {
       //购物车数据[{attrs:[],extra:{},id:食品id,name:食品名称,packing_fee:打包费,price:价格,quantity:数量,sku_id:规格id,specs:规格,stock:存量,}]
+      let food = data.specfoods[this.number];
       var num = document.querySelectorAll(".num")[this.index];
 
       this.show = !this.show;
@@ -268,6 +313,7 @@ export default {
         sku_id: food.sku_id,
         specs: food.specs,
         stock: food.stock,
+        data: data,
         dom: num
       };
       let isExist = null;
@@ -302,8 +348,9 @@ export default {
       localStorage.car = JSON.stringify(this.car);
 
       var num = document.querySelectorAll(".num")[this.index];
-      num.innerHTML++;
-      if (num.innerHTML) {
+      // num.innerHTML++;
+      data.number++;
+      if (data.number) {
         num.style.display = "inline-block";
         num.className = "num fadeIn";
         num.previousElementSibling.style.display = "inline-block";
@@ -313,28 +360,15 @@ export default {
     reduce(data, $event) {
       if (data.specfoods.length <= 1) {
         let food = data.specfoods[0];
-        let product = {
-          attrs: [],
-          extra: {},
-          id: food.food_id,
-          name: food.name,
-          packing_fee: food.packing_fee,
-          price: food.price,
-          quantity: 1,
-          sku_id: food.sku_id,
-          specs: food.specs,
-          stock: food.stock
-        };
         for (let i = 0; i < this.shopCar.length; i++) {
-          if (this.shopCar[i].id == product.id) {
+          if (this.shopCar[i].id == food.food_id) {
             this.shopCar[i].quantity--;
             if (!this.shopCar[i].quantity) {
               this.shopCar.splice(i, 1);
             }
             var num = event.target.nextElementSibling;
-            num.innerHTML--;
-            if (!Number(num.innerHTML)) {
-              // num.previousElementSibling.className = "reduce";
+            data.number--;
+            if (!data.number) {
               num.className = "num fadeOut";
               num.previousElementSibling.className = "reduce leave";
               setTimeout(() => {
@@ -691,6 +725,24 @@ function img_path(img) {
   background-color: #3190e8;
   border: 0.01rem solid #3190e8;
   margin-right: 0.15rem;
+}
+.ani {
+  width: 0.15rem;
+  height: 0.15rem;
+  display: inline-block;
+  text-align: center;
+  line-height: 0.12rem;
+  font-size: 0.15rem;
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  background-color: #3190e8;
+  border: 0.01rem solid #3190e8;
+  margin-right: 0.15rem;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
 }
 .reduce {
   width: 0.15rem;

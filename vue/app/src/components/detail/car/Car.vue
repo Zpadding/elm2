@@ -63,13 +63,13 @@ export default {
   },
   components: {},
   computed: {
-    ...mapState(["price", "car"]),
+    ...mapState(["price", "car", "allFood"]),
     count() {
-        let num = 0;
-        for (let i = 0; i < this.car.length; i++) {
-            num += this.car[i].quantity;
-        }
-        return num;
+      let num = 0;
+      for (let i = 0; i < this.car.length; i++) {
+        num += this.car[i].quantity;
+      }
+      return num;
     }
   },
   methods: {
@@ -77,11 +77,16 @@ export default {
       this.car[index].quantity--;
       let price = this.price - this.car[index].price;
       let num = this.car[index].dom;
-      num.innerHTML--;
-      if (!Number(num.innerHTML)) {
-        num.style.display = "none";
-        num.previousElementSibling.style.display = "none";
-        num.previousElementSibling.className = "reduce";
+
+      this.car[index].data.number--;
+
+      if (!this.car[index].data.number) {
+        num.className = "num fadeOut";
+        num.previousElementSibling.className = "reduce leave";
+        setTimeout(() => {
+          num.style.display = "none";
+          num.previousElementSibling.style.display = "none";
+        }, 490);
       }
       if (!this.car[index].quantity) {
         this.car.splice(index, 1);
@@ -96,21 +101,70 @@ export default {
       let price = this.price + this.car[index].price;
       this.$store.commit("price", price);
       let num = this.car[index].dom;
-      num.innerHTML++;
-      if (Number(num.innerHTML)) {
+
+      this.car[index].data.number++;
+      // num.innerHTML++;
+      if (this.car[index].data.number) {
         num.style.display = "inline-block";
         num.previousElementSibling.style.display = "inline-block";
       }
     },
     clear() {
+      for (let i = 0; i < this.car.length; i++) {
+        this.car[i].data.number = 0;
+        let num = this.car[i].dom;
+        num.className = "num fadeOut";
+        num.previousElementSibling.className = "reduce leave";
+        setTimeout(() => {
+          num.style.display = "none";
+          num.previousElementSibling.style.display = "none";
+        }, 490);
+      }
       this.car.splice(0);
+      this.$store.commit("car", this.car);
       this.$store.commit("price", 0);
+    }
+  },
+  watch: {
+    price(newValue, oldValue) {
+      if (newValue > oldValue) {
+        let car = "";
+        if (document.querySelector(".shopCar") != null) {
+          car = document.querySelector(".shopCar");
+          setTimeout(() => {
+            car.setAttribute("class", "shopCar jump");
+          }, 550);
+          setTimeout(() => {
+            car.setAttribute("class", "shopCar");
+          }, 1050);
+        }
+      }
     }
   }
 };
 </script>
 
 <style scoped>
+@keyframes jump {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  75% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.jump {
+  animation: jump 0.5s;
+}
 /* .car {
     width: 3.2rem;
     height: 0.4rem;
@@ -143,18 +197,18 @@ export default {
   z-index: 2;
 }
 .count {
-    position: absolute;
-    top: -.06rem;
-    right: -.06rem;
-    background-color: #ff461d;
-    line-height: .14rem;
-    text-align: center;
-    border-radius: 50%;
-    border: .005rem solid #ff461d;
-    min-width: .14rem;
-    height: .14rem;
-    font-size: .1rem;
-    color: #fff;
+  position: absolute;
+  top: -0.06rem;
+  right: -0.06rem;
+  background-color: #ff461d;
+  line-height: 0.14rem;
+  text-align: center;
+  border-radius: 50%;
+  border: 0.005rem solid #ff461d;
+  min-width: 0.14rem;
+  height: 0.14rem;
+  font-size: 0.1rem;
+  color: #fff;
 }
 .shopCar img {
   width: 0.35rem;
