@@ -8,12 +8,12 @@
 
       <router-link to="/forget">
         <div class="in">
-          <img src="../../assets/w2-3.jpg" alt="" class="in1">
+          <img :src="es" alt="" class="in1">
           <div class="in2">
 
             <p class="ip">{{888886666}}</p>
             <span class="spn">
-          <img src="../../assets/w1-5.png" class="spn1">
+          <img :src="soy" class="spn1">
           <p class="spn2">暂无手机号</p>
 
         </span>
@@ -64,6 +64,8 @@
 </template>
 
 <script>
+  import es from "../../assets/w2-3.jpg"
+  import soy from '../../assets/手机.png'
   import home from "../../assets/w1-guan.png"
   import user from "../../assets/w1-din.png"
   import ask from '../../assets/w1-3.jpeg'
@@ -79,7 +81,9 @@
           {pag:user,wz:"服务中心",pic:"#"},
           {pag:ask,wz:"饿了么会员卡",pic:"#"},
          ],
-        sk:''
+        sk:'',
+        es:es,
+        soy:soy,
       }
 
     },
@@ -162,13 +166,14 @@
   }
 
   .spn1 {
-    height: 0.15rem;
-    width: 0.1rem;
-    margin-right: 0.05rem;
+    height: 0.2rem;
+    width: 0.2rem;
+
     float: left;
   }
 
   .spn2 {
+    margin-top: 0.02rem;
     float: right;
     color: #fff;
   }

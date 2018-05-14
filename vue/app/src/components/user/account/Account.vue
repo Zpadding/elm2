@@ -23,7 +23,7 @@
     <div class="fou" @click="show=!show">
       <div>
         <div class="fou1">
-          <img src="../../../assets/w1-5.png" alt="" class="fou3">
+          <img src="../../../assets/w1-4.png" alt="" class="fou3">
           <p class="fou4">手机</p></div>
         <p class="fou2"> > </p>
 
@@ -50,7 +50,7 @@
       <button class="but">退出登录</button>
     </div >
    <div class="big"  v-if="up">
-     <img src="../../../assets/w1-1.png" alt="">
+     <img :src="w12" alt="">
      <p>是否退出登录</p>
 
     <div class="bu1">
@@ -67,10 +67,12 @@
 </template>
 
 <script>
+  import w12 from "../../../assets/w1-4.png"
   export default {
     name: "Account",
     data() {
       return {
+        w12:w12,
         sk: "",
         show: true,
         up:false

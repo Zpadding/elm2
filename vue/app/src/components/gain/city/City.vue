@@ -34,11 +34,6 @@
       created(){
        this.sa= this.$route.params.id;
 
-          let url= "http://cangdu.org:8001/v1/pois";
-          this.$http.get(url).then(res=>{this.cty =res.data.cty
-            console.log(res.data)}
-
-          )
       }
     }
 </script>
