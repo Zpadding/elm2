@@ -13,7 +13,7 @@
       <div class="white">
 
         <p class="im1">当前积分</p>
-        <img src="../../../assets/w1-8.png" alt="" class="im">
+        <img :src="wen" alt="" class="im">
         <p class="im2">余额说明</p>
       </div>
       <a class="mon"> 0</a><span class="yus">分</span>
@@ -24,8 +24,8 @@
 
       <transition name="bounce">
         <div v-if="!show"  id="wit">
-          <p class="p"><img src="../../../assets/w1-1.png" class="p1"> </p>
-          <p class="p3">ios用户请前往AppStore下载</p>
+          <p class="p"><img :src="wei" class="p1"> </p>
+          <p class="p3">快去下单赚取积分吧</p class="p3">
           <button   class="bou1">确认</button>
         </div>
       </transition>
@@ -37,11 +37,15 @@
 </template>
 
 <script>
+  import wei from '../../../assets/w1-1.png'
+  import wen from '../../../assets/w1-8.png'
     export default {
         name: "Fen",
       data(){
         return{
-          show:true
+          show:true,
+          wen:wen,
+          wei:wei,
         }
       }
     }
@@ -142,7 +146,7 @@
   }
   .p{
     text-align: center;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.1rem;
     margin-top: 0.2rem;
   }
   .p1{
@@ -150,8 +154,11 @@
     width: 0.6rem;
   }
   .p3{
+    color:#333;
+    padding: 0.1rem;
     text-align: center;
-    margin-left: 0.1rem;
+
+    margin-top: 0.2rem;
 
   }
   .bounce-enter-active {

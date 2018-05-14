@@ -7,108 +7,113 @@
       <p class="hep2">我的优惠</p>
     </div>
     <div class="hon">
-      <span class="hon1">红包</span>
+      <span :class="show?'hon1 active':'hon1'" @click="show = true">红包</span>
 
-      <span class="hon2">商家代金券</span>
+      <span :class="show?'hon2':'hon2 active'" @click="show = false">商家代金券</span>
     </div>
-    <div id="zan" @click="show=!show">
-    <div class="suo">
-      <span class="im1">有 <a>3</a>个红包即将过期 </span>
-      <span>
-         <img src="../../../assets/w1-8.png" class="im "  >
+    <div>
+      <div id="zan" v-if="show">
+        <div class="suo">
+          <span class="im1">有 <a>3</a>个红包即将过期 </span>
+          <span>
+         <img :src="wen" class="im "  >
          </span>
-      <p class="im2">红包说明</p>
+          <p class="im2">红包说明</p>
+        </div>
+        <p class="qig">.</p>
+        <div class="qan">
+          <p class="qig"> ,</p>
+          <div class="juan">
+            <span class="mon">￥</span>
+            <span class="one">1</span>
+            <span class="d">.</span>
+            <span class="mon1">0</span>
+            <p>满20元可用</p>
+
+          </div>
+          <div class="juan2">
+            <h3 class="h3">分享红包</h3>
+            <p>2015-05-23到期</p>
+            <p>限收货手机号为</p>
+            <p>13681711254</p>
+          </div>
+          <div class="mom">剩3日</div>
+        </div>
+
+        <p class="qig">.</p>
+        <div class="qan">
+          <p class="qig"> ,</p>
+          <div class="juan">
+            <span class="mon">￥</span>
+            <span class="one">2</span>
+            <span class="d">.</span>
+            <span class="mon1">0</span>
+            <p>满20元可用</p>
+
+          </div>
+          <div class="juan2">
+            <h3 class="h3">分享红包</h3>
+            <p>2015-05-23到期</p>
+            <p>限收货手机号为</p>
+            <p>13681711254</p>
+          </div>
+          <div class="mom">剩3日</div>
+        </div>
+        <p class="qig">.</p>
+        <div class="qan">
+          <p class="qig"> ,</p>
+          <div class="juan">
+            <span class="mon">￥</span>
+            <span class="one">4</span>
+            <span class="d">.</span>
+            <span class="mon1">5</span>
+            <p>满20元可用</p>
+
+          </div>
+          <div class="juan2">
+            <h3 class="h3">分享红包</h3>
+            <p>2015-05-23到期</p>
+            <p>限收货手机号为</p>
+            <p>13681711254</p>
+          </div>
+          <div class="mom">剩3日</div>
+        </div>
+        <p>限品类：快餐便当，特色菜系，小吃夜宵，甜品饮品，异国料理</p>
+
+        <p class="pp">查看历史红包></p>
+        <div class="foot">
+          <div><p class="fou1">兑换红包</p> </div>
+          <div><p class="fou1">推荐有奖</p></div>
+
+        </div>
+      </div>
+      <div class="you" v-else>
+        <div class="rig"><img src="../../../assets/w1-8.png" alt="">
+          <span>商家代金券说明</span>
+        </div>
+        <div class="cen">
+          <img src="../../../assets/下载.png" class="img">
+          <p class="p1">无法使用代金券</p>
+          <p class="p2">非客户端或客户端版本较低</p>
+
+          <button class="bu">下载或升级客户端</button>
+        </div>
+
+      </div>
     </div>
-    <p class="qig">.</p>
-    <div class="qan">
-      <p class="qig"> ,</p>
-      <div class="juan">
-        <span class="mon">￥</span>
-        <span class="one">1</span>
-        <span class="d">.</span>
-        <span class="mon1">0</span>
-        <p>满20元可用</p>
 
-      </div>
-      <div class="juan2">
-        <h3 class="h3">分享红包</h3>
-        <p>2015-05-23到期</p>
-        <p>限收货手机号为</p>
-        <p>13681711254</p>
-      </div>
-      <div class="mom">剩3日</div>
-    </div>
-
-    <p class="qig">.</p>
-    <div class="qan">
-      <p class="qig"> ,</p>
-      <div class="juan">
-        <span class="mon">￥</span>
-        <span class="one">2</span>
-        <span class="d">.</span>
-        <span class="mon1">0</span>
-        <p>满20元可用</p>
-
-      </div>
-      <div class="juan2">
-        <h3 class="h3">分享红包</h3>
-        <p>2015-05-23到期</p>
-        <p>限收货手机号为</p>
-        <p>13681711254</p>
-      </div>
-      <div class="mom">剩3日</div>
-    </div>
-    <p class="qig">.</p>
-    <div class="qan">
-      <p class="qig"> ,</p>
-      <div class="juan">
-        <span class="mon">￥</span>
-        <span class="one">4</span>
-        <span class="d">.</span>
-        <span class="mon1">5</span>
-        <p>满20元可用</p>
-
-      </div>
-      <div class="juan2">
-        <h3 class="h3">分享红包</h3>
-        <p>2015-05-23到期</p>
-        <p>限收货手机号为</p>
-        <p>13681711254</p>
-      </div>
-      <div class="mom">剩3日</div>
-    </div>
-    <p>限品类：快餐便当，特色菜系，小吃夜宵，甜品饮品，异国料理</p>
-
-    <p class="pp">查看历史红包></p>
-    <div class="foot">
-      <div><p class="fou1">兑换红包</p> </div>
-      <div><p class="fou1">推荐有奖</p></div>
-
-  </div>
-    </div>
-    <div class="you" @click="show=!show">
-      <div class="rig"><img src="../../../assets/w1-8.png" alt="">
-      <span>商家代金券说明</span>
-      </div>
-      <div class="cen">
-        <img src="../../../assets/下载.png" class="img">
-        <p class="p1">无法使用代金券</p>
-        <p class="p2">非客户端或客户端版本较低</p>
-
-        <button class="bu">下载或升级客户端</button>
-      </div>
-
-    </div>
 
   </div>
 </template>
 
 <script>
+  import wen from '../../../assets/w1-8.png'
   export default {
     name: "Coupon",
     data(){
       return{
-        show:false
+        show:true,
+        wen:wen
       }
     }
   }
@@ -116,8 +121,9 @@
 
 <style scoped>
 
-  #zan{
-
+  #Coupon{
+    height: 6.68rem;
+    overflow-y: hidden;
   }
 
   #head {
@@ -150,15 +156,18 @@
     height: 0.18rem;
     margin-top: 0.08rem;
     padding-bottom: 0.04rem;
-    border-bottom:2px solid red ;
+    border-bottom:2px solid #fff ;
 
   }
   .hon2{
     margin-top: 0.08rem;
     height: 0.18rem;
-
     padding-bottom: 0.04rem;
-    border-bottom:2px solid red
+    border-bottom:2px solid #fff;
+  }
+  .active {
+    border-bottom-color: #3190e8;
+    color: #3190e8;
   }
   .suo{
     display: flex;
@@ -212,7 +221,7 @@
   }
   .one{
     color: red;
-    font-size: 35px;
+    font-size: 0.3rem;
   }
   .juan{
     margin-top: 0.1rem;

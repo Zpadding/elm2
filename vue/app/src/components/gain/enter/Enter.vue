@@ -13,11 +13,12 @@
       </section>
     <div class="sec">
       <input :type="show1?'text':'password'"  placeholder="密码"  class="cip" v-model="word">
+        <div>
+          <p></p>
+          <p></p>
+        </div>
 
 
-      <div class="kg" @click="show1=!show1">
-        <p class="s1"></p>
-      </div>
 
 
     </div>
@@ -67,6 +68,7 @@
           err:'',
           show: false,
           show1: false
+
         }
       },
 
@@ -239,11 +241,12 @@
     background: black;
   }
   .s1{
-    background-color: white;
+    background-color: red;
     border-radius: 50%;
-    height: 0.15rem;
-    width: 0.15rem;
+    height: 0.03rem;
+    width: 0.2rem;
     padding-top: 0.2rem;
+    position: fixed;
 
   }
 

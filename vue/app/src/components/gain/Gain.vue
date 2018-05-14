@@ -6,9 +6,12 @@
     </div>
 
     <div class="che"> <p>当前定位城市：<span class="che1">定位不准时,请在城市列表选择</span> </p></div>
-    <div class="huo">
-      <p  class="huo1">{{guess.name}}</p> <span class="huo2">  > </span>
+
+    <div class="huo" >
+      <li @click="din(guessCity.name)">
+      <p  class="huo1">{{guessCity.name}}</p> <span class="huo2">  > </span></li>
     </div>
+
     <div class="sp">
      <p class="sp1">热门城市</p>
     </div>
@@ -42,7 +45,7 @@
           return {
             hotCity: [],
             groupCity:[],
-            guess:[],
+            guessCity:[],
             id:[]
 
           }
@@ -52,7 +55,7 @@
           let url2 = "http://cangdu.org:8001/v1/cities?type=guess";
           this.$http.get(url2).then(res=>{
             console.log(res.data);
-            this.guess = res.data;
+            this.guessCity = res.data;
           })
           let url = "http://cangdu.org:8001/v1/cities?type=hot";
           this.$http.get(url).then(res=>{
@@ -129,8 +132,9 @@
   .huo{
     padding-bottom: 0.08rem;
     margin-top: 0.08rem;
-    border-bottom: #e4e4e4 1px solid;
-    border-top:#e4e4e4 1px solid;
+    border-bottom: #e4e4e4 0.01rem solid;
+    border-top:#e4e4e4 0.01rem solid;
+    height:0.36rem ;
     overflow: hidden ;
   }
   .huo1{
@@ -157,8 +161,9 @@
     margin-top: 0.06rem;
   }
   .rr{
+    box-sizing: border-box;
 
-    width: 3.2rem;
+    width: 3.17rem;
 
   }
   .rm{
@@ -170,10 +175,12 @@
   }
   .rl {
     display: inline-block;
-    border: 1px solid #666;
+    border-top: 1px solid #666;
+    border-left: 1px solid #666;
+
     height: 0.35rem;
     width: 0.78rem;
-    font-size: 0.05rem;
+    font-size: 0.03rem;
 
 
 
@@ -190,6 +197,7 @@
     margin-top: 0.4rem;
   }
   .rn{
+    color: #666;
     font-size: 0.15rem;
     text-align: center;
     margin-top: 0.1rem;

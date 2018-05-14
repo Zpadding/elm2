@@ -14,7 +14,7 @@
     <div class="white">
 
      <p class="im1">当前余额</p>
-     <img src="../../../assets/w1-8.png" alt="" class="im">
+     <img :src="wen" alt="" class="im">
       <p class="im2">余额说明</p>
     </div>
       <a class="mon"> 0.00</a><span class="yus">元</span>
@@ -32,9 +32,16 @@
 </template>
 
 <script>
+  import wen from "../../../assets/w1-8.png"
     export default {
         name: "Money",
-        mon:"0.00"
+        mon:"0.00",
+       data(){
+          return{
+            wen:wen
+          }
+
+       }
 
     }
 </script>
