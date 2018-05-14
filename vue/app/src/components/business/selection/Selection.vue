@@ -14,7 +14,7 @@
               <span class="type">筛选</span>
               <span class="down"></span>
           </div>
-          <div class="show" v-if="show1||show2||show3">
+          <div class="show" v-show="show1||show2||show3">
             
             <div class="mask">
             <!-- 分类 -->
@@ -39,13 +39,15 @@
               </ul>
             </div>
             <!-- 排序 -->
-            <div class="two" v-if="show2">
+            <div class="two" v-show="show2">
               <ul>
                 <li v-for="(mes, index) in mess" @click="choose(index)">
                   <img :src="img_url+image_url[index]" alt="">
                   <div>
                     <span>{{mes}}</span>
-                    <img :src="right" alt="" v-if="sign == index">
+                    <span v-if="sign == index">
+                      <svg t="1526188402386" class="right" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2373" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32"><path d="M416.832 798.08C400.64 798.08 384.512 791.872 372.16 779.52L119.424 525.76C94.784 500.992 94.784 460.8 119.424 436.032 144.128 411.264 184.128 411.264 208.768 436.032L416.832 644.928 814.4 245.76C839.04 220.928 879.04 220.928 903.744 245.76 928.384 270.528 928.384 310.656 903.744 335.424L461.504 779.52C449.152 791.872 432.96 798.08 416.832 798.08Z" p-id="2374" fill="#1296db"></path></svg>
+                    </span>
                   </div>
                 </li>
               </ul>
@@ -64,6 +66,9 @@
                 <ul>
                   <li v-for="(typ, index) in types" @click="option(index)">
                     <span :style="'border-color: '+colors[index]+';color:'+colors[index]">{{typ.logo}}</span>
+                    <!-- <span>
+                      <svg t="1526188402386" class="right" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2373" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32"><path d="M416.832 798.08C400.64 798.08 384.512 791.872 372.16 779.52L119.424 525.76C94.784 500.992 94.784 460.8 119.424 436.032 144.128 411.264 184.128 411.264 208.768 436.032L416.832 644.928 814.4 245.76C839.04 220.928 879.04 220.928 903.744 245.76 928.384 270.528 928.384 310.656 903.744 335.424L461.504 779.52C449.152 791.872 432.96 798.08 416.832 798.08Z" p-id="2374" fill="#1296db"></path></svg>
+                    </span> -->
                     <span>{{typ.title}}</span>
                   </li>
                 </ul>
@@ -98,7 +103,7 @@ export default {
         "评分最高"
       ],
       right: right,
-      sign: 0,
+      sign: 6,
       show1: false,
       show2: false,
       show3: false,
@@ -185,9 +190,15 @@ export default {
       }
     },
     choose(index, $event) {
+      let blue = document.querySelector(".two .blue");
+      let target = event.currentTarget.childNodes[2].childNodes[0];
+      if(blue) {
+        blue.removeAttribute("class");
+      }
+      target.setAttribute("class", "blue");
+
       this.sign = index;
       this.show2 = false;
-
       document.querySelectorAll(".down")[1].setAttribute("class", "down");
       document.querySelectorAll(".type")[1].setAttribute("class", "type");
 
@@ -487,6 +498,14 @@ function img_path(img) {
 .show .two ul li div span {
   padding: 0.18rem 0.1rem;
   color: #666;
+}
+.show .two ul li div .blue {
+  color: #3190e8;
+}
+.show .two ul li .right {
+  width: 0.14rem;
+  height: 0.14rem;
+  margin: 0 0.06rem 0 0.16rem;
 }
 
 .show .three .head {
