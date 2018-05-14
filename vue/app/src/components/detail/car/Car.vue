@@ -42,7 +42,7 @@
               </div>
           </div>
           <div class="right" v-if="price < 15">还差¥20起送</div>
-          <div class="right pay" v-else>去结算</div>
+          <div class="right pay" v-else @click="pay">去结算</div>
       </div>
       
   </div>
@@ -123,6 +123,9 @@ export default {
       this.car.splice(0);
       this.$store.commit("car", this.car);
       this.$store.commit("price", 0);
+    },
+    pay() {
+      this.$router.push({name: "Confirm"});
     }
   },
   watch: {
