@@ -58,12 +58,13 @@ export default {
       bg: {
         backgroundColor: "#3190e8"
       },
-      show: false
+      show: false,
+      shop: {}
     };
   },
   components: {},
   computed: {
-    ...mapState(["price", "car", "allFood"]),
+    ...mapState(["head_url", "price", "car", "allFood"]),
     count() {
       let num = 0;
       for (let i = 0; i < this.car.length; i++) {
@@ -125,7 +126,7 @@ export default {
       this.$store.commit("price", 0);
     },
     pay() {
-      this.$router.push({name: "Confirm"});
+      this.$router.push({name: "Confirm", params: this.shop});
     }
   },
   watch: {
@@ -143,6 +144,19 @@ export default {
         }
       }
     }
+  },
+  created() {
+    if (this.$route.params.id) {
+      var id = this.$route.params.id;
+      localStorage.id = id;
+    } else {
+      var id = localStorage.id;
+    }
+    let shop_url = this.head_url + "/shopping/restaurant/" + id;
+    this.$http.get(shop_url).then(res => {
+      console.log(res.data);
+      this.shop = res.data;
+    });
   }
 };
 </script>

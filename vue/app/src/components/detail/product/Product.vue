@@ -1,17 +1,17 @@
 <template>
-  <div class="product">
+  <div class="product" v-if="allFood.length>0">
     <div class="body">
       <div class="fixed">
       <ul class="classify">
         <li v-for="(food, index) in allFood" :class="{active:index == num}" @click="classify(index)">
-          <img :src="img_url+image_url[index]" alt="">
+          <img v-if="image_url" :src="img_url+image_url[index]" alt="">
           <span>{{food.name}}</span>
         </li>
       </ul>
       </div>
       
       <div class="goods">
-        <div v-for="(food, index) in allFood" :id="'food'+index" :style="animation"  @touchstart="scroll" @mousewheel="scroll">
+        <div v-if="allFood" v-for="(food, index) in allFood" :id="'food'+index" :style="animation"  @touchstart="scroll" @mousewheel="scroll">
           
         <div class="title">
           <div class="big">{{food.name}}</div>
@@ -20,7 +20,7 @@
         </div>
 
         
-        <ul class="food" v-for="(product, index) in food.foods" @click="foodDetail(product)">
+        <ul v-if="food.foods" class="food" v-for="(product, index) in food.foods" @click="foodDetail(product)">
           <li>
             <span class="new" v-if="product.attributes.length && product.attributes[0].icon_name=='新'">新品</span>
             
@@ -162,6 +162,7 @@ export default {
         });
         return image_url;
       }
+      return "";
     },
     
   },

@@ -2,9 +2,9 @@
   <div class="confirm">
       <div>
         <div class="nav">
-          <div class="back"></div>
+          <div class="back" @click="back"></div>
           <div class="title">确认订单</div>
-          <div class="people">
+          <div class="people" @click="user">
               <svg t="1526180889231" class="user" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4302" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32"><path d="M593.066667 499.2C695.466667 465.066667 768 369.066667 768 256c0-140.8-115.2-256-256-256S256 115.2 256 256c0 113.066667 72.533333 209.066667 174.933333 243.2C249.6 535.466667 85.333333 689.066667 85.333333 874.666667c0 83.2 66.133333 149.333333 149.333334 149.333333h554.666666c83.2 0 149.333333-66.133333 149.333334-149.333333 0-185.6-164.266667-339.2-345.6-375.466667zM298.666667 256c0-117.333333 96-213.333333 213.333333-213.333333s213.333333 96 213.333333 213.333333-96 213.333333-213.333333 213.333333-213.333333-96-213.333333-213.333333z m490.666666 725.333333H234.666667c-59.733333 0-106.666667-46.933333-106.666667-106.666666 0-196.266667 202.666667-341.333333 384-341.333334s384 145.066667 384 341.333334c0 59.733333-46.933333 106.666667-106.666667 106.666666z"  p-id="4303"></path></svg>
           </div>
         </div>
@@ -55,8 +55,10 @@
         </div>
         <div class="shop">
             <div class="detail">
-                <span class="log"></span>
-                <span>效果演示</span>
+                <span class="logo">
+                  <img :src="img_path + shop.image_path"></img>
+                </span>
+                <span>{{shop.name}}</span>
             </div>
             <ul class="food">
                 <li>
@@ -89,7 +91,7 @@
             <div class="one">
                 <div class="left">订单备注</div>
                 <div class="right">
-                     <span>口味偏好等</span>
+                     <span>口味、偏好等</span>
                     <span></span>
                 </div>
             </div>
@@ -111,11 +113,34 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { mapState } from 'vuex';
 export default {
   data() {
-    return {};
+    return {
+      shop: {},
+      img_path: "//elm.cangdu.org/img/"
+    };
   },
-  components: {}
+  components: {},
+  methods: {
+    back() {
+      this.$router.go(-1);
+    },
+    user() {
+      this.$router.push({ name: "User" });
+    }
+  },
+  created() {
+    if (Object.keys(this.$route.params).length) {
+      this.shop = this.$route.params;
+      localStorage.shop = JSON.stringify(this.shop);
+    } else {
+      this.shop = JSON.parse(localStorage.shop);
+    }
+  },
+  computed: {
+    ...mapState(["car", "price", "head_url"])
+  }
 };
 </script>
 
@@ -280,11 +305,17 @@ export default {
       background-color: #fff;
       margin-top: 0.08rem;
       .detail {
+        display: flex;
+        align-items: center;
         padding: 0.14rem;
         border-bottom: 0.005rem solid #f5f5f5;
         .logo {
           .size(0.24rem, 0.24rem);
           vertical-align: middle;
+          margin-right: .1rem;
+          img {
+            .size(0.24rem, 0.24rem);
+          }
         }
         span {
           &:last-child {
@@ -329,6 +360,96 @@ export default {
         padding: 0 0.14rem;
         font-size: 0.13rem;
         color: #666;
+      }
+      .order {
+        .right {
+          p {
+            color: #f60;
+          }
+        }
+      }
+    }
+    .remark {
+      background-color: #fff;
+      margin-top: 0.08rem;
+      padding: 0 0.14rem;
+      .one {
+        display: flex;
+        justify-content: space-between;
+        line-height: 0.42rem;
+        .left {
+          .size(0.56rem, 0.42rem);
+          font-size: 0.14rem;
+          color: #666;
+          white-space: nowrap;
+        }
+        .right {
+          .size(2.92rem, 0.42rem);
+          span {
+            &:first-child {
+              .size(2.22rem, 0.4rem);
+              font-size: 0.12rem;
+              color: #aaa;
+              display: inline-block;
+              text-align: right;
+              vertical-align: middle;
+            }
+            &:last-child {
+              .size(0.06rem, 0.06rem);
+              display: inline-block;
+              border-top: 0.01rem solid #ccc;
+              border-right: 0.01rem solid #ccc;
+              transform: rotate(45deg);
+            }
+          }
+        }
+      }
+      .two {
+        display: flex;
+        justify-content: space-between;
+        border-top: 0.005rem solid #f5f5f5;
+        .left {
+          font-size: 0.12rem;
+          color: #666;
+          line-height: 0.4rem;
+        }
+        .right {
+          color: #aaa;
+          font-size: 0.12rem;
+          line-height: 0.4rem;
+          span {
+            &:last-child {
+              .size(0.06rem, 0.06rem);
+              display: inline-block;
+              border-top: 0.01rem solid #ccc;
+              border-right: 0.01rem solid #ccc;
+              transform: rotate(45deg);
+            }
+          }
+        }
+      }
+    }
+    .pay {
+      .size(3.2rem, 0.4rem);
+      display: flex;
+      position: fixed;
+      bottom: 0;
+
+      .left,
+      .right {
+        line-height: 0.4rem;
+        font-size: 0.15rem;
+        color: #fff;
+      }
+      .left {
+        background-color: #3c3c3c;
+        flex: 5;
+        padding-left: 0.14rem;
+      }
+      .right {
+        flex: 2;
+        background-color: #56d176;
+        text-align: center;
       }
     }
   }
