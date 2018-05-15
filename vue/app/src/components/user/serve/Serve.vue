@@ -5,22 +5,26 @@
       <span class="hep2">下载</span>
     </div>
     <div>
-      <div class="tu1"><img src="../../../assets/w1-k.png" alt=""> <p>在线客服</p> </div>
-      <div class="tu2"><img src="../../../assets/w1-d.png" alt=""> <p>在线客服</p> </div>
+      <div class="tu1"><img :src="k" alt=""> <p>在线客服</p> </div>
+      <div class="tu2"><img :src="d" alt=""> <p>在线客服</p> </div>
     </div>
 
-    <span class="sp">热门问题</span>
+    <p class="sp">热门问题</p>
 
     <div class="dis " v-for="lis in txts">
       <router-link :to="{path:'/sev', query:{id:lis.id,name:lis.name,des:lis.des}}">
-      <ul class="bi">{{lis.name}} </ul>
+
+    <div class="sq">
+      <ul class="bi">{{lis.name}}  <p class="p1"> > </p></ul>
+    </div>
       </router-link>
     </div>
-
   </div>
 </template>
 
 <script>
+  import k from '../../../assets/w1-k.png'
+  import d from '../../../assets/w1-d.png'
 
   import Vue from 'vue'
   let les="http://cangdu.org:8001/v3/profile/explain";
@@ -28,7 +32,9 @@
     name: "Service",
     data(){
       return{
-        txts:""
+        txts:"",
+        k:k,
+        d:d,
       }
     },
     created(){
@@ -118,10 +124,26 @@
   }
   .sp{
     margin: 0.1rem;
+    margin-bottom: 0.2rem;
+  }
+  .sq{
+
+    height: 0.38rem;
+    width: 100%;
+    font-size: 0.06rem;
+
   }
   .bi{
-    height: 0.4rem;
+    float: left;
+    color: #333;
+    width: 2.8rem;
+    margin-top: 0.12rem;
+    margin-left: 0.15rem;
+    font-weight: 200;
 
+  }
+  .p1{
+    float: right;
   }
 
 </style>
