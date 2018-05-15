@@ -19,7 +19,7 @@ import Buy from  '@/components/user/buy/Buy'
 import Cash from '@/components/user/cash/Cash'
 import Down from '@/components/user/down/Down'
 import Serve from '@/components/user/serve/Serve'
-// import Sev from '@/components/user/serve/sev'
+import Sev from  '@/components/user/serve/sev/Sev'
 
 import Account from '@/components/user/account/Account'
 import Business from '@/components/business/Business'
@@ -130,7 +130,14 @@ export default new Router({
       path: "/serve",
       name: "Serve",
       component: Serve,
+
     }, {
+      path:"/sev",
+      name:"Sev",
+      component:Sev
+    },
+
+    {
       path: '/business',
       name: 'Business',
       component: Business

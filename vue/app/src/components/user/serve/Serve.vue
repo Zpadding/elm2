@@ -12,7 +12,9 @@
     <span class="sp">热门问题</span>
 
     <div class="dis " v-for="lis in txts">
+      <router-link :to="{path:'/sev', query:{id:lis.id,name:lis.name,des:lis.des}}">
       <ul class="bi">{{lis.name}} </ul>
+      </router-link>
     </div>
 
   </div>
@@ -21,7 +23,7 @@
 <script>
 
   import Vue from 'vue'
-  let les="http://cangdu.org:8001/v3/profile/explain"
+  let les="http://cangdu.org:8001/v3/profile/explain";
   export default {
     name: "Service",
     data(){
