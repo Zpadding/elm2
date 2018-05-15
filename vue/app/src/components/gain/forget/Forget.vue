@@ -1,7 +1,7 @@
 <template>
     <div id="Forget">
       <div id="head">
-        <router-link to="/enter" class="hep1"> <</router-link>
+        <div @click="$router.go(-1)" class="hep1"> <</div>
         <span class="hep2">重置密码</span>
       </div>
 

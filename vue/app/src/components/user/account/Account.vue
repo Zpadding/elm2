@@ -2,7 +2,7 @@
   <div id="Account">
     <div id="head">
 
-      <router-link to="/show/user" class="hep1"> <</router-link>
+      <div @click="$router.go(-1)" class="hep1"> <</div>
       <p class="hep2">我的</p>
     </div>
     <div>
@@ -14,7 +14,7 @@
     </div>
     <div class="use">
       <p class="us1">用户名</p>
-      <p class="us2">{{sk}} ></p>
+      <p class="us2">{{user.username}} ></p>
 
     </div>
     <div class="uz"><p class="uz1">我的收货地址</p>
@@ -41,12 +41,14 @@
 
     </div>
     <p class="sp"> 安全设置 </p>
-    <router-link to="forger">
-    <div class="fo"><p class="fo1">登录密码 </p>
-      <p class="fou2">修改 ></p></div>
+    <router-link to="/forget">
+    <div class="fo">
+      <p class="fo1">登录密码 </p>
+      <p class="fou2">修改 ></p>
+      </div>
     </router-link>
 
-    <div @click="up=!up">
+    <div @click="up=true">
       <button class="but">退出登录</button>
     </div >
    <div class="big"  v-if="up">
@@ -54,9 +56,9 @@
      <p>是否退出登录</p>
 
     <div class="bu1">
-      <button class="bu2">再等等</button>
+      <button class="bu2" @click="up=false">再等等</button>
 
-      <button class="bu3">退出登录</button>
+      <button class="bu3" @click="quit">退出登录</button>
     </div>
 
    </div>
@@ -68,6 +70,7 @@
 
 <script>
   import w12 from "../../../assets/w1-4.png"
+  import { mapState } from "vuex";
   export default {
     name: "Account",
     data() {
@@ -75,12 +78,27 @@
         w12:w12,
         sk: "",
         show: true,
-        up:false
+        up:false,
       }
     },
     created() {
-      this.sk = this.$route.params.mes.username;
+      if (!Object.keys(this.user).length) {
+        this.$store.commit("user", localStorage.user);
+      }
+      
+      console.log(this.user);
+      //this.sk = this.$route.params.mes.username;
       //console.log(this.$route.params)
+    },
+    computed: {
+      ...mapState(["user"])
+    },
+    methods: {
+      quit() {
+        this.up = false;
+        this.$store.commit("quit");
+        this.$router.push({name: "User"});
+      }
     }
   }
 </script>

@@ -260,7 +260,7 @@ export default {
       margin-top: 0.08rem;
       padding: 0 0.14rem;
       .one {
-        .size(3.2rem, 0.4rem);
+        height: .4rem;
         box-sizing: border-box;
         line-height: 0.4rem;
         .left {
@@ -283,7 +283,6 @@ export default {
               border-top: 0.01rem solid #ccc;
               border-right: 0.01rem solid #ccc;
               transform: rotate(45deg);
-              margin-right: 0.3rem;
             }
           }
         }

@@ -6,12 +6,14 @@
 
       <p class="hep2">我的</p>
 
-      <router-link to="/forget">
+      <div @click="enterAccount">
         <div class="in">
           <img :src="es" alt="" class="in1">
           <div class="in2">
 
-            <p class="ip">{{888886666}}</p>
+            <p class="ip" v-if="isLogin">{{user.username}}</p>
+            <p class="ip" v-else>登录/注册</p>
+            
             <span class="spn">
           <img :src="soy" class="spn1">
           <p class="spn2">暂无手机号</p>
@@ -20,7 +22,7 @@
             <p class="spn3"> > </p>
           </div>
         </div>
-      </router-link>
+      </div>
 
 
     </div>
@@ -70,6 +72,7 @@
   import user from "../../assets/w1-din.png"
   import ask from '../../assets/w1-3.jpeg'
   import din from '../../assets/w1-din.png'
+  import { mapState } from "vuex";
   export default {
     name: "User",
     data (){
@@ -88,8 +91,18 @@
 
     },
    created(){
-      this.sk = this.$route.params.mes
+      // this.sk = this.$route.params.mes
       // console.log(this.$route.params.mes.username)
+      if (Object.keys(this.$route.params).length) {
+        localStorage.user = JSON.stringify(this.$route.params);
+        this.$store.commit("user", this.$route.params);
+        this.$store.commit("login");
+      } else {
+        this.$store.commit("user", JSON.parse(localStorage.user));
+      }
+   },
+   computed: {
+     ...mapState(["isLogin", "user"])
    },
     methods:{
       din(index){
@@ -103,6 +116,13 @@
           this.$router.push({name:"",params:{}})
         }else if(index == 4){
           this.$router.push({name:"Down",params:{}})
+        }
+      },
+      enterAccount() {
+        if (this.isLogin) {
+          this.$router.push({name: "Account", params: this.user});
+        } else {
+          this.$router.push({name: "Enter"});
         }
       }
     }

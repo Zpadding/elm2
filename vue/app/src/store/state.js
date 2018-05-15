@@ -7,7 +7,9 @@ let state = {
     shopDetail: {},
     car: [],
     price: 0,
-    allFood: []
+    allFood: [],
+    user: {},
+    isLogin: false
 };
 
 export default state;

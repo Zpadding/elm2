@@ -16,7 +16,17 @@ let mutations = {
     },
     allFood(state, data) {
         state.allFood = data;
+    },
+    user(state, data) {
+        state.user = data;
+    },
+    login(state) {
+        state.isLogin = true;
+    },
+    quit(state) {
+        state.isLogin = false;
     }
+
 }
 
 export default mutations;
