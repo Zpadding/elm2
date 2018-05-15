@@ -28,7 +28,8 @@ import ShopDetail from '@/components/detail/shopDetail/ShopDetail'
 import Safe from '@/components/detail/shopDetail/safe/Safe'
 import FoodDetail from '@/components/detail/foodDetail/FoodDetail'
 import Confirm from '@/components/detail/car/confirm/confirm'
-
+import Choose  from '@/components/detail/car/choose/Choose'
+import Add  from  '@/components/detail/car/add/Add'
 
 Vue.use(Router);
 
@@ -161,6 +162,14 @@ export default new Router({
       path: "/confirm",
       name: "Confirm",
       component: Confirm
+    },{
+      path: "/choose",
+      name: "Choose",
+      component: Choose
+    },{
+      path: "/add",
+      name: "Add",
+      component: Add
     }
   ]
 })

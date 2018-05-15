@@ -79,7 +79,7 @@
           {pag:user,wz:"积分商城",pic:"#"},
           {pag:home,wz:"饿了么会员卡",pic:"#"},
           {pag:user,wz:"服务中心",pic:"#"},
-          {pag:ask,wz:"饿了么会员卡",pic:"#"},
+          {pag:ask,wz:"下载饿了么APP",pic:"#"},
          ],
         sk:'',
         es:es,
@@ -100,7 +100,7 @@
         }else if(index == 2){
           this.$router.push({name:"Vip",params:{}})
         }else if(index ==3){
-          this.$router.push({name:"",params:{}})
+          this.$router.push({name:"Serve",params:{}})
         }else if(index == 4){
           this.$router.push({name:"Down",params:{}})
         }
