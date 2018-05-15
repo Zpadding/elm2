@@ -15,20 +15,20 @@
   <div>
     <p class="zi">选择支付方式</p>
   <div class="mai">
-    <div class="psp"><img src="../../../assets/w1-2.png" alt=""><p>支付宝</p> </div>
+    <div class="psp"><img :src="zhi" alt=""><p class="zi">支付宝</p> </div>
     <div @click="show=!show">
-      <img src="../../../assets/w1-su.png" alt="" class="im2" v-if="!show">
-      <img src="../../../assets/w1-lu.png" class="hui" v-if="show">
+      <img :src="su" alt="" class="im2" v-if="!show">
+      <img :src="lu" class="hui" v-if="show">
     </div>
 
 
   </div>
     <div class="mai">
-      <div  class="psb"><img src="../../../assets/w1-1.png" alt=""><p>微信</p> </div>
+      <div  class="psb"><img :src="wei" alt=""><p class="zi">微信</p> </div>
       <div @click="show=!show">
-        <img src="../../../assets/w1-su.png"  class="im3" v-if="show">
+        <img :src="su"  class="im3" v-if="show">
 
-        <img src="../../../assets/w1-lu.png" class="hui" v-if="!show">
+        <img :src="lu" class="hui" v-if="!show">
       </div>
     </div>
   </div>
@@ -37,7 +37,7 @@
 
     <transition name="bounce">
       <div v-if="!png"  id="wit">
-        <p class="p"><img src="../../../assets/w1-1.png" class="p1"> </p>
+        <p class="p"><img :src="wei" class="p1"> </p>
         <p class="p3">ios用户请前往AppStore下载</p>
         <button   class="bou1">确认</button>
       </div>
@@ -49,10 +49,18 @@
 </template>
 
 <script>
+  import zhi from '../../../assets/w1-2.png'
+  import wei from '../../../assets/w1-1.png'
+  import su from  '../../../assets/w1-su.png'
+  import lu from  '../../../assets/w1-lu.png'
     export default {
         name: "Pay",
       data(){
         return {
+          zhi:zhi,
+          wei:wei,
+          su:su,
+          lu:lu,
           show: true,
           png:true,
           count: '',
@@ -132,6 +140,7 @@
   .zi{
     color: #666;
     margin-left: 0.15rem;
+    font-size: 0.15rem;
 
   }
 
