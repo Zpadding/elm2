@@ -13,11 +13,13 @@
       </section>
     <div class="sec">
       <input :type="show1?'text':'password'"  placeholder="密码"  class="cip" v-model="word">
-        <div>
-          <p></p>
-          <p></p>
-        </div>
 
+          <transition>
+            <div @click="chck=!chck">
+              <p v-if="kys">a</p>
+              <p v-else="">b</p>
+            </div>
+          </transition>
 
 
 
@@ -67,7 +69,11 @@
           pic: '',
           err:'',
           show: false,
-          show1: false
+          show1: false,
+          chck:'',
+          kys:true
+
+
 
         }
       },
@@ -161,6 +167,37 @@
     font-size: 0.07rem;
     color: #666;
   }
+  #div1{
+    width: 45px;
+    height: 20px;
+    border-radius: 50px;
+    position: relative;
+  }
+  #div2{
+    width: 20px;
+    height: 20px;
+    border-radius: 48px;
+    position: absolute;
+    background: white;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.4);
+  }
+  .open1{
+    background: rgba(0,184,0,0.8);
+  }
+  .open2{
+    top: px;
+    right: 1px;
+  }
+  .close1{
+    background: rgba(255,255,255,0.4);
+    border:3px solid rgba(0,0,0,0.15);
+    border-left: transparent;
+  }
+  .close2{
+    left: 0px;
+    top: 0px;
+    border:2px solid rgba(0,0,0,0.1);
+  }
   el-switch{
     margin-right: 0.2rem;
   }
@@ -203,6 +240,7 @@
     background-color: #4cd964;
 
   }
+
   .p{
     font-size: 0.05rem;
     margin-right: 0.1rem;

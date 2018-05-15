@@ -151,7 +151,7 @@
     margin-right: 0.2rem;
   }
   .sp{
-    border: 1px solid #e4e4;
+    border: 1px solid #e4e4e4;
     margin-left: 0.2rem;
     height: 0.32rem;
     line-height: 0.2rem;
@@ -167,7 +167,7 @@
 
   }
   .rm{
-    font-size: 0.15rem;
+    font-size: 0.13rem;
     color: #3190e8;
     text-align: center;
     margin-top: 0.1rem;
@@ -175,11 +175,13 @@
   }
   .rl {
     display: inline-block;
-    border-top: 1px solid #666;
-    border-left: 1px solid #666;
+    border-left: 0.0002rem solid #e4e4e4;
+    border-top: 0.0002rem solid #e4e4e4;
+    border-right: 0.0001em solid #e4e4e4 ;
+    border-bottom: 0.0001rem solid #e4e4e4;
 
     height: 0.35rem;
-    width: 0.78rem;
+    width: 0.792rem;
     font-size: 0.03rem;
 
 
@@ -198,7 +200,7 @@
   }
   .rn{
     color: #666;
-    font-size: 0.15rem;
+    font-size: 0.13rem;
     text-align: center;
     margin-top: 0.1rem;
     overflow: hidden;
