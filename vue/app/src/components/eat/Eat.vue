@@ -34,6 +34,7 @@
 <style scoped>
 .eat {
     background: #f3f3f3;
+    -webkit-font-smoothing: antialiased;
 }
 .head {
   width: 3.2rem;

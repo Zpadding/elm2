@@ -9,7 +9,9 @@ let state = {
     price: 0,
     allFood: [],
     user: {},
-    isLogin: false
+    isLogin: false,
+    history: [],
+    isPay: false
 };
 
 export default state;

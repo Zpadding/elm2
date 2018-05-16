@@ -61,28 +61,28 @@
                 <span>{{shop.name}}</span>
             </div>
             <ul class="food">
-                <li>
-                    <div class="left">食品名称</div>
+                <li v-for="food in car">
+                    <div class="left">{{food.name}}</div>
                     <div class="right">
-                        <div class="quantity">x8</div>
-                        <div class="price">¥20</div>
+                        <div class="quantity">x{{food.quantity}}</div>
+                        <div class="price">¥{{food.price}}</div>
                     </div>
                     
                 </li>
             </ul>
             <div class="box">
                 <div class="left">餐盒</div>
-                <div class="right"></div>
+                <div class="right">¥0</div>
             </div>
             <div class="give">
                 <div class="left">配送费</div>
-                <div class="right"></div>
+                <div class="right">¥{{5}}</div>
             </div>
             <div class="order">
                 <div class="left">订单</div>
                 <div class="right">
                     <p>待支付</p>
-                    <p>¥10318</p>
+                    <p>¥{{price+5}}</p>
                 </div>
             </div>
         </div>
@@ -104,7 +104,7 @@
             </div>
         </div>
          <div class="pay">
-            <div class="left">待支付 ¥10318</div>
+            <div class="left">待支付 ¥{{price+5}}</div>
             <div class="right">确认下单</div>
         </div>
       </div>
@@ -118,7 +118,8 @@ export default {
   data() {
     return {
       shop: {},
-      img_path: "//elm.cangdu.org/img/"
+      img_path: "//elm.cangdu.org/img/",
+      // boxNumber: ""
     };
   },
   components: {},
@@ -137,6 +138,9 @@ export default {
     } else {
       this.shop = JSON.parse(localStorage.shop);
     }
+    // for (let i = 0; i < this.car.length; i++) {
+    //   this.boxNumber += this.car[i].quantity;
+    // }
   },
   computed: {
     ...mapState(["car", "price", "head_url"])

@@ -46,8 +46,8 @@
                   <span>起</span>
                 </div>
                 <div class="right">
-                  <span class="reduce" style="display: none" @click.stop="reduce(product)">-</span>
-                  <span class="num" style="display: none">{{product.number}}</span>
+                  <span class="reduce" v-show="product.number" @click.stop="reduce(product)">-</span>
+                  <span class="num" v-show="product.number">{{product.number}}</span>
                   <span class="type" v-if="product.specfoods.length>1" @click.stop="choose(product, index)">选规格</span>
                   <span class="add" v-if="product.specfoods.length<=1" @click.stop="add(product)">+</span>
                   <span class="ani"  style="display: none" v-if="product.specfoods.length<=1">+</span>
@@ -119,19 +119,24 @@ export default {
     } else {
       var id = localStorage.id;
     }
-    let food_url = this.head_url + "/shopping/v2/menu?restaurant_id=" + id;
-    this.$http.get(food_url).then(res => {
-      this.foods = res.data.map(value => {
-        value.foods.map(value => {
-          value.number = 0;
+
+    if (!this.isPay && Object.keys(JSON.parse(localStorage.allFood)).length) {
+      this.$store.commit("allFood", JSON.parse(localStorage.allFood));
+    } else {
+      let food_url = this.head_url + "/shopping/v2/menu?restaurant_id=" + id;
+      this.$http.get(food_url).then(res => {
+        this.foods = res.data.map(value => {
+          value.foods.map(value => {
+            value.number = 0;
+            return value;
+          });
           return value;
         });
-        return value;
+        console.log(this.foods);
+        this.$store.commit("allFood", this.foods);
       });
-      console.log(this.foods);
-      this.$store.commit("allFood", this.foods);
-    });
-    
+    }
+
     //console.log(localStorage.car);
 
     // if (localStorage.car) {
@@ -152,7 +157,7 @@ export default {
     // }
   },
   computed: {
-    ...mapState(["head_url", "car", "price", "allFood"]),
+    ...mapState(["head_url", "car", "price", "allFood", "isPay"]),
     image_url() {
       if (Object.keys(this.foods).length) {
         //console.log(this.foods);
@@ -163,8 +168,7 @@ export default {
         return image_url;
       }
       return "";
-    },
-    
+    }
   },
   methods: {
     scroll(e) {
@@ -258,12 +262,14 @@ export default {
         data.number++;
         // console.log(this.$store.state.allFood);
         if (data.number) {
-          num.style.display = "inline-block";
+          // num.style.display = "inline-block";
           num.className = "num fadeIn";
-          num.previousElementSibling.style.display = "inline-block";
+          // num.previousElementSibling.style.display = "inline-block";
           num.previousElementSibling.className = "reduce offset";
         }
-
+        localStorage.allFood = JSON.stringify(this.allFood);
+        localStorage.car = JSON.stringify(this.car);
+        localStorage.price = JSON.stringify(this.price);
         //抛物线动画
         let ani = event.target.nextElementSibling;
         let fontSize = parseFloat(document.documentElement.style.fontSize);
@@ -352,11 +358,15 @@ export default {
       // num.innerHTML++;
       data.number++;
       if (data.number) {
-        num.style.display = "inline-block";
+        // num.style.display = "inline-block";
         num.className = "num fadeIn";
-        num.previousElementSibling.style.display = "inline-block";
+        // num.previousElementSibling.style.display = "inline-block";
         num.previousElementSibling.className = "reduce offset";
       }
+
+      localStorage.car = JSON.stringify(this.car);
+      localStorage.price = JSON.stringify(this.price);
+      localStorage.allFood = JSON.stringify(this.allFood);
     },
     reduce(data, $event) {
       if (data.specfoods.length <= 1) {
@@ -372,11 +382,14 @@ export default {
             if (!data.number) {
               num.className = "num fadeOut";
               num.previousElementSibling.className = "reduce leave";
-              setTimeout(() => {
-                num.style.display = "none";
-                num.previousElementSibling.style.display = "none";
-              }, 490);
+              // setTimeout(() => {
+              //   num.style.display = "none";
+              //   num.previousElementSibling.style.display = "none";
+              // }, 490);
             }
+            localStorage.car = JSON.stringify(this.car);
+            localStorage.price = JSON.stringify(this.price);
+            localStorage.allFood = JSON.stringify(this.allFood);
 
             let price = 0;
             for (let i = 0; i < this.shopCar.length; i++) {

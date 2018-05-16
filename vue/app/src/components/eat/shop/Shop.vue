@@ -241,6 +241,7 @@ function arr_del(mess, rating) {
   border-radius: 0.03rem;
 }
 .two .left span {
+  color: #333;
   display: inline-block;
   font-weight: 200;
   line-height: 0.17rem;
@@ -268,18 +269,17 @@ function arr_del(mess, rating) {
   background: #3190e8;
   color: white;
   border: 0.01rem solid #3190e8;
-  font-weight: 100;
 }
 .two .right span:nth-of-type(2) {
   width: 0.36rem;
   color: #3190e8;
   border: 0.01rem solid #3190e8;
-  font-weight: 100;
 }
 .three span {
   line-height: 0.15rem;
 }
 .three .left {
+  color: #666;
   font-size: 0.1rem;
   transform: scale(0.9);
 }

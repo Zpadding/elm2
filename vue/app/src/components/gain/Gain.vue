@@ -2,14 +2,22 @@
   <div id="Gain">
     <div class="head">
       <p class="hep1">ele.me</p>
-      <router-link to="/enter" class="hep2">注册/登录</router-link>
+      
+      <router-link v-if="isLogin" :to="{name: 'User'}" class="right">
+        <svg t="1526180889231" class="user" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4302" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32"><path d="M593.066667 499.2C695.466667 465.066667 768 369.066667 768 256c0-140.8-115.2-256-256-256S256 115.2 256 256c0 113.066667 72.533333 209.066667 174.933333 243.2C249.6 535.466667 85.333333 689.066667 85.333333 874.666667c0 83.2 66.133333 149.333333 149.333334 149.333333h554.666666c83.2 0 149.333333-66.133333 149.333334-149.333333 0-185.6-164.266667-339.2-345.6-375.466667zM298.666667 256c0-117.333333 96-213.333333 213.333333-213.333333s213.333333 96 213.333333 213.333333-96 213.333333-213.333333 213.333333-213.333333-96-213.333333-213.333333z m490.666666 725.333333H234.666667c-59.733333 0-106.666667-46.933333-106.666667-106.666666 0-196.266667 202.666667-341.333333 384-341.333334s384 145.066667 384 341.333334c0 59.733333-46.933333 106.666667-106.666667 106.666666z" fill="#FFF" p-id="4303"></path></svg>
+      </router-link>
+      <router-link v-else to="/enter" class="hep2">注册/登录</router-link>
     </div>
 
-    <div class="che"> <p>当前定位城市：<span class="che1">定位不准时,请在城市列表选择</span> </p></div>
+    <div class="che"> 
+      <p>当前定位城市：<span class="che1">定位不准时,请在城市列表选择</span> </p>
+    </div>
 
-    <div class="huo" >
-      <li @click="din(guessCity.name)">
-      <p  class="huo1">{{guessCity.name}}</p> <span class="huo2">  > </span></li>
+    <div class="huo" @click="din(guessCity)">
+      <li>
+        <p  class="huo1">{{guessCity.name}}</p> 
+        <span class="huo2">  > </span>
+      </li>
     </div>
 
     <div class="sp">
@@ -17,7 +25,7 @@
     </div>
 
       <div class="rr">
-      <li  v-for="(hot) in hotCity" class="rl" @click="din(hot.name)">
+      <li  v-for="(hot) in hotCity" class="rl" @click="din(hot)">
         <p class="rm">{{hot.name}}</p></li>
       </div>
     <div v-for="(value, key) in groupCity">
@@ -26,7 +34,7 @@
     </div>
 
     <div class="rr">
-      <li  v-for="(group) in value" class="rl" @click="din(group.name)">
+      <li  v-for="(group) in value" class="rl" @click="din(group)">
         <p class="rn">{{group.name}}</p></li>
     </div>
 
@@ -39,14 +47,15 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
     export default {
         name: "Gain",
       data() {
           return {
             hotCity: [],
             groupCity:[],
-            guessCity:[],
-            id:[]
+            guessCity:{},
+            id:{}
 
           }
       },
@@ -61,7 +70,6 @@
           this.$http.get(url).then(res=>{
             console.log(res.data);
             this.hotCity = res.data;
-
           })
           let url1 = "http://cangdu.org:8001/v1/cities?type=group";
           this.$http.get(url1).then(res=>{
@@ -76,11 +84,14 @@
 
 
       methods: {
-          din(id) {
+          din(city) {
             this.$router.push({
-              name:"City",params:{id:id}
+              name:"City",params:city
             })
           }
+      },
+      computed: {
+        ...mapState(["isLogin"])
       }
     }
     function objKeySort(obj) {

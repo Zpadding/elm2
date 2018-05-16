@@ -78,7 +78,6 @@ export default {
     let url = "https://elm.cangdu.org/v1/captchas";
     var data = {};
     Vue.postLogin(url, data, res => {
-      //console.log(res);
       this.pic = res.code;
     });
   },
@@ -93,9 +92,13 @@ export default {
               password: this.word,
               captcha_code: this.code
             };
-            Vue.postLogin(url, data, (res) => {
+            Vue.postLogin(url, data, res => {
               console.log(res);
-              this.$router.push({ name: "User", params: res});
+              if (res.status != 0) {
+                this.$router.push({ name: "User", params: res });
+              } else {
+                alert(res.message);
+              }
             });
           } else {
             this.show = true;
@@ -112,8 +115,11 @@ export default {
     },
 
     change() {
-      let pic_url = "https://elm.cangdu.org/v1/captchas";
-      this.$http.post(pic_url).then(res => (this.pic = res.data.code));
+      let url = "https://elm.cangdu.org/v1/captchas";
+      var data = {};
+      Vue.postLogin(url, data, res => {
+        this.pic = res.code;
+      });
     }
   },
   computed: {

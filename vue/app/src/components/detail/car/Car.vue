@@ -59,12 +59,13 @@ export default {
         backgroundColor: "#3190e8"
       },
       show: false,
-      shop: {}
+      shop: {},
+      id: ""
     };
   },
   components: {},
   computed: {
-    ...mapState(["head_url", "price", "car", "allFood"]),
+    ...mapState(["head_url", "price", "car", "allFood", "isPay"]),
     count() {
       let num = 0;
       for (let i = 0; i < this.car.length; i++) {
@@ -81,14 +82,14 @@ export default {
 
       this.car[index].data.number--;
 
-      if (!this.car[index].data.number) {
+      /*if (!this.car[index].data.number) {
         num.className = "num fadeOut";
         num.previousElementSibling.className = "reduce leave";
         setTimeout(() => {
           num.style.display = "none";
           num.previousElementSibling.style.display = "none";
         }, 490);
-      }
+      }*/
       if (!this.car[index].quantity) {
         this.car.splice(index, 1);
       }
@@ -96,6 +97,9 @@ export default {
       if (!this.car.length) {
         this.show = false;
       }
+      localStorage.car = JSON.stringify(this.car);
+      localStorage.price = JSON.stringify(this.price);
+      localStorage.allFood = JSON.stringify(this.allFood);
     },
     add(index) {
       this.car[index].quantity++;
@@ -104,28 +108,52 @@ export default {
       let num = this.car[index].dom;
 
       this.car[index].data.number++;
+      localStorage.car = JSON.stringify(this.car);
+      localStorage.price = JSON.stringify(this.price);
+      localStorage.allFood = JSON.stringify(this.allFood);
+
       // num.innerHTML++;
-      if (this.car[index].data.number) {
+      /*if (this.car[index].data.number) {
         num.style.display = "inline-block";
         num.previousElementSibling.style.display = "inline-block";
-      }
+      }*/
     },
     clear() {
       for (let i = 0; i < this.car.length; i++) {
         this.car[i].data.number = 0;
-        let num = this.car[i].dom;
+
+        /*let num = this.car[i].dom;
         num.className = "num fadeOut";
         num.previousElementSibling.className = "reduce leave";
         setTimeout(() => {
           num.style.display = "none";
           num.previousElementSibling.style.display = "none";
-        }, 490);
+        }, 490);*/
       }
       this.car.splice(0);
       this.$store.commit("car", this.car);
       this.$store.commit("price", 0);
+      localStorage.car = JSON.stringify(this.car);
+      localStorage.price = JSON.stringify(this.price);
+      localStorage.allFood = JSON.stringify(this.allFood);
     },
     pay() {
+      let url = this.head_url + "/v1/carts/checkout";
+      console.log(this.car);
+      let car = this.car.map(food => {
+        delete food.data;
+        delete food.dom;
+        return food;
+      });
+      console.log(car);
+      let params = {
+        restaurant_id: +this.id,
+        geohash: JSON.parse(localStorage.address).geohash,
+        entities: [car]
+      };
+      this.$http.post(url, params).then(res => {
+        console.log(res.data);
+      });
       this.$router.push({name: "Confirm", params: this.shop});
     }
   },
@@ -147,16 +175,24 @@ export default {
   },
   created() {
     if (this.$route.params.id) {
-      var id = this.$route.params.id;
-      localStorage.id = id;
+      this.id = this.$route.params.id;
+      localStorage.id = this.id;
     } else {
-      var id = localStorage.id;
+      this.id = localStorage.id;
     }
-    let shop_url = this.head_url + "/shopping/restaurant/" + id;
+    let shop_url = this.head_url + "/shopping/restaurant/" + this.id;
     this.$http.get(shop_url).then(res => {
       console.log(res.data);
       this.shop = res.data;
     });
+    if (!this.isPay && Object.keys(localStorage.car).length) {
+      this.$store.commit("car", JSON.parse(localStorage.car));
+      let pirce = 0;
+      for (let i = 0; i < this.car.length; i++) {
+        pirce += this.car[i].price * this.car[i].quantity;
+      }
+      this.$store.commit("price", pirce);
+    }
   }
 };
 </script>

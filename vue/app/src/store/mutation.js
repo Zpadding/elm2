@@ -25,6 +25,18 @@ let mutations = {
     },
     quit(state) {
         state.isLogin = false;
+    },
+    addHistory(state, data) {
+        state.history.push(data);
+    },
+    clearHistory(state) {
+        state.history.splice(0);
+    },
+    history(state, data) {
+        state.history = data;
+    },
+    isPay(state, data) {
+        state.isPay = data;
     }
 
 }
