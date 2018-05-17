@@ -12,7 +12,7 @@
                     <div class="foot">配送费¥5</div>
                 </div>
               </div>
-              
+
               <div class="product" v-if="show">
                   <div class="header" v-if="this.car.length">
                       <span>购物车</span>
@@ -44,7 +44,7 @@
           <div class="right" v-if="price < 15">还差¥20起送</div>
           <div class="right pay" v-else @click="pay">去结算</div>
       </div>
-      
+
   </div>
 </template>
 
@@ -153,8 +153,9 @@ export default {
       };
       this.$http.post(url, params).then(res => {
         console.log(res.data);
+        localStorage.shopCar = JSON.stringify(res.data);
       });
-      this.$router.push({name: "Confirm", params: this.shop});
+      this.$router.push({name: "Confirm", params: {shop: this.shop}});
     }
   },
   watch: {

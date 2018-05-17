@@ -775,7 +775,7 @@ function img_path(img) {
 .specfoods {
   width: 3.2rem;
   height: 5.68rem;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   right: 0;

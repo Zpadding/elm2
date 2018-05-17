@@ -4,9 +4,9 @@
         <div class="left" @click="back"></div>
         <div class="middle">{{mes.title}}</div>
         <div class="right"></div>
-      </div> 
+      </div>
       <Selection></Selection>
-      <Shop></Shop> 
+      <Shop></Shop>
   </div>
 </template>
 
@@ -69,6 +69,7 @@ export default {
   line-height: 0.22rem;
   color: white;
   font-weight: 400;
+    text-align: center;
 }
 .right {
   width: 0.2rem;

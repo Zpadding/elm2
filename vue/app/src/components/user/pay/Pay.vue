@@ -14,32 +14,32 @@
 
   <div>
     <p class="zi">选择支付方式</p>
-  <div class="mai">
+  <div class="mai"  @click="show=false">
     <div class="psp"><img :src="zhi" alt=""><p class="zi">支付宝</p> </div>
-    <div @click="show=!show">
-      <img :src="su" alt="" class="im2" v-if="!show">
-      <img :src="lu" class="hui" v-if="show">
+    <div>
+      <img :src="su" alt="" class="im2" v-if="show">
+      <img :src="lu" class="hui" v-else>
     </div>
 
 
   </div>
-    <div class="mai">
+    <div class="mai" @click="show=true">
       <div  class="psb"><img :src="wei" alt=""><p class="zi">微信</p> </div>
-      <div @click="show=!show">
-        <img :src="su"  class="im3" v-if="show">
+      <div>
+        <img :src="su"  class="im3" v-if="!show">
 
-        <img :src="lu" class="hui" v-if="!show">
+        <img :src="lu" class="hui" v-else>
       </div>
     </div>
   </div>
   <div @click="png=!png" >
-    <button  class="bu"> 下载 </button>
+    <button  class="bu">确认支付</button>
 
     <transition name="bounce">
       <div v-if="!png"  id="wit">
         <p class="p"><img :src="wei" class="p1"> </p>
-        <p class="p3">ios用户请前往AppStore下载</p>
-        <button   class="bou1">确认</button>
+        <p class="p3">当前环境无法支付，请打开官方APP进行付款</p>
+        <button  @click="pay"  class="bou1">确认</button>
       </div>
     </transition>
   </div>
@@ -61,7 +61,7 @@
           wei:wei,
           su:su,
           lu:lu,
-          show: true,
+          show: false,
           png:true,
           count: '',
           timer: null,
@@ -90,6 +90,9 @@
               _this.seconds -= 1
             }
           }, 1000)
+        },
+        pay() {
+          this.$router.push({name: "Order"});
         }
       },
 
