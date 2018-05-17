@@ -11,11 +11,12 @@
       <p class="put">  <input type="text" placeholder="你的名字" ></p>
 
 
-    <p class="xu">
-        <img :src="su" alt="">
-        <img :src="lu" alt="" class="fu">先生
-        <img :src="su" alt="">
-        <img :src="lu" alt="" class="fu"> 女士
+    <p class="xu" @click="show=!show">
+        <img :src="su" alt="" v-show="show">
+        <img :src="lu" alt="" class="fu1" v-show="!show">先生
+        <img :src="lu" alt="" v-show="show">
+        <img :src="su" alt=""  class="fu2" v-show="!show">女士
+
     </p>
       </div>
 
@@ -23,8 +24,8 @@
     <div class="tow">
     <div class="lx"><p class="ly">联系方式</p></div>
      <p class="in1"><input type="text" placeholder="你的手机号">
-      <img :src="jia" alt=""></p>
-     <p class="in2"> <input type="text" placeholder="备选电话" ></p>
+      <img :src="jia" alt="" @click="up=!up"></p>
+     <p class="in2" v-show="!up"> <input type="text" placeholder="备选电话" ></p>
     </div>
       <div class="there">
       <div class="dz"> <p>送餐地址</p> </div>
@@ -53,6 +54,9 @@
             lu:lu,
             su:su,
             jia:jia,
+              show:false,
+              up:true
+
           }
       }
     }
@@ -176,9 +180,15 @@
     }
     .four{
         overflow: hidden;
-
-
     }
+    /*.fu1{*/
+       /*position: absolute;*/
+        /*left: 1.02rem;*/
+    /*}*/
+    /*.fu2{*/
+        /*position: absolute;*/
+        /*left: 1.6rem;*/
+    /*}*/
     .bq{
         height: 0.5rem;
         width: 0.83rem;

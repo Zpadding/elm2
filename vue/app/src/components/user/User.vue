@@ -13,7 +13,7 @@
 
             <p class="ip" v-if="isLogin">{{user.username}}</p>
             <p class="ip" v-else>登录/注册</p>
-            
+
             <span class="spn">
           <img :src="soy" class="spn1">
           <p class="spn2">暂无手机号</p>
@@ -72,6 +72,8 @@
   import user from "../../assets/w1-din.png"
   import ask from '../../assets/w1-3.jpeg'
   import din from '../../assets/w1-din.png'
+  import zen from '../../assets/正方形.png'
+  import jfn from '../../assets/积分商城.png'
   import { mapState } from "vuex";
   export default {
     name: "User",
@@ -79,9 +81,9 @@
       return {
         mess:[
           {pag:din,wz:"我的订单",pic:"#",},
-          {pag:user,wz:"积分商城",pic:"#"},
+          {pag:jfn,wz:"积分商城",pic:"#"},
           {pag:home,wz:"饿了么会员卡",pic:"#"},
-          {pag:user,wz:"服务中心",pic:"#"},
+          {pag:zen,wz:"服务中心",pic:"#"},
           {pag:ask,wz:"下载饿了么APP",pic:"#"},
          ],
         sk:'',
@@ -144,7 +146,7 @@
 
   .hep1 {
     float: left;
-    padding: 0.1rem;
+    padding: 0.15rem;
   }
 
   .hep2 {
@@ -174,6 +176,7 @@
   .in2 {
     font-size: 0.15rem;
     float: right;
+
     padding-top: 0.1rem;
     padding-bottom: 0.3rem;
   }

@@ -10,7 +10,7 @@
     </div>
 
     <p class="sp">热门问题</p>
-
+      <!--路由跳转到指定的页面-->
     <div class="dis " v-for="lis in txts">
       <router-link :to="{path:'/sev', query:{id:lis.id,name:lis.name,des:lis.des}}">
 

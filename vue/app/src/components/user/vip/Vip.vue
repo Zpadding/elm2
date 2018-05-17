@@ -11,14 +11,14 @@
       <span class="sp2">会员说明 ></span>
     </div>
     <div class="di">
-      <p class="pp1"><img src="../../../assets/w2-1.jpeg" alt=""></p>
+      <p class="pp1"><img :src="w21" alt=""></p>
       <div class="pp2">
         <p class="p1">减免配送费</p>
         <p class="p2">每月减免30单，每天可减免3单，每单最高减4元蜂鸟专送专享</p>
       </div>
     </div>
     <div class="di">
-      <p class="pp1"><img src="../../../assets/w2-2.jpeg" alt=""></p>
+      <p class="pp1"><img :src="w22" alt=""></p>
       <div class="pp2">
         <p class="p1">减免配送费</p>
         <p class="p2">每月减免30单，每天可减免3单，每单最高减4元蜂鸟专送专享</p>
@@ -28,24 +28,38 @@
     <p class="v1"><span>开通会员</span></p>
 
     <div class="v1"><p class="v11">1个月 <span class="v12">￥20</span></p>
+        <router-link to="/pay">
       <button class="v13">购买</button>
+        </router-link>
     </div>
+    <router-link to="/buy">
     <div class="sp">
       <span class="sp1">兑换会员</span>
       <span class="sp2">使用卡号卡密 > </span>
     </div>
+    </router-link>
+      <router-link to="/cash">
     <div class="sp">
       <span class="sp1">购买记录</span>
       <span class="sp2">开发票 > </span></div>
-
+      </router-link>
   </div>
+
 
 
 </template>
 
 <script>
+    import w21 from '../../../assets/w2-1.jpeg'
+    import w22 from '../../../assets/w2-2.jpeg'
   export default {
     name: "Vip",
+      data(){
+        return{
+            w21:w21,
+            w22:w22,
+        }
+      }
 
   }
 </script>

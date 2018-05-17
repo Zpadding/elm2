@@ -1,20 +1,26 @@
 <template>
 <div id="cash">
   <div id="head">
-    <router-link to="/gain" class="hep1"> <</router-link>
+    <router-link to="/vip" class="hep1"> <</router-link>
     <span class="hep2">在线支付</span>
   </div>
 
   <div class="dd">
-    <img src="../../../assets/下载.png" alt="" class="xia">
+    <img :src="xia" alt="" class="xia">
     <p class="wz">没有购买记录</p>
   </div>
 </div>
 </template>
 
 <script>
+    import xia from '../../../assets/下载.png'
     export default {
-        name: "Cash"
+        name: "Cash",
+        data(){
+            return{
+                xia:xia
+            }
+        }
     }
 </script>
 

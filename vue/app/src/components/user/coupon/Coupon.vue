@@ -88,7 +88,7 @@
         </div>
       </div>
       <div class="you" v-else>
-        <div class="rig"><img src="../../../assets/w1-8.png" alt="">
+        <div class="rig"><img :src="wen" alt="">
           <span>商家代金券说明</span>
         </div>
         <div class="cen">

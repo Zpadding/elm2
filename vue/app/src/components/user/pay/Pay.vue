@@ -1,7 +1,7 @@
 <template>
 <div>
   <div id="head">
-    <router-link to="/gain" class="hep1"> <</router-link>
+    <router-link to="/vip" class="hep1"> <</router-link>
     <span class="hep2">在线支付</span>
   </div>
   <p class="fu">剩余支付时间</p>
@@ -92,6 +92,7 @@
           }, 1000)
         }
       },
+
       watch: {
         second: {
           handler (newVal) {
@@ -111,7 +112,9 @@
         minute: function () {
           return this.num(this.minutes)
         }
+
       },
+
 
     }
 </script>

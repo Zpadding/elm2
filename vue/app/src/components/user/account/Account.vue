@@ -8,7 +8,7 @@
     <div>
       <div class="tou">
         <p class="tou1">头像</p>
-        <div><img src="../../../assets/w2-3.jpg" class="tou2"> <span class="tou3"> > </span></div>
+        <div><img :src="tou" class="tou2"> <span class="tou3"> > </span></div>
       </div>
 
     </div>
@@ -23,13 +23,13 @@
     <div class="fou" @click="show=!show">
       <div>
         <div class="fou1">
-          <img src="../../../assets/w1-4.png" alt="" class="fou3">
+          <img :src="soj" alt="" class="fou3">
           <p class="fou4">手机</p></div>
         <p class="fou2"> > </p>
 
         <transition name="bounce">
           <div v-if="!show" id="wit">
-            <p class="p"><img src="../../../assets/w1-1.png" class="p1"></p>
+            <p class="p"><img :src="w12" class="p1"></p>
             <p class="p3">ios用户请前往AppStore下载</p>
             <div @click="!show">
               <button class="bou1">确认</button>
@@ -59,6 +59,7 @@
       <button class="bu2" @click="up=false">再等等</button>
 
       <button class="bu3" @click="quit">退出登录</button>
+
     </div>
 
    </div>
@@ -70,22 +71,26 @@
 
 <script>
   import w12 from "../../../assets/w1-4.png"
+  import tou from '../../../assets/w2-3.jpg'
+  import soj from '../../../assets/w1-shouji.png'
   import { mapState } from "vuex";
   export default {
     name: "Account",
     data() {
       return {
         w12:w12,
+          tou:tou,
         sk: "",
         show: true,
         up:false,
+          soj:soj,
       }
     },
     created() {
       if (!Object.keys(this.user).length) {
         this.$store.commit("user", localStorage.user);
       }
-      
+
       console.log(this.user);
       //this.sk = this.$route.params.mes.username;
       //console.log(this.$route.params)
@@ -244,6 +249,8 @@
   }
 
   .fou3 {
+      height: 0.25rem;
+      width: 0.25rem;
     float: left;
     margin-left: 0.1rem;
 

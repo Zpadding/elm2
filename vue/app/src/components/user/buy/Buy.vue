@@ -2,7 +2,7 @@
 <div id="buy">
 
   <div id="head">
-    <router-link to="/gain" class="hep1"> <</router-link>
+    <router-link to="/vip" class="hep1"> <</router-link>
     <span class="hep2">在线支付</span>
   </div>
 

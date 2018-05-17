@@ -75,7 +75,6 @@
       methods:{
 
         login() {
-
            let msk = {username:this.username,oldPassWord:this.oldPassWord,newPassWord:this.newPassWord,conFirmPassWord:this.conFirmPassWord}
            console.log(msk)
           if(this.username){
