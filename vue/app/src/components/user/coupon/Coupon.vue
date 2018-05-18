@@ -191,7 +191,7 @@
     margin-right: 0.02rem;
   }
   .qan{
-
+    background-color: #fff;
     height: 1.06rem;
     width: 2.92rem;
     display: flex;
