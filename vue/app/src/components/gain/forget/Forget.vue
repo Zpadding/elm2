@@ -109,7 +109,7 @@
                     this.err = "验证码格式错误"
                 } else {
                     let url = `https://elm.cangdu.org/v2/changepassword`;
-                    this.$http.post(url, {params: msk}).then(res => {
+                    this.$http.post(url, msk).then(res => {
                         console.log(res.data);
                     })
                 }

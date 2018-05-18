@@ -28,7 +28,7 @@
                             p-id="2074" fill="#1296db"></path>
                     </svg>
 
-                    <div v-if="false">
+                    <div v-if="!isLogin">
                         <span class="input">请输入收货地址</span>
                     </div>
                     <div v-else>
@@ -153,7 +153,27 @@
                     </li>
                 </ul>
             </div>
-            </transition>
+        </transition>
+        <transition name="bounce">
+            <div v-if="login" id="wit">
+                <p class="p">
+                    <svg t="1526611683713" class="p1" style="" viewBox="0 0 1024 1024" version="1.1"
+                         xmlns="http://www.w3.org/2000/svg" p-id="1686" xmlns:xlink="http://www.w3.org/1999/xlink"
+                         width="64" height="64">
+                        <path
+                            d="M512 0C229.6832 0 0 229.6576 0 512s229.6832 512 512 512 512-229.6832 512-512S794.3168 0 512 0zM512 996.3264c-267.0592 0-484.3264-217.2928-484.3264-484.3264S244.9408 27.6736 512 27.6736 996.3264 244.9408 996.3264 512 779.0592 996.3264 512 996.3264z"
+                            p-id="1687"></path>
+                        <path
+                            d="M512 633.0624c-14.2336 0-25.7536-11.5456-25.7536-25.7536l0-322.816c0-14.2336 11.52-25.7536 25.7536-25.7536 14.2336 0 25.7536 11.5456 25.7536 25.7536l0 322.816C537.7792 621.5168 526.2592 633.0624 512 633.0624z"
+                            p-id="1688"></path>
+                        <path d="M512 730.8288m-34.4576 0a1.346 1.346 0 1 0 68.9152 0 1.346 1.346 0 1 0-68.9152 0Z"
+                              p-id="1689" fill="#f4ea2a"></path>
+                    </svg>
+                </p>
+                <p class="p3">请登录</p>
+                <button class="bou1" @click="login = false">确认</button>
+            </div>
+        </transition>
 
 
     </div>
@@ -168,7 +188,8 @@
                 shop: {},
                 img_path: "//elm.cangdu.org/img/",
                 show: false,
-                location: {}
+                location: {},
+                login: false
             };
         },
         components: {},
@@ -180,7 +201,12 @@
                 this.$router.push({name: "User"});
             },
             choose() {
-                this.$router.push({name: "Choose"});
+                if (localStorage.user) {
+                    this.$router.push({name: "Choose"});
+                } else {
+                    this.login = true;
+                }
+
             },
             addRemark() {
                 this.$router.push({name: "Remark"});
@@ -189,26 +215,31 @@
                 this.$router.push({name: "Bill"});
             },
             order() {
-                let user_id = JSON.parse(localStorage.user).id;
-                let cart_id = JSON.parse(localStorage.shopCar).id;
-                let car = this.car.map(food => {
-                    delete food.data;
-                    delete food.dom;
-                    return food;
-                });
-                let url = this.head_url + `/v1/users/${user_id}/carts/${cart_id}/orders`;
-                let params = {
-                    user_id: user_id,
-                    cart_id: cart_id,
-                    address_id: this.location.id,
-                    restaurant_id: +localStorage.id,
-                    description: this.remark,
-                    entities: [car]
+                if (localStorage.user) {
+                    let user_id = JSON.parse(localStorage.user).id;
+                    let cart_id = JSON.parse(localStorage.shopCar).id;
+                    let car = this.car.map(food => {
+                        delete food.data;
+                        delete food.dom;
+                        return food;
+                    });
+                    let url =
+                        this.head_url + `/v1/users/${user_id}/carts/${cart_id}/orders`;
+                    let params = {
+                        user_id: user_id,
+                        cart_id: cart_id,
+                        address_id: this.location.id,
+                        restaurant_id: +localStorage.id,
+                        description: this.remark,
+                        entities: [car]
+                    };
+                    this.$http.post(url, params).then(res => {
+                        console.log(res.data);
+                    });
+                    this.$router.push({name: "Pay"});
+                } else {
+                    this.login = true;
                 }
-                this.$http.post(url, params).then(res => {
-                    console.log(res.data);
-                })
-                this.$router.push({name: "Pay"});
             }
         },
         created() {
@@ -217,7 +248,7 @@
                 if (this.$route.params.shop) {
                     this.shop = this.$route.params.shop;
                     localStorage.shop = JSON.stringify(this.shop);
-                } else if(this.$route.params.remark) {
+                } else if (this.$route.params.remark) {
                     this.remark = this.$route.params.remark;
                     localStorage.remark = JSON.stringify(this.remark);
                 }
@@ -232,33 +263,63 @@
             } else {
                 this.location = JSON.parse(localStorage.location);
             }
-
         },
         computed: {
-            ...mapState(["car", "price", "head_url"])
+            ...mapState(["car", "price", "head_url", "isLogin"])
         }
     };
 </script>
 
 <style scoped lang="less">
-    /*@keyframes move {*/
-        /*from {*/
-            /*transform: translateY(2rem);*/
-        /*}*/
-        /*to {*/
-            /*transform: translateY(0);*/
-        /*}*/
-    /*}*/
-    .fade-enter-active, .fade-leave-active {
-        transition: all .3s;
+    .bounce-enter-active {
+        animation: bounce-in 0.5s;
     }
-    .fade-enter, .fade-leave-to {
+
+    .bounce-leave-active {
+        /*animation: bounce-in .5s reverse;*/
+    }
+
+    @keyframes bounce-in {
+        0% {
+            transform: scale(1);
+        }
+        35% {
+            transform: scale(0.8);
+        }
+        70% {
+            transform: scale(1.1);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    /*@keyframes move {*/
+    /*from {*/
+    /*transform: translateY(2rem);*/
+    /*}*/
+    /*to {*/
+    /*transform: translateY(0);*/
+    /*}*/
+    /*}*/
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: all 0.3s;
+    }
+
+    .fade-enter,
+    .fade-leave-to {
         opacity: 0;
     }
-    .move-enter-active, .move-leave-active {
-        transition: all .3s;
+
+    .move-enter-active,
+    .move-leave-active {
+        transition: all 0.3s;
     }
-    .move-enter, .move-leave-to {
+
+    .move-enter,
+    .move-leave-to {
         opacity: 0;
         transform: translateY(2rem);
     }
@@ -341,7 +402,7 @@
                                 width: 100%;
                                 display: flex;
                                 align-items: center;
-                                margin-top: .05rem;
+                                margin-top: 0.05rem;
                                 span {
                                     &:first-child {
                                         font-size: 0.1rem;
@@ -611,7 +672,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background-color: rgba(0,0,0,.3);
+            background-color: rgba(0, 0, 0, 0.3);
         }
         .payType {
             min-height: 2rem;
@@ -621,24 +682,24 @@
             width: 100%;
             h4 {
                 background-color: #fafafa;
-                font-size: .14rem;
+                font-size: 0.14rem;
                 color: #333;
                 text-align: center;
-                line-height: .4rem;
+                line-height: 0.4rem;
             }
             ul {
                 li {
                     display: flex;
                     justify-content: space-between;
-                    padding: 0 .14rem;
-                    line-height: .5rem;
+                    padding: 0 0.14rem;
+                    line-height: 0.5rem;
                     align-items: center;
                     .left {
-                        font-size: .14rem;
+                        font-size: 0.14rem;
                         color: #ccc;
                     }
                     .right {
-                        .size(.16rem, .16rem);
+                        .size(0.16rem, 0.16rem);
                         fill: #eee;
                     }
                     .active {
@@ -646,6 +707,41 @@
                         fill: #4cd964;
                     }
                 }
+            }
+        }
+        #wit {
+            width: 2.4rem;
+            border-radius: .05rem;
+            background: white;
+            margin-left: -1.2rem;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            margin-top: -1.2rem;
+            overflow: hidden;
+            .p {
+                text-align: center;
+                margin-bottom: 0.1rem;
+                margin-top: 0.1rem;
+            }
+            .p1 {
+                height: 0.6rem;
+                width: 0.6rem;
+                fill: #f8cb86;
+            }
+            .p3 {
+                font-size: .14rem;
+                text-align: center;
+                margin: .1rem 0;
+            }
+            .bou1 {
+                height: 0.36rem;
+                width: 2.4rem;
+                text-align: center;
+                background-color: #4cd964;
+                color: #fff;
+                font-size: .16rem;
+                outline: none;
             }
         }
     }

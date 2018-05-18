@@ -47,54 +47,60 @@ export default {
     return {
       orders: [],
       minute: "",
-      second: "",
+      second: ""
     };
   },
   created() {
-    let user_id = JSON.parse(localStorage.user).id;
+    if (localStorage.user) {
+      let user_id = JSON.parse(localStorage.user).id;
 
-    let url = this.head_url + `/bos/v2/users/${user_id}/orders`;
-    let params = {
-      limit: 10
-    };
-    this.$http.get(url, { params: params }).then(res => {
-      //console.log(res.data);
-      this.orders = res.data;
-      //console.log(this.orders[0].time_pass);
-      let total_time = 15 * 60 - this.orders[0].time_pass;
-      if (total_time > 0) {
-        this.minute = parseInt(total_time / 60);
-        this.second = total_time % 60;
-        var timer = setInterval(() => {
-          this.second--;
-          if (this.second < 0) {
-            if (this.minute > 0) {
+      let url = this.head_url + `/bos/v2/users/${user_id}/orders`;
+      let params = {
+        limit: 10
+      };
+      this.$http.get(url, { params: params }).then(res => {
+        //console.log(res.data);
+        this.orders = res.data;
+        //console.log(this.orders[0].time_pass);
+        let total_time = 15 * 60 - this.orders[0].time_pass;
+        if (total_time > 0) {
+          this.minute = parseInt(total_time / 60);
+          this.second = total_time % 60;
+          var timer = setInterval(() => {
+            this.second--;
+            if (this.second < 0) {
+              if (this.minute > 0) {
                 this.minute--;
                 this.second = 59;
-            } else {
+              } else {
                 this.second = 0;
                 this.payTime = false;
                 clearInterval(timer);
+              }
             }
-          }
-        //   console.log(`${this.minute}分${this.second}秒`);
-        }, 1000);
-      } else {
+            //   console.log(`${this.minute}分${this.second}秒`);
+          }, 1000);
+        } else {
           this.payTime = false;
-      }
-    });
+        }
+      });
+    }
   },
   computed: {
     ...mapState(["head_url"])
   },
   methods: {
-      detail(order) {
-          this.$router.push({name: "OrderDetail", params: order});
-      },
-      again(order) {
-          this.$router.push({name: "Detail", params: {id: order.restaurant_id
-}})
-      }
+    detail(order) {
+      this.$router.push({ name: "OrderDetail", params: order });
+    },
+    again(order) {
+      this.$router.push({
+        name: "Detail",
+        params: {
+          id: order.restaurant_id
+        }
+      });
+    }
   }
 };
 </script>
@@ -108,7 +114,7 @@ export default {
 .order {
   background: #f5f5f5;
   -webkit-font-smoothing: antialiased;
-  padding-bottom: .4rem;
+  padding-bottom: 0.4rem;
   div {
     .nav {
       .size(3.2rem, 0.39rem);

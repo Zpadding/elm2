@@ -25,7 +25,7 @@
       <transition name="bounce">
         <div v-if="!show"  id="wit">
           <p class="p"><img :src="wei" class="p1"> </p>
-          <p class="p3">快去下单赚取积分吧</p class="p3">
+          <p class="p3">快去下单赚取积分吧</p>
           <button   class="bou1">确认</button>
         </div>
       </transition>
