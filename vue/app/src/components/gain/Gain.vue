@@ -63,22 +63,18 @@ import { mapState } from "vuex";
 
           let url2 = "http://cangdu.org:8001/v1/cities?type=guess";
           this.$http.get(url2).then(res=>{
-            console.log(res.data);
+            // console.log(res.data);
             this.guessCity = res.data;
           })
           let url = "http://cangdu.org:8001/v1/cities?type=hot";
           this.$http.get(url).then(res=>{
-            console.log(res.data);
+            // console.log(res.data);
             this.hotCity = res.data;
           })
           let url1 = "http://cangdu.org:8001/v1/cities?type=group";
           this.$http.get(url1).then(res=>{
-            console.log(res.data);
+            // console.log(res.data);
             this.groupCity = objKeySort(res.data);
-          })
-         let ask = "http://cangdu.org:8001/v1/cities/1";
-          this.$http.get(ask).then(res=>{
-            console.log(res.data)
           })
         },
 
@@ -109,19 +105,24 @@ import { mapState } from "vuex";
 
 
   .head {
+    width: 3.2rem;
     height: 0.39rem;
-    width: 100%;
+    box-sizing: border-box;
     background: #3190e8;
     color: #fff;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 .1rem;
   }
 
   .hep1 {
-    float: left;
-    padding: 0.1rem;
-    font-size: 0.11rem;
-
-
+    font-size: 0.14rem;
+  }
+  .right .user {
+    width: .16rem;
+    height: .16rem;
   }
 
   .hep2 {

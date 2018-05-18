@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    import xia from '../../../assets/下载.png'
+    import xia from '../../../assets/down.png'
     export default {
         name: "Cash",
         data(){

@@ -106,8 +106,8 @@
         let url = this.head_url + `/v2/signout`;
         this.$http.get(url).then(res => {
             console.log(res.data);
+            delete(localStorage["user"]);
         })
-
       },
         add() {
           this.$router.push({name: "Choose"});
