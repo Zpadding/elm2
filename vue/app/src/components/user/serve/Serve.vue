@@ -39,6 +39,7 @@
     },
     created(){
       Vue.axios.get(les).then((response)=>{
+          console.log(response.data)
         function dealjson(obj) {
           var arr = []
           var Jsonarr = []
