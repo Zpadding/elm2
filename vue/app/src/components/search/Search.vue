@@ -75,7 +75,9 @@ export default {
       }
     },
     created() {
-      this.history = JSON.parse(localStorage.search);
+      if (localStorage.search) {
+          this.history = JSON.parse(localStorage.search);
+      }
     }
 };
 </script>

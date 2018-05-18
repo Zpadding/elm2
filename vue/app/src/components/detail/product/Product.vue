@@ -123,6 +123,11 @@
         created() {
             if (this.$route.params.id) {
                 var id = this.$route.params.id;
+                console.log(localStorage.id);
+                console.log(id);
+                if (localStorage.id != id) {
+                    this.receive(id);
+                }
                 localStorage.id = id;
             } else {
                 var id = localStorage.id;
@@ -131,18 +136,7 @@
             if (!this.isPay && Object.keys(JSON.parse(localStorage.allFood)).length && localStorage.user) {
                 this.$store.commit("allFood", JSON.parse(localStorage.allFood));
             } else {
-                let food_url = this.head_url + "/shopping/v2/menu?restaurant_id=" + id;
-                this.$http.get(food_url).then(res => {
-                    this.foods = res.data.map(value => {
-                        value.foods.map(value => {
-                            value.number = 0;
-                            return value;
-                        });
-                        return value;
-                    });
-                    console.log(this.foods);
-                    this.$store.commit("allFood", this.foods);
-                });
+                this.receive(id);
             }
 
             //console.log(localStorage.car);
@@ -179,6 +173,21 @@
             }
         },
         methods: {
+            receive(id) {
+                let food_url = this.head_url + "/shopping/v2/menu?restaurant_id=" + id;
+                this.$http.get(food_url).then(res => {
+                    this.foods = res.data.map(value => {
+                        value.foods.map(value => {
+                            value.number = 0;
+                            return value;
+                        });
+                        return value;
+                    });
+                    console.log(this.foods);
+                    this.$store.commit("allFood", this.foods);
+                    localStorage.allFood = JSON.stringify(this.allFood);
+                });
+            },
             scroll(e) {
                 let id = e.currentTarget.getAttribute("id").substring(4);
                 this.num = id;

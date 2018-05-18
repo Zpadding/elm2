@@ -251,16 +251,13 @@
                 } else if (this.$route.params.remark) {
                     this.remark = this.$route.params.remark;
                     localStorage.remark = JSON.stringify(this.remark);
+                } else if(this.$route.params.location) {
+                    this.location = this.$route.params.location;
+                    localStorage.location = JSON.stringify(this.location);
                 }
             } else {
                 this.shop = JSON.parse(localStorage.shop);
                 this.remark = JSON.parse(localStorage.remark);
-            }
-            console.log(this.$route.query);
-            if (Object.keys(this.$route.query).length) {
-                this.location = this.$route.query;
-                localStorage.location = JSON.stringify(this.location);
-            } else {
                 this.location = JSON.parse(localStorage.location);
             }
         },

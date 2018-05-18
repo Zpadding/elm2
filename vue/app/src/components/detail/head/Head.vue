@@ -36,7 +36,7 @@ export default {
   created() {
     if (this.$route.params.id) {
       var id = this.$route.params.id;
-      localStorage.id = id;
+      // localStorage.id = id;
     } else {
       var id = localStorage.id;
     }

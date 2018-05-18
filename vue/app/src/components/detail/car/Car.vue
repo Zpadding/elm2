@@ -80,15 +80,15 @@
                 this.car[index].data.number--;
                 this.car[index].quantity = this.car[index].data.number;
                 let price = this.price - this.car[index].price;
-                let num = this.car[index].dom;
-                if (!this.car[index].data.number) {
-                  num.className = "num fadeOut";
-                  num.previousElementSibling.className = "reduce leave";
-                  setTimeout(() => {
-                    num.style.display = "none";
-                    num.previousElementSibling.style.display = "none";
-                  }, 490);
-                }
+                // let num = this.car[index].dom;
+                // if (!this.car[index].data.number) {
+                //   num.className = "num fadeOut";
+                //   num.previousElementSibling.className = "reduce leave";
+                //   setTimeout(() => {
+                //     num.style.display = "none";
+                //     num.previousElementSibling.style.display = "none";
+                //   }, 490);
+                // }
                 if (!this.car[index].quantity) {
                     this.car.splice(index, 1);
                 }
@@ -113,10 +113,10 @@
                 localStorage.allFood = JSON.stringify(this.allFood);
 
                 // num.innerHTML++;
-                if (this.car[index].data.number) {
-                  num.style.display = "inline-block";
-                  num.previousElementSibling.style.display = "inline-block";
-                }
+                // if (this.car[index].data.number) {
+                //   num.style.display = "inline-block";
+                //   num.previousElementSibling.style.display = "inline-block";
+                // }
             },
             clear() {
                 for (let i = 0; i < this.allFood.length; i++) {
@@ -124,13 +124,13 @@
                 }
                 for (let i = 0; i < this.car.length; i++) {
                     this.car[i].data.number = 0;
-                    let num = this.car[i].dom;
-                    num.className = "num fadeOut";
-                    num.previousElementSibling.className = "reduce leave";
-                    setTimeout(() => {
-                        num.style.display = "none";
-                        num.previousElementSibling.style.display = "none";
-                    }, 490);
+                    // let num = this.car[i].dom;
+                    // num.className = "num fadeOut";
+                    // num.previousElementSibling.className = "reduce leave";
+                    // setTimeout(() => {
+                    //     num.style.display = "none";
+                    //     num.previousElementSibling.style.display = "none";
+                    // }, 490);
                 }
                 this.car.splice(0);
                 this.$store.commit("car", this.car);
@@ -158,6 +158,9 @@
                     localStorage.shopCar = JSON.stringify(res.data);
                 });
                 this.$router.push({name: "Confirm", params: {shop: this.shop}});
+            },
+            find() {
+                console.log(this.allFood);
             }
         },
         watch: {
@@ -179,7 +182,7 @@
         created() {
             if (this.$route.params.id) {
                 this.id = this.$route.params.id;
-                localStorage.id = this.id;
+                // localStorage.id = this.id;
             } else {
                 this.id = localStorage.id;
             }
@@ -188,7 +191,7 @@
                 console.log(res.data);
                 this.shop = res.data;
             });
-            if (!this.isPay && Object.keys(localStorage.car).length && localStorage.user) {
+            if (!this.isPay && localStorage.car &&Object.keys(localStorage.car).length && localStorage.user) {
                 this.$store.commit("car", JSON.parse(localStorage.car));
                 let pirce = 0;
                 for (let i = 0; i < this.car.length; i++) {
