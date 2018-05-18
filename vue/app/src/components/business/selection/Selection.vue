@@ -56,8 +56,9 @@
             <div class="three" v-if="show3">
               <div class="head">
                 <div>配送方式</div>
-                <div>
-                  <img :src="right" alt="">
+                <div  @click="delivery">
+                    <svg v-if="display" t="1526642549757" class="bird" style="" viewBox="0 0 1027 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2626" xmlns:xlink="http://www.w3.org/1999/xlink" width="32.09375" height="32"><path d="M1025.1264 98.7136C992.1536 145.5104 957.5424 181.9648 921.1904 207.872l0 26.0096c0 152.4736-54.1696 290.2016-162.4064 413.2864C650.4448 770.2528 505.344 831.6928 323.3792 831.6928c-117.8624 0-225.28-31.232-322.2528-93.5936 10.3424 1.7408 26.8288 2.56 49.3568 2.56 97.0752 0 184.5248-30.3104 262.4512-90.9312-45.056-1.6384-85.8112-15.9744-122.1632-42.9056C154.4192 579.9936 129.3312 545.792 115.5072 504.2176c17.3056 3.4816 30.3104 5.2224 39.0144 5.2224 19.0464 0 38.0928-2.56 57.1392-7.7824C163.1232 492.9536 122.88 469.0944 90.8288 430.08c-32.0512-39.0144-48.128-83.5584-48.128-133.8368L42.7008 291.1232C77.312 310.1696 108.544 319.6928 136.2944 319.6928 75.6736 278.1184 45.2608 219.2384 45.2608 142.9504c0-39.8336 8.704-74.4448 26.0096-103.936 112.64 136.9088 257.3312 209.6128 434.0736 218.3168C501.8624 236.544 500.1216 220.8768 500.1216 210.5344c0-58.88 20.3776-108.7488 61.0304-149.4016C601.9072 20.3776 651.776 0 710.656 0c62.3616 0 113.4592 21.7088 153.2928 64.9216C912.4864 54.5792 956.7232 38.0928 996.5568 15.5648 980.8896 65.8432 950.5792 103.936 905.5232 129.9456 945.4592 124.7232 985.2928 114.3808 1025.1264 98.7136z" p-id="2627" fill="#1296db"></path></svg>
+                    <svg v-else t="1526188402386" class="bird" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2373" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32"><path d="M416.832 798.08C400.64 798.08 384.512 791.872 372.16 779.52L119.424 525.76C94.784 500.992 94.784 460.8 119.424 436.032 144.128 411.264 184.128 411.264 208.768 436.032L416.832 644.928 814.4 245.76C839.04 220.928 879.04 220.928 903.744 245.76 928.384 270.528 928.384 310.656 903.744 335.424L461.504 779.52C449.152 791.872 432.96 798.08 416.832 798.08Z" p-id="2374" fill="#1296db"></path></svg>
                   <span>蜂鸟专送</span>
                 </div>
               </div>
@@ -124,7 +125,8 @@ export default {
         "rgb(255, 78, 0)",
         "rgb(153, 153, 153)"
       ],
-      count: 0
+      count: 0,
+        display: true
     };
   },
   components: {},
@@ -253,11 +255,12 @@ export default {
       if (this.types[index].show == true) {
         this.types[index].show = false;
         this.count--;
+          event.currentTarget.lastChild.removeAttribute("class");
       } else {
         this.types[index].show = true;
         this.count++;
+          event.currentTarget.lastChild.setAttribute("class", "blue");
       }
-
     },
     submit() {
       this.show3 = !this.show3;
@@ -301,7 +304,18 @@ export default {
         value.show = false;
         return value;
       })
-    }
+    },
+      delivery(e) {
+        this.display = !this.display;
+        let target = e.currentTarget.lastChild;
+        if (this.display == true) {
+            target.setAttribute("class", "");
+            this.count--;
+        } else {
+            target.setAttribute("class", "blue");
+            this.count++;
+        }
+      }
   },
   created() {
     let url = this.head_url + "/shopping/v2/restaurant/category";
@@ -512,10 +526,10 @@ function img_path(img) {
   padding: 0 0.05rem;
   margin-bottom: 0.25rem;
 }
-.three .head div img {
-  width: 0.16rem;
-  height: 0.16rem;
-  margin-right: 0.025rem;
+.three .head div .bird {
+  width: 0.13rem;
+  height: 0.13rem;
+  margin-right: 0.05rem;
 }
 .three .middle {
   width: 3.2rem;

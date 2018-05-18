@@ -79,7 +79,10 @@
             reduce(index) {
                 this.car[index].data.number--;
                 this.car[index].quantity = this.car[index].data.number;
-                let price = this.price - this.car[index].price;
+                let price = 0;
+                for (let i = 0; i < this.car.length; i++) {
+                    price += this.car[i].price * this.car[i].quantity;
+                }
                 // let num = this.car[index].dom;
                 // if (!this.car[index].data.number) {
                 //   num.className = "num fadeOut";
@@ -103,7 +106,10 @@
             add(index) {
                 this.car[index].data.number++;
                 this.car[index].quantity = this.car[index].data.number;
-                let price = this.price + this.car[index].price;
+                let price = 0;
+                for (let i = 0; i < this.car.length; i++) {
+                    price += this.car[i].price * this.car[i].quantity;
+                }
                 this.$store.commit("price", price);
                 let num = this.car[index].dom;
 

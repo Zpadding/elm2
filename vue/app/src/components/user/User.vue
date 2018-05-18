@@ -158,7 +158,7 @@
     .in {
         height: 0.8rem;
         margin-top: 0.5rem;
-        width: 2.5rem;
+        width: 2.65rem;
         color: #fff;
     }
 
@@ -173,11 +173,14 @@
     .in2 {
         font-size: 0.15rem;
         float: right;
-
         padding-top: 0.1rem;
         padding-bottom: 0.3rem;
     }
-
+    .ip {
+        font-weight: 700;
+        font-size: .16rem;
+        color: #fff;
+    }
     .spn {
         padding-top: 0.05rem;
         margin-right: 0.05rem;
@@ -196,11 +199,14 @@
         margin-top: 0.02rem;
         float: right;
         color: #fff;
+        font-size: .12rem;
+        color: #fff;
+        line-height: .15rem;
     }
 
     .spn3 {
         float: right;
-        margin-left: 0.7rem;
+        margin-left: 0.8rem;
     }
 
     #boy {

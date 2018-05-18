@@ -137,7 +137,7 @@
                     tag_type: 1
                 };
                 localStorage.addressInfor = JSON.stringify(params);
-                this.$router.push({ name: "SearchAddress" });
+                this.$router.push({ name: "SearchAddress", params: {from: "Add"} });
             }
         }
     };

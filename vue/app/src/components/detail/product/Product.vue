@@ -55,8 +55,7 @@
                                         <span class="type" v-if="product.specfoods.length>1"
                                               @click.stop="choose(product, index)">选规格</span>
                                         <span class="add" v-if="product.specfoods.length<=1" @click.stop="add(product)">+</span>
-                                        <span class="ani" style="display: none"
-                                              v-if="product.specfoods.length<=1">+</span>
+                                        <span class="ani" style="display: none" v-if="product.specfoods.length<=1">+</span>
                                     </div>
                                 </div>
                             </div>

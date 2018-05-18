@@ -34,6 +34,10 @@ import SearchAddress from "@/components/detail/car/add/searchAddress/SearchAddre
 import Remark from "@/components/detail/car/confirm/remark/Remark"
 import Bill from "@/components/detail/car/confirm/bill/Bill"
 import OrderDetail from "@/components/order/orderDetail/OrderDetail";
+import EditAddress from "@/components/user/account/editAddress/EditAddress";
+import AddAddress from "@/components/user/account/editAddress/addAddress/AddAddress";
+
+
 
 Vue.use(Router);
 
@@ -188,6 +192,14 @@ export default new Router({
             path: "/orderDetail",
             name: "OrderDetail",
             component: OrderDetail
+        }, {
+            path: "/editAddress",
+            name: "EditAddress",
+            component: EditAddress
+        }, {
+            path: "/addAddress",
+            name: "AddAddress",
+            component: AddAddress
         }
     ]
 })
