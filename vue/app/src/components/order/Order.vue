@@ -2,7 +2,7 @@
     <div class="order">
         <div>
             <div class="nav">
-                <span></span>
+                <span @click="$router.go(-1)"></span>
                 <span>订单列表</span>
                 <span></span>
             </div>

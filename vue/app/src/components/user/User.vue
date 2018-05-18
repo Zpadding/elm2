@@ -2,7 +2,7 @@
   <div id="User">
     <div id="head">
 
-      <p class="hep1"> < </p>
+      <p class="hep1" @click="$router.go(-1)"> < </p>
 
       <p class="hep2">我的</p>
 
@@ -109,7 +109,7 @@
     methods:{
       din(index){
         if (index == 0) {
-          this.$router.push({name: "Show", params: {}})
+          this.$router.push({name: "Order", params: {}})
         } else if(index== 1){
           this.$router.push({name: "Ji",params:{}})
         }else if(index == 2){

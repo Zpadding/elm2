@@ -17,7 +17,7 @@
       <p class="us2">{{user.username}} ></p>
 
     </div>
-    <div class="uz"><p class="uz1">我的收货地址</p>
+    <div class="uz" @click="add"><p class="uz1">我的收货地址</p>
       <p class="uz2"> ></p></div>
     <p class="sp">账户绑定</p>
     <div class="fou" @click="show=!show">
@@ -96,14 +96,22 @@
       //console.log(this.$route.params)
     },
     computed: {
-      ...mapState(["user"])
+      ...mapState(["user", "head_url"])
     },
     methods: {
       quit() {
         this.up = false;
         this.$store.commit("quit");
         this.$router.push({name: "User"});
-      }
+        let url = this.head_url + `/v2/signout`;
+        this.$http.get(url).then(res => {
+            console.log(res.data);
+        })
+
+      },
+        add() {
+          this.$router.push({name: "Choose"});
+        }
     }
   }
 </script>
