@@ -52,9 +52,7 @@
 
 <script>
 import { mapState } from "vuex";
-import Vue from "vue";
-import { Plugin1 } from "../../../plugins/plugin1";
-Vue.use(Plugin1);
+
 
 export default {
   name: "Enter",

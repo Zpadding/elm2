@@ -174,7 +174,7 @@
         components: {},
         methods: {
             back() {
-                this.$router.push({name: "Detail"});
+                this.$router.push({name: "Detail", params: {name: "Confirm"}});
             },
             user() {
                 this.$router.push({name: "User"});
@@ -220,7 +220,7 @@
                 } else if(this.$route.params.remark) {
                     this.remark = this.$route.params.remark;
                     localStorage.remark = JSON.stringify(this.remark);
-                } 
+                }
             } else {
                 this.shop = JSON.parse(localStorage.shop);
                 this.remark = JSON.parse(localStorage.remark);
@@ -232,7 +232,7 @@
             } else {
                 this.location = JSON.parse(localStorage.location);
             }
-            
+
         },
         computed: {
             ...mapState(["car", "price", "head_url"])

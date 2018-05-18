@@ -3,7 +3,7 @@
       <div class="body" @click="detail">
           <div class="logo">
               <img :src="img_url+shop.image_path" alt="">
-              <div class="back" @click="back"></div>
+              <div class="back" @click.stop="back"></div>
           </div>
           <div class="detail">
               <div class="top">
@@ -17,7 +17,7 @@
                   <nobr><span>公告: {{shop.promotion_info}}</span></nobr>
               </div>
           </div>
-          
+
       </div>
   </div>
 </template>
@@ -52,7 +52,13 @@ export default {
   },
   methods: {
     back() {
-      this.$router.go(-1);
+        console.log(this.$route.params.name);
+        if (this.$route.params.name && this.$route.params.name == "Confirm") {
+            console.log("11")
+            this.$router.push({path: '/show/eat'});
+        } else {
+            this.$router.go(-1);
+        }
     },
     // ...mapMutations({detail: this.shopDetail({data: this.shop})})
     detail() {

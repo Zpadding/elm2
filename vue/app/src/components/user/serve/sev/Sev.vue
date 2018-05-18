@@ -2,23 +2,17 @@
   <div id="Sev">
     <div id="head">
       <router-link to="/serve" class="hep1"> <</router-link>
-      <span class="hep2">{{$route.query.name}}</span>
+      <span class="hep2">{{$route.params.name}}</span>
     </div>
-      <p class="sv">{{$route.query.des}}</p>
+      <div class="body">
+          <h2 v-html="this.$route.params.detail"></h2>
+      </div>
   </div>
 </template>
 
 <script>
     export default {
-        name: "Sev",
-        data(){
-          return{
-            num:this.$route.query.id
-          }
-        },
-      created(){
-          console.log(this.$route.query.id)
-      }
+        name: "Sev"
     }
 </script>
 
@@ -29,7 +23,7 @@
     background: #3190e8;
     color: #fff;
     overflow: hidden;
-    margin-bottom: 0.15rem;
+    margin-bottom: 0.15rem;-webkit-font-smoothing: antialiased;
   }
 
   .hep1 {
@@ -44,12 +38,16 @@
     padding-top: 0.1rem;
     font-size: 0.15rem;
   }
-  .sv{
-
-    color: #333;
-    font-weight: 200;
-    font-size: 0.2rem;
-
+  .body {
+      padding: 0 .14rem;
+      color: #666;
+      padding-bottom: .4rem;
   }
+    h2 {
+        font-size: .2rem;
+        font-weight: 400;
+        line-height: .25rem;
+    }
+
 
 </style>

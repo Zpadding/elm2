@@ -145,6 +145,7 @@
     float: right;
     padding-right: 1.5rem;
     padding-top: 0.1rem;
+      font-size: .16rem;
   }
   .hon{
     display: flex;

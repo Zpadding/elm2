@@ -12,7 +12,7 @@
     <p class="sp">热门问题</p>
       <!--路由跳转到指定的页面-->
     <div class="dis " v-for="lis in txts">
-      <router-link :to="{path:'/sev', query:{id:lis.id,name:lis.name,des:lis.des}}">
+      <router-link :to="{name:'Sev', params:{name:lis.name,detail:lis.detail}}">
 
     <div class="sq">
       <ul class="bi">{{lis.name}}  <p class="p1"> > </p></ul>
@@ -27,6 +27,7 @@
   import d from '../../../assets/w1-d.png'
 
   import Vue from 'vue'
+  import index from "../../../store";
   let les="http://cangdu.org:8001/v3/profile/explain";
   export default {
     name: "Service",
@@ -39,35 +40,61 @@
     },
     created(){
       Vue.axios.get(les).then((response)=>{
-        function dealjson(obj) {
-          var arr = []
-          var Jsonarr = []
-          let object = {}
-          for (var key in obj) {
-            arr.push(obj[key]); //属性
+          console.log(response.data);
+          // response.data
+          let obj = response.data;
+          let arr = []
+          for (let key in obj) {
+              arr.unshift(obj[key]);
+          }
+          let wrong = arr.splice(22, 1);
+          let infor = [];
+          for (let i = 0; i < arr.length; i++) {
+              infor[i] = {};
           }
           for (let i = 0; i < arr.length; i++) {
-            if (i % 2 != 0) {
-              object.name = arr[i]
-              Jsonarr.push(object)
-              object = {}
-            } else {
-              object.des = arr[i]
-              object.id = i
-            }
+              let index = parseInt(i/2);
+              if (i % 2 == 0) {
+                  infor[index].name = arr[i];
+              } else {
+                  infor[index].detail = arr[i];
+              }
           }
-          var one = Jsonarr.slice(0, 13)
-          var two = Jsonarr.slice(13, 23)
-          for (let j = 0; j < two.length; j++) {
-            [two[j].des, two[j].name] = [two[j].name, two[j].des]
-          }
-          var three = one.concat(two)
-          three.splice(12, 1)
-          three.splice(4, 1)
-          return three
-        }
-        this.txts=dealjson(response.data)
-        console.log(dealjson(response.data))
+          infor.splice(23);
+          infor.reverse();
+          console.log(infor);
+            this.txts = infor;
+
+
+        // function dealjson(obj) {
+        //   var arr = []
+        //   var Jsonarr = []
+        //   let object = {}
+        //   for (var key in obj) {
+        //     arr.push(obj[key]); //属性
+        //   }
+        //   for (let i = 0; i < arr.length; i++) {
+        //     if (i % 2 != 0) {
+        //       object.name = arr[i]
+        //       Jsonarr.push(object)
+        //       object = {}
+        //     } else {
+        //       object.des = arr[i]
+        //       object.id = i
+        //     }
+        //   }
+        //   var one = Jsonarr.slice(0, 13)
+        //   var two = Jsonarr.slice(13, 23)
+        //   for (let j = 0; j < two.length; j++) {
+        //     [two[j].des, two[j].name] = [two[j].name, two[j].des]
+        //   }
+        //   var three = one.concat(two)
+        //   three.splice(12, 1)
+        //   three.splice(4, 1)
+        //   return three
+        // }
+        // this.txts=dealjson(response.data)
+        // console.log(dealjson(response.data))
       })
     }
   }

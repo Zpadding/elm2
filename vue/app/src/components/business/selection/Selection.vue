@@ -15,7 +15,7 @@
               <span class="down"></span>
           </div>
           <div class="show" v-show="show1||show2||show3">
-            
+
             <div class="mask">
             <!-- 分类 -->
             <div class="one"  v-if="show1">
@@ -65,7 +65,7 @@
                 <div class="top">商家属性(可以多选)</div>
                 <ul>
                   <li v-for="(typ, index) in types" @click="option(index)">
-                    
+
                     <span v-if="typ.show" class="icon">
                       <svg t="1526188402386" class="right" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2373" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32"><path d="M416.832 798.08C400.64 798.08 384.512 791.872 372.16 779.52L119.424 525.76C94.784 500.992 94.784 460.8 119.424 436.032 144.128 411.264 184.128 411.264 208.768 436.032L416.832 644.928 814.4 245.76C839.04 220.928 879.04 220.928 903.744 245.76 928.384 270.528 928.384 310.656 903.744 335.424L461.504 779.52C449.152 791.872 432.96 798.08 416.832 798.08Z" p-id="2374" fill="#1296db"></path></svg>
                     </span>
@@ -406,6 +406,9 @@ function img_path(img) {
 .mask {
   background: white;
 }
+.show .one {
+    height: 3.3rem;
+}
 .show .one ul {
   padding-bottom: 0.1rem;
 }
@@ -446,7 +449,7 @@ function img_path(img) {
   background: white;
 }
 .show .one .right {
-  width: 1.64rem;
+  width: 1.6rem;
   height: 3.2rem;
   overflow-x: hidden;
   overflow-y: scroll;
