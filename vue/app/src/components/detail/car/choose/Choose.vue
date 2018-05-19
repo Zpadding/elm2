@@ -65,7 +65,7 @@
         methods: {
             select(infor, index) {
                 this.number = index;
-                this.$router.push({name: "Confirm", query: infor});
+                this.$router.push({name: "Confirm", params: {location: infor}});
             }
         }
     };

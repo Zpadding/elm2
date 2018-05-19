@@ -59,29 +59,31 @@ export default {
         limit: 10
       };
       this.$http.get(url, { params: params }).then(res => {
-        //console.log(res.data);
+        console.log(res.data);
         this.orders = res.data;
         //console.log(this.orders[0].time_pass);
-        let total_time = 15 * 60 - this.orders[0].time_pass;
-        if (total_time > 0) {
-          this.minute = parseInt(total_time / 60);
-          this.second = total_time % 60;
-          var timer = setInterval(() => {
-            this.second--;
-            if (this.second < 0) {
-              if (this.minute > 0) {
-                this.minute--;
-                this.second = 59;
-              } else {
-                this.second = 0;
-                this.payTime = false;
-                clearInterval(timer);
+        if (this.orders[0]) {
+          let total_time = 15 * 60 - this.orders[0].time_pass;
+          if (total_time > 0) {
+            this.minute = parseInt(total_time / 60);
+            this.second = total_time % 60;
+            var timer = setInterval(() => {
+              this.second--;
+              if (this.second < 0) {
+                if (this.minute > 0) {
+                  this.minute--;
+                  this.second = 59;
+                } else {
+                  this.second = 0;
+                  this.payTime = false;
+                  clearInterval(timer);
+                }
               }
-            }
-            //   console.log(`${this.minute}分${this.second}秒`);
-          }, 1000);
-        } else {
-          this.payTime = false;
+              //   console.log(`${this.minute}分${this.second}秒`);
+            }, 1000);
+          } else {
+            this.payTime = false;
+          }
         }
       });
     }

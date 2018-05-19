@@ -49,13 +49,16 @@
             }
         },
         created() {
+            console.log(this.$route.params);
             if (Object.keys(this.$route.params).length) {
                 this.city = this.$route.params;
                 localStorage.city = JSON.stringify(this.city);
             } else {
                 this.city = JSON.parse(localStorage.city);
             }
-            this.$store.commit("history", JSON.parse(localStorage.history));
+            if (localStorage.history) {
+                this.$store.commit("history", JSON.parse(localStorage.history));
+            } 
         },
         computed: {
             ...mapState(["head_url", "history"])
@@ -115,10 +118,10 @@
     }
 
     .hep3 {
-        font-size: 0.05rem;
+        font-size: 0.12rem;
         color: #fff;
         position: absolute;
-        left: 2.5rem;
+        left: 2.6rem;
         top: 0.14rem;
     }
 

@@ -165,7 +165,6 @@
         background: #3190e8;
         color: #fff;
         overflow: hidden;
-        margin-bottom: 0.15rem;
     }
 
     .hep1 {
@@ -201,12 +200,16 @@
         width: 2.08rem;
         margin-right: 0.1rem;
     }
+    .one, .tow, .there, .four {
+        background: #fff;
+    }
     .one {
         overflow: hidden;
+        padding-top: 0.15rem;
     }
     .tow {
         overflow: hidden;
-        width: 2.91rem;
+        padding-right: .2rem;
     }
 
     .lx {
@@ -287,7 +290,9 @@
         margin-right: 0.2rem;
     }
     .but {
+        font-size: .14rem;
         background-color: #4cd964;
+        border: none;
         height: 0.36rem;
         width: 3rem;
         margin-left: 0.1rem;

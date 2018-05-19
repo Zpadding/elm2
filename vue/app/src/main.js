@@ -14,8 +14,9 @@ import store from './store';
 import { Plugin1 } from "./plugins/plugin1.js";
 
 
+
 var VueTouch = require("vue-touch");
-Vue.use(VueTouch, {name: "v-touch"});
+Vue.use(VueTouch, { name: "v-touch" });
 Vue.use(Plugin1);
 
 Vue.use(ElementUI);
@@ -26,9 +27,9 @@ Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  store,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    store,
+    components: { App },
+    template: '<App/>'
 });

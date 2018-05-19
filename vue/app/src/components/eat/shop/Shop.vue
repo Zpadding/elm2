@@ -84,9 +84,6 @@
                     // console.log(result);
                     // console.log(result.data);
                     this.mess = result.data;
-                })
-                .catch(err => {
-                    console.log(err);
                 });
         },
         computed: {

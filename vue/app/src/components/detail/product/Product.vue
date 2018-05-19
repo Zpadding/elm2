@@ -132,9 +132,12 @@
                 var id = localStorage.id;
             }
 
+            console.log(!this.isPay && Object.keys(JSON.parse(localStorage.allFood)).length && localStorage.user);
             if (!this.isPay && Object.keys(JSON.parse(localStorage.allFood)).length && localStorage.user) {
+                console.log("本地取出");
                 this.$store.commit("allFood", JSON.parse(localStorage.allFood));
             } else {
+                console.log("数据重置");
                 this.receive(id);
             }
 

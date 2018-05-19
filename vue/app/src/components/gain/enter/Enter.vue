@@ -161,6 +161,7 @@ input {
   padding: 0.02rem 0.03rem;
   padding-top: 0.05rem;
   padding-bottom: 0.05rem;
+  background: #fff;
 }
 
 .cip1 {
@@ -182,7 +183,6 @@ el-switch {
 .im {
   height: 0.3rem;
   width: 0.7rem;
-  background: whitesmoke;
   float: left;
   margin-left: 0.3rem;
 }
@@ -193,7 +193,8 @@ el-switch {
 
 .di {
   float: right;
-  font-size: 0.05rem;
+  font-size: 0.11rem;
+  line-height: .15rem;
 }
 
 .p2 {
@@ -221,6 +222,7 @@ el-switch {
   height: 0.4rem;
   width: 3rem;
   background-color: #4cd964;
+  outline: none;
 }
 
 .sp {

@@ -148,9 +148,9 @@
     .hep2 {
         color: #fff;
         float: right;
-        padding-right: 0.3rem;
-        padding-top: 0.1rem;
-        font-size: 0.15rem;
+        line-height: .4rem;
+        padding-right: 0.1rem;
+        font-size: 0.12rem;
     }
 
     .position {
