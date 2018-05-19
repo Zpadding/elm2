@@ -5,7 +5,7 @@
             <router-link to="/show/user" class="hep1"> <</router-link>
             <span class="hep2">会员中心</span>
         </div>
-        <p class="zi">为账户 <span>{{18638187031}}</span> 购买会员</p>
+        <p class="zi">为账户 <span>{{user.username}}</span> 购买会员</p>
         <div class="sp">
             <span class="sp1">会员特权</span>
             <span class="sp2">会员说明 ></span>
@@ -32,16 +32,16 @@
                 <button class="v13">购买</button>
             </router-link>
         </div>
-        <router-link to="/buy">
-            <div class="sp">
+        <router-link to="/buy" class="sp">
+
                 <span class="sp1">兑换会员</span>
                 <span class="sp2">使用卡号卡密 > </span>
-            </div>
+
         </router-link>
-        <router-link to="/cash">
-            <div class="sp">
+        <router-link to="/cash" class="sp">
+
                 <span class="sp1">购买记录</span>
-                <span class="sp2">开发票 > </span></div>
+                <span class="sp2">开发票 > </span>
         </router-link>
     </div>
 
@@ -58,6 +58,12 @@
             return {
                 w21: w21,
                 w22: w22,
+                user: {}
+            }
+        },
+        created() {
+            if (localStorage.user) {
+                this.user = JSON.parse(localStorage.user);
             }
         }
 
@@ -87,7 +93,7 @@
     }
 
     .zi {
-
+        margin-bottom: -.1rem;
         height: 0.4rem;
         width: 3rem;
         font-size: 0.06rem;
@@ -101,8 +107,9 @@
     }
 
     .sp {
-
-        line-height: 0.25rem;
+        margin-top: .1rem;
+        display: block;
+        line-height: 0.4rem;
         height: 0.4rem;
         background: #fff;
         padding-right: .1rem;
@@ -130,7 +137,7 @@
         display: flex;
         justify-content: space-around;
         height: 0.6rem;;
-        padding-top: 0.2rem;
+        padding: 0.1rem 0;
         background: #fff;
         border-top: .01rem solid #f5f5f5;
     }
@@ -145,16 +152,18 @@
         color: #333;
         font-weight: 400;
         float: left;
+        line-height: .2rem;
     }
 
     .p2 {
         font-size: 0.05rem;
         color: #999;
         float: right;
+        line-height: .17rem;
     }
 
     .v1 {
-        margin-left: 0.3rem;
+        padding-left: 0.3rem;
         display: flex;
         justify-content: space-between;
         line-height: 0.4rem;
@@ -163,6 +172,10 @@
         width: 2.92rem;
     }
 
+    p[class='v1'] {
+        margin-top: .1rem;
+        border-bottom: .01rem solid #f5f5f5;
+    }
     .v12 {
         font-weight: 700;
         color: #f60;

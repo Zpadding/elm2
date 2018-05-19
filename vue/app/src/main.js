@@ -14,8 +14,8 @@ import store from './store';
 import { Plugin1 } from "./plugins/plugin1.js";
 
 
-var VueTouch = require("vue-touch")
-Vue.use(VueTouch, {name: "v-touch"})
+var VueTouch = require("vue-touch");
+Vue.use(VueTouch, {name: "v-touch"});
 Vue.use(Plugin1);
 
 Vue.use(ElementUI);

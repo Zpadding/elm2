@@ -22,8 +22,18 @@
                         </div>
                         <div class="two">
                             <div class="left">
-                                <span>评分:{{mes.rating}}</span>
+                                <nobr>
+                                <span>
+                                    <el-rate
+                                        v-model="mes.rating"
+                                        disabled
+                                        show-score
+                                        text-color="#ff9900"
+                                        score-template="{value}">
+                                    </el-rate>
+                                </span>
                                 <span>月售{{mes.recent_order_num}}单</span>
+                                </nobr>
                             </div>
                             <div class="right">
                                 <span>蜂鸟专送</span>
@@ -196,15 +206,12 @@
         display: flex;
         /* justify-content: space-around; */
         color: #999;
-        border-bottom: 0.01rem solid #e3e3e3;
+        border-bottom: 0.005rem solid #f1f1f1;
     }
 
     .body .left {
         margin: 0 0.2rem;
         max-width: 1.1rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-
     }
 
     .body .right {
@@ -224,7 +231,10 @@
         width: 0.54rem;
         height: 0.54rem;
     }
-
+    .one .left {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
     .one .left span {
         font-size: 0.13rem;
         color: #333;
@@ -303,6 +313,7 @@
         color: #666;
         font-size: 0.1rem;
         transform: scale(0.9);
+        white-space: nowrap;
     }
 
     .three .right {
