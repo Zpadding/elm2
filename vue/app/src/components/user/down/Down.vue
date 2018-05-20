@@ -85,13 +85,15 @@ import logo from "../../../assets/w1-3.jpeg";
     }
 
     .bou {
-        height: 0.36rem;
+        height: 0.4rem;
         width: 2.94rem;
         text-align: center;
         background-color: #4cd964;
         color: #fff;
         margin-left: 0.12rem;
         outline: none;
+        border: none;
+        border-radius: .04rem;
     }
 
     .bou1 {
@@ -102,18 +104,20 @@ import logo from "../../../assets/w1-3.jpeg";
         background-color: #4cd964;
         color: #fff;
         outline: none;
+        border: none;
+        border-bottom-left-radius: .04rem;
+        border-bottom-right-radius: .04rem;  
     }
 
     #wit {
 
         height: 1.58rem;
         width: 2.4rem;
-
         background: white;
         margin-left: 0.4rem;
         position: absolute;
         left: 0;
-        top: 1.8rem;
+        top: 1.74rem;
         margin-bottom: 0.2rem;
     }
 
@@ -139,9 +143,9 @@ import logo from "../../../assets/w1-3.jpeg";
         animation: bounce-in .5s;
     }
 
-    .bounce-leave-active {
+    /* .bounce-leave-active { */
         /*animation: bounce-in .5s reverse;*/
-    }
+    /* } */
 
     @keyframes bounce-in {
         0% {

@@ -35,6 +35,7 @@ export default {
       this.$http.get(userUrl, { params: params }).then(res => {
         if (res.data.status === undefined) {
           this.$store.commit("login");
+          this.$store.commit("user", JSON.parse(localStorage.user));
         }
       });
     }
