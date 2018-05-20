@@ -54,6 +54,7 @@
   import wei from '../../../assets/w1-1.png'
   import su from  '../../../assets/w1-su.png'
   import lu from  '../../../assets/w1-lu.png'
+  import { mapState } from "vuex";
     export default {
         name: "Pay",
       data(){
@@ -95,6 +96,16 @@
         pay() {
           this.$store.commit("isPay", true);
           this.$router.push({name: "Order"});
+          for (let i = 0; i < this.allFood.length; i++) {
+            for (let j = 0; j < this.allFood[i].foods.length; j++) {
+              this.allFood[i].foods[j].number = 0;
+            }
+          }
+          localStorage.allFood = JSON.stringify(this.allFood);
+          this.$store.commit("car", []);
+          localStorage.car = JSON.stringify(this.car);
+          this.$store.commit("price", 0);
+          localStorage.price = JSON.stringify(this.price);
         }
       },
 
@@ -116,8 +127,8 @@
         },
         minute: function () {
           return this.num(this.minutes)
-        }
-
+        },
+        ...mapState(["allFood", "car", "pirce"])
       },
 
 

@@ -17,7 +17,8 @@
 
         <div class="position">
             <div class="che">
-                <p>当前定位城市：<span class="che1">定位不准时,请在城市列表选择</span></p>
+                <p>当前定位城市：</p>
+                <p class="che1">定位不准时,请在城市列表选择</p>
             </div>
 
             <div class="huo" @click="din(guessCity)">
@@ -59,211 +60,208 @@
 </template>
 
 <script>
-    import {mapState} from "vuex";
+import { mapState } from "vuex";
 
-    export default {
-        name: "Gain",
-        data() {
-            return {
-                hotCity: [],
-                groupCity: [],
-                guessCity: {},
-                id: {}
+export default {
+  name: "Gain",
+  data() {
+    return {
+      hotCity: [],
+      groupCity: [],
+      guessCity: {},
+      id: {}
+    };
+  },
+  created() {
+    let url2 = "http://cangdu.org:8001/v1/cities?type=guess";
+    this.$http.get(url2).then(res => {
+      // console.log(res.data);
+      this.guessCity = res.data;
+    });
+    let url = "http://cangdu.org:8001/v1/cities?type=hot";
+    this.$http.get(url).then(res => {
+      // console.log(res.data);
+      this.hotCity = res.data;
+    });
+    let url1 = "http://cangdu.org:8001/v1/cities?type=group";
+    this.$http.get(url1).then(res => {
+      // console.log(res.data);
+      this.groupCity = objKeySort(res.data);
+    });
+  },
 
-            }
-        },
-        created() {
-
-            let url2 = "http://cangdu.org:8001/v1/cities?type=guess";
-            this.$http.get(url2).then(res => {
-                // console.log(res.data);
-                this.guessCity = res.data;
-            })
-            let url = "http://cangdu.org:8001/v1/cities?type=hot";
-            this.$http.get(url).then(res => {
-                // console.log(res.data);
-                this.hotCity = res.data;
-            })
-            let url1 = "http://cangdu.org:8001/v1/cities?type=group";
-            this.$http.get(url1).then(res => {
-                // console.log(res.data);
-                this.groupCity = objKeySort(res.data);
-            })
-        },
-
-
-        methods: {
-            din(city) {
-                this.$router.push({
-                    name: "City", params: city
-                })
-            }
-        },
-        computed: {
-            ...mapState(["isLogin"])
-        }
+  methods: {
+    din(city) {
+      this.$router.push({
+        name: "City",
+        params: city
+      });
     }
+  },
+  computed: {
+    ...mapState(["isLogin"])
+  }
+};
 
-    function objKeySort(obj) {
-        var newkey = Object.keys(obj).sort();
-        var newObj = {};
-        for (var i = 0; i < newkey.length; i++) {
-            newObj[newkey[i]] = obj[newkey[i]];
-        }
-        return newObj;
-    }
-
+function objKeySort(obj) {
+  var newkey = Object.keys(obj).sort();
+  var newObj = {};
+  for (var i = 0; i < newkey.length; i++) {
+    newObj[newkey[i]] = obj[newkey[i]];
+  }
+  return newObj;
+}
 </script>
 
 <style scoped>
+#Gain {
+  padding-top: 0.4rem;
+}
+.head {
+  width: 3.2rem;
+  height: 0.39rem;
+  box-sizing: border-box;
+  background: #3190e8;
+  color: #fff;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
 
-    #Gain {
-        padding-top: .4rem;
-    }
-    .head {
-        width: 3.2rem;
-        height: 0.39rem;
-        box-sizing: border-box;
-        background: #3190e8;
-        color: #fff;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 .1rem;
-        position: fixed;
-        top: 0;
-        left: 0;
-    }
+.hep1 {
+  font-size: 0.14rem;
+}
 
-    .hep1 {
-        font-size: 0.14rem;
-    }
+.right .user {
+  width: 0.16rem;
+  height: 0.16rem;
+}
 
-    .right .user {
-        width: .16rem;
-        height: .16rem;
-    }
+.hep2 {
+  color: #fff;
+  float: right;
+  line-height: 0.4rem;
+  padding-right: 0.1rem;
+  font-size: 0.12rem;
+}
 
-    .hep2 {
-        color: #fff;
-        float: right;
-        line-height: .4rem;
-        padding-right: 0.1rem;
-        font-size: 0.12rem;
-    }
+.position {
+  background: #fff;
+  border-bottom: 0.005rem solid #e4e4e4;
+}
 
-    .position {
-        background: #fff;
-        border-bottom: .005rem solid #e4e4e4;
-    }
+.che {
+  padding: 0.18rem 0.1rem 0;
+  font-size: 0.1rem;
+  font-weight: 900;
+  display: flex;
+  justify-content: space-between;
+}
 
-    .che {
-        padding-top: 0.18rem;
-        padding-left: 0.1rem;
-        font-size: 0.1rem;
-        font-weight: 900;
-    }
+.che1 {
+  font-weight: 900;
+  font-size: 0.095rem;
+  color: #9f9f9f;
+}
 
-    .che1 {
-        margin-left: 0.5rem;
-    }
+.huo {
+  line-height: 0.36rem;
+  margin-top: 0.08rem;
+  border-bottom: #e4e4e4 0.01rem solid;
+  border-top: #e4e4e4 0.01rem solid;
+  overflow: hidden;
+}
 
-    .huo {
-        line-height: .36rem;
-        margin-top: 0.08rem;
-        border-bottom: #e4e4e4 0.01rem solid;
-        border-top: #e4e4e4 0.01rem solid;
-        overflow: hidden;
-    }
+.huo li {
+  overflow: hidden;
+}
 
-    .huo li {
-        overflow: hidden;
-    }
+.huo1 {
+  color: #3190e8;
+  float: left;
+  margin-left: 0.1rem;
+  font-size: 0.15rem;
+}
 
-    .huo1 {
-        color: #3190e8;
-        float: left;
-        margin-left: 0.1rem;
-        font-size: 0.15rem;
-    }
+.huo2 {
+  float: right;
+  margin-right: 0.1rem;
+}
 
-    .huo2 {
-        float: right;
-        margin-right: 0.1rem;
-    }
+.hot {
+  background: #fff;
+  margin-top: 0.08rem;
+  border-top: 0.02rem solid #e4e4e4;
+  border-bottom: 0.01rem solid #e4e4e4;
+}
 
-    .hot {
-        background: #fff;
-        margin-top: .08rem;
-        border-top: .02rem solid #e4e4e4;
-        border-bottom: .01rem solid #e4e4e4;
+.sp {
+  margin-left: 0.1rem;
+  height: 0.32rem;
+  line-height: 0.32rem;
+}
 
-    }
+.sp1 {
+  font-size: 0.11rem;
+}
 
-    .sp {
-        margin-left: 0.1rem;
-        height: 0.32rem;
-        line-height: 0.32rem;
-    }
+.rr {
+  box-sizing: border-box;
+  border-top: 0.01rem solid #e4e4e4;
+}
 
-    .sp1 {
-        font-size: 0.11rem;
-    }
+.rm {
+  font-size: 0.13rem;
+  color: #3190e8;
+  text-align: center;
+  margin-top: 0.1rem;
+}
 
-    .rr {
-        box-sizing: border-box;
-        border-top: 0.01rem solid #e4e4e4;
-    }
+.rl {
+  display: inline-block;
+  border-bottom: 0.005rem solid #e4e4e4;
+  border-right: 0.005rem solid #e4e4e4;
+  height: 0.35rem;
+  width: 25%;
+  font-size: 0.03rem;
+  box-sizing: border-box;
+}
 
-    .rm {
-        font-size: 0.13rem;
-        color: #3190e8;
-        text-align: center;
-        margin-top: 0.1rem;
-    }
+.rr .rl:nth-of-type(4n) {
+  border-right: none;
+}
 
-    .rl {
-        display: inline-block;
-        border-bottom: 0.005rem solid #e4e4e4;
-        border-right: 0.005rem solid #e4e4e4;
-        height: 0.35rem;
-        width: 25%;
-        font-size: 0.03rem;
-        box-sizing: border-box;
-    }
+.group {
+  background: #fff;
+  margin-top: 0.08rem;
+  border-top: 0.02rem solid #e4e4e4;
+}
 
-    .rr .rl:nth-of-type(4n) {
-        border-right: none;
-    }
+.sa {
+  color: #666;
+  font-weight: 400;
+  text-indent: 0.09rem;
+  font-size: 0.11rem;
+  line-height: 0.33rem;
+}
 
-    .group {
-        background: #fff;
-        margin-top: .08rem;
-        border-top: .02rem solid #e4e4e4;
-    }
+.sp3 {
+  font-size: 0.095rem;
+  color: #999;
+}
 
-    .sa {
-        color: #666;
-        font-weight: 400;
-        text-indent: .09rem;
-        font-size: .11rem;
-        line-height: .33rem;
-
-    }
-
-    .sp3 {
-        font-size: .095rem;
-        color: #999;
-    }
-
-    .rn {
-        color: #666;
-        font-size: 0.13rem;
-        text-align: center;
-        margin-top: 0.1rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+.rn {
+  color: #666;
+  font-size: 0.13rem;
+  text-align: center;
+  margin-top: 0.1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 </style>

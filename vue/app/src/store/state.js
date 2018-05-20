@@ -12,7 +12,8 @@ let state = {
     isLogin: false,
     history: [],
     isPay: false,
-    animation: true
+    animation: true,
+    jump: false
 };
 
 export default state;

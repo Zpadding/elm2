@@ -28,7 +28,7 @@
                                         v-model="mes.rating"
                                         disabled
                                         show-score
-                                        text-color="#ff9900"
+                                        text-color="#ff6000"
                                         score-template="{value}">
                                     </el-rate>
                                 </span>
@@ -205,15 +205,17 @@ export default {
   color: #999;
   border-bottom: 0.005rem solid #f1f1f1;
 }
-
+.con {
+  width: 2.5rem;
+}
 .body .left {
-  margin: 0 0.2rem;
-  max-width: 1.1rem;
+  margin: 0 0.1rem;
 }
 
-.body .right {
-  max-width: 1.1rem;
-}
+/* .body .right {
+  min-width: 1.1rem;
+  text-align: right;
+} */
 
 .one,
 .two,
@@ -229,6 +231,7 @@ export default {
   height: 0.54rem;
 }
 .one .left {
+  max-width: 1rem;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -252,19 +255,20 @@ export default {
 .one .right {
   display: flex;
   transform: scale(0.8);
+  justify-content: flex-end;
 }
 
 .one .right li {
+  display: inline-block;
   margin-left: 0.01rem;
-  padding: 0 0.01rem;
+  padding: 0 0.008rem;
   border: 0.01rem solid #f1f1f1;
-  border-radius: 0.03rem;
+  border-radius: 0.016rem;
+  color: #999;
 }
 
 .two .left span {
-  color: #333;
   display: inline-block;
-  font-weight: 200;
   line-height: 0.17rem;
 }
 
@@ -272,32 +276,31 @@ export default {
   display: inline-block;
   font-size: 0.08rem;
   transform: scale(0.8);
+  margin-left: -.04rem;
+  color: #666;
 }
 
 .two .right {
   transform: scale(0.7);
-  margin-right: -0.08rem;
+  margin-right: -0.03rem;
 }
 
 .two .right span {
   display: inline-block;
-  height: 0.14rem;
-  line-height: 0.14rem;
+  line-height: 0.1rem;
   font-size: 0.08rem;
-  padding: 0.01rem;
-  border-radius: 0.03rem;
+  padding: .008rem .016rem;
+  border-radius: 0.005rem;
   text-align: center;
 }
 
 .two .right span:first-child {
-  width: 0.48rem;
   background: #3190e8;
   color: white;
-  border: 0.01rem solid #3190e8;
+  border: 0.005rem solid #3190e8;
 }
 
 .two .right span:nth-of-type(2) {
-  width: 0.36rem;
   color: #3190e8;
   border: 0.01rem solid #3190e8;
 }
@@ -314,8 +317,9 @@ export default {
 }
 
 .three .right {
-  margin-right: -0.08rem;
   transform: scale(0.9);
+  white-space: nowrap;
+  margin-right: .03rem;
 }
 
 .three .right span {

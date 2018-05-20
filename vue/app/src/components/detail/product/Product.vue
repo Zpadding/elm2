@@ -138,25 +138,6 @@
                 console.log("数据重置");
                 this.receive(id);
             }
-
-            //console.log(localStorage.car);
-
-            // if (localStorage.car) {
-            //   let car = JSON.parse(localStorage.car);
-            //   console.log(car);
-            //   console.log(this.car);
-            //   for (let i = 0; i < car.length; i++) {
-            //     let num = car[i].dom;
-            //     console.log(num);
-            //     console.log(car[i].quantity);
-            //     num.innerHTML = car[i].quantity;
-            //     console.log(num.innerHTML);
-            // if (Number(num.innerHTML)) {
-            //   num.style.display = "inline-block";
-            //   num.previousElementSibling.style.display = "inline-block";
-            // }
-            //   }
-            // }
         },
         computed: {
             ...mapState(["head_url", "car", "price", "allFood", "isPay"]),
@@ -224,6 +205,7 @@
                 //购物车数据[{attrs:[],extra:{},id:食品id,name:食品名称,packing_fee:打包费,price:价格,quantity:数量,sku_id:规格id,specs:规格,stock:存量,}]
 
                 if (!this.isAni) {
+                    this.$store.commit("jump", true)
                     this.isAni = true;
                     var num = event.target.previousElementSibling;
                     var index = 0;

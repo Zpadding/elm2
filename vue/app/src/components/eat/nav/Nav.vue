@@ -76,6 +76,7 @@ export default {
     line-height: .22rem;
     color: white;
     font-weight: 400;
+    font-size: .16rem;
     overflow: hidden;
     text-align: center;
     text-overflow: ellipsis;

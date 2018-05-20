@@ -72,16 +72,18 @@ export default {
 .el-rate {
   height: 0.15rem;
 }
+.el-rate .el-rate__item {
+  font-size: .1rem;
+}
 .el-rate .el-rate__item .el-rate__icon {
-  font-size: 0.01rem;
+  font-size: 0.1rem;
   margin-right: 0;
   transform: scale(0.8);
-  margin: 0 -0.02rem;
+  margin: 0 -0.01rem;
 }
 .el-rate .el-rate__text {
   font-size: 0.08rem;
   color: #ff6000;
-  margin: 0 0.04rem;
 }
 
 /* 动画 */
@@ -122,31 +124,6 @@ export default {
   animation: ellipse 0.6s infinite ease-in-out;
 }
 @keyframes load {
-  /* 0% {
-    transform: translateY(0);
-    background-position-y: 0;
-  }
-  8.33% {
-    transform: translateY()
-  }
-  16.66% {
-    background-position-y: 0.5rem;
-  }
-  33.33% {
-    background-position-y: 1rem;
-  }
-  50% {
-    background-position-y: 1.5rem;
-  }
-  66.66% {
-    background-position-y: 2rem;
-  }
-  83.33% {
-    background-position-y: 2.5rem;
-  }
-  100% {
-    background-position-y: 3rem;
-  } */
   0% {
     transform: translateY(0);
   }

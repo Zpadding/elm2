@@ -40,6 +40,9 @@ let mutations = {
     },
     animation(state, data) {
         state.animation = data;
+    },
+    jump(state, data) {
+        state.jump = data;
     }
 
 }
