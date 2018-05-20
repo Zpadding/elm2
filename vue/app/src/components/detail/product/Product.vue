@@ -102,7 +102,7 @@
             return {
                 foods: {},
                 img_url: "https://fuss10.elemecdn.com/",
-                img_path: "//elm.cangdu.org/img/",
+                img_path: "https://elm.cangdu.org/img/",
                 num: 0,
                 animation: {
                     paddingTop: "1.37rem",

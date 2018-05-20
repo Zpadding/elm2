@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       shop: {},
-      img_url: "//elm.cangdu.org/img/"
+      img_url: "https://elm.cangdu.org/img/"
     };
   },
   components: {},

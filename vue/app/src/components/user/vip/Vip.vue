@@ -163,13 +163,12 @@
     }
 
     .v1 {
-        padding-left: 0.3rem;
+        padding-left: 0.1rem;
         display: flex;
         justify-content: space-between;
         line-height: 0.4rem;
         background-color: #fff;
         height: 0.4rem;
-        width: 2.92rem;
     }
 
     p[class='v1'] {
@@ -184,11 +183,11 @@
     .v13 {
         margin-right: 0.1rem;
         margin-top: 0.1rem;
-
-        border: 1px solid #f60;
+        background: #fff;
+        border: .01rem solid #f60;
         border-radius: 5px;
-        height: 0.23rem;
-        width: 0.5rem;
+        height: 0.24rem;
+        width: 0.52rem;
         color: #f60;
     }
 

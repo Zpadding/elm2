@@ -155,7 +155,7 @@
             var a2 = "https://fuss10.elemecdn.com/" + a1.join("") + ".jpeg";
             return a2;
         } else {
-            return "//elm.cangdu.org/img/default.jpg";
+            return "https://elm.cangdu.org/img/default.jpg";
         }
     }
 

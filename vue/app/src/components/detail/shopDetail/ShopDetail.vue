@@ -69,7 +69,7 @@ export default {
     return {
       detail: {},
       smile: smile,
-      img_path: "//elm.cangdu.org/img/",
+      img_path: "https://elm.cangdu.org/img/",
       pic: "",
       show: false
     };

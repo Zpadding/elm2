@@ -31,7 +31,6 @@ Vue.config.productionTip = false;
 
 axios.interceptors.request.use(
     function(config) {
-        console.log("开始请求");
         store.commit("animation", true)
             // Do something before request is sent
         return config;
@@ -45,7 +44,6 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     function(response) {
         // Do something with response data
-        console.log("请求结束");
         store.commit("animation", false);
         return response;
     },

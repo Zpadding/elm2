@@ -165,8 +165,8 @@
         justify-content: space-around;
         height: 0.25rem;
         padding: 0.02rem 0.03rem;
-        margin-top: 0.1rem;
-
+        margin-top: 0.01rem;
+        background: #fff;
     }
 
     .cip1 {

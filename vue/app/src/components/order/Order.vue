@@ -8,7 +8,7 @@
             </div>
             <ul class="indent">
                 <li v-for="(order, index) in orders" @click="detail(order)">
-                    <img :src="'//elm.cangdu.org/img/' + order.restaurant_image_url" alt="">
+                    <img :src="'https://elm.cangdu.org/img/' + order.restaurant_image_url" alt="">
                     <div class="body">
                         <div class="top">
                             <div class="head">

@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       food: {},
-      img_path: "//elm.cangdu.org/img/",
+      img_path: "https://elm.cangdu.org/img/",
     };
   },
   components: {

@@ -7,14 +7,14 @@
                 <span></span>
           </div>
           <div class="logo">
-              <img :src="'//elm.cangdu.org/img/' + order.restaurant_image_url" alt="">
+              <img :src="'https://elm.cangdu.org/img/' + order.restaurant_image_url" alt="">
               <p>支付超时</p>
               <router-link :to="{name: 'Detail', params: {id: order.restaurant_id}}">再来一单</router-link>
           </div>
           <div class="detail">
               <router-link :to="{name: 'Detail', params: {id: order.restaurant_id}}">
                 <div class="left">
-                    <img :src="'//elm.cangdu.org/img/' + order.restaurant_image_url" alt="">
+                    <img :src="'https://elm.cangdu.org/img/' + order.restaurant_image_url" alt="">
                     <span>{{order.restaurant_name}}</span>
                 </div>
                 <div class="right"></div>

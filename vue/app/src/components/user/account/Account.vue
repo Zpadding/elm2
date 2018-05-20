@@ -14,10 +14,12 @@
         </div>
         <div class="use">
             <p class="us1">用户名</p>
-            <p class="us2">{{user.username}} ></p>
+            <p class="us2">
+                <span class="name">{{user.username}}</span>
+             ></p>
 
         </div>
-        <div class="uz" @click="editAddress"><p class="uz1">我的收货地址</p>
+        <div class="uz" @click="editAddress"><p class="uz1">收货地址</p>
             <p class="uz2"> ></p></div>
         <p class="sp">账户绑定</p>
         <div class="fou" @click="show=!show">
@@ -73,345 +75,341 @@
 </template>
 
 <script>
-    import w12 from "../../../assets/w1-4.png"
-    import tou from '../../../assets/w2-3.jpg'
-    import soj from '../../../assets/w1-shouji.png'
-    import {mapState} from "vuex";
+import w12 from "../../../assets/w1-4.png";
+import tou from "../../../assets/w2-3.jpg";
+import soj from "../../../assets/w1-shouji.png";
+import { mapState } from "vuex";
 
-    export default {
-        name: "Account",
-        data() {
-            return {
-                w12: w12,
-                tou: tou,
-                sk: "",
-                show: true,
-                up: false,
-                soj: soj,
-            }
-        },
-        created() {
-            if (!Object.keys(this.user).length) {
-                this.$store.commit("user", localStorage.user);
-            }
-
-            console.log(this.user);
-            //this.sk = this.$route.params.mes.username;
-            //console.log(this.$route.params)
-        },
-        computed: {
-            ...mapState(["user", "head_url"])
-        },
-        methods: {
-            quit() {
-                this.up = false;
-                this.$store.commit("quit");
-                this.$router.push({name: "User"});
-                let url = this.head_url + `/v2/signout`;
-                this.$http.get(url).then(res => {
-                    console.log(res.data);
-                    delete(localStorage["user"]);
-                })
-            },
-            editAddress() {
-                this.$router.push({name: "EditAddress"});
-            }
-        }
+export default {
+  name: "Account",
+  data() {
+    return {
+      w12: w12,
+      tou: tou,
+      sk: "",
+      show: true,
+      up: false,
+      soj: soj
+    };
+  },
+  created() {
+    if (!Object.keys(this.user).length) {
+      this.$store.commit("user", localStorage.user);
     }
+
+    console.log(this.user);
+    //this.sk = this.$route.params.mes.username;
+    //console.log(this.$route.params)
+  },
+  computed: {
+    ...mapState(["user", "head_url"])
+  },
+  methods: {
+    quit() {
+      this.up = false;
+      this.$store.commit("quit");
+      this.$router.push({ name: "User" });
+      let url = this.head_url + `/v2/signout`;
+      this.$http.get(url).then(res => {
+        console.log(res.data);
+        delete localStorage["user"];
+      });
+    },
+    editAddress() {
+      this.$router.push({ name: "EditAddress" });
+    }
+  }
+};
 </script>
 
 <style scoped>
+#head {
+  height: 0.39rem;
+  width: 100%;
+  background: #3190e8;
+  color: #fff;
+  overflow: hidden;
+}
 
-    #head {
-        height: 0.39rem;
-        width: 100%;
-        background: #3190e8;
-        color: #fff;
-        overflow: hidden;
-    }
+.hep1 {
+  float: left;
+  padding: 0.1rem;
+}
 
-    .hep1 {
-        float: left;
-        padding: 0.1rem;
-    }
+.hep2 {
+  height: 0.4rem;
+  float: right;
+  padding-right: 1.5rem;
+  padding-top: 0.1rem;
+}
 
-    .hep2 {
-        height: 0.4rem;
-        float: right;
-        padding-right: 1.5rem;
-        padding-top: 0.1rem;
-    }
+.tou {
+  margin-top: 0.1rem;
+  border-top: 1px solid #ddd;
+  overflow: hidden;
+  height: 0.62rem;
+  background: #fff;
+}
 
-    .tou {
-        margin-top: 0.1rem;
-        border-top: 1px solid #ddd;
-        overflow: hidden;
-        height: 0.62rem;
-        background: #fff;
-    }
+.tou1 {
+  float: left;
+  font-size: 0.15rem;
+  margin-top: 0.25rem;
+  margin-left: 0.1rem;
+}
 
-    .tou1 {
-        float: left;
-        font-size: 0.15rem;
-        margin-top: 0.25rem;
-        margin-left: 0.1rem;
-    }
+.tou2 {
+  float: right;
+  margin-top: 0.16rem;
+  margin-right: 0.4rem;
+  height: 0.35rem;
+  width: 0.35rem;
+  border-radius: 50%;
+}
 
-    .tou2 {
-        float: right;
-        margin-top: 0.16rem;
-        margin-right: 0.3rem;
-        height: 0.35rem;
-        width: 0.35rem;
-        border-radius: 50%;
+.tou3 {
+  position: absolute;
+  left: 2.9rem;
+  top: 0.7rem;
+  color: #ddd;
+  font-size: 0.25rem;
+  display: inline-block;
+}
 
-    }
+.use {
+  border-top: 1px solid #ddd;
+  height: 0.4rem;
+  padding-right: 0.1rem;
+  overflow: hidden;
+  background: #fff;
+}
 
-    .tou3 {
-        position: absolute;
-        left: 2.9rem;
-        top: 0.7rem;
-        color: #ddd;
-        font-size: 0.25rem;
-        display: inline-block;
-    }
+.us1 {
+  float: left;
+  margin-top: 0.15rem;
+  font-size: 0.15rem;
+  margin-left: 0.1rem;
+  color: #333;
+  font-weight: 400;
+}
 
-    .use {
+.us2 {
+  float: right;
+  margin-top: 0.07rem;
+  margin-left: 0.5rem;
+  font-size: 0.2rem;
+  color: rgb(216, 216, 216);
+}
+.us2 .name {
+    color: #999;
+    text-align: left;
+    line-height: .25rem;
+    font-size: .14rem;
+    margin-right: .04rem;
+    font-weight: 100;
+}
 
-        border-top: 1px solid #ddd;
-        height: 0.4rem;
-        width: 3rem;
-        overflow: hidden;
-        background: #fff;
-    }
+.uz {
+  border-top: 1px solid #ddd;
+  height: 0.4rem;
+  padding-right: 0.1rem;
+  overflow: hidden;
+  background: #fff;
+}
 
-    .us1 {
+.uz1 {
+  float: left;
+  margin-top: 0.15rem;
+  font-size: 0.15rem;
+  margin-left: 0.1rem;
+  color: #333;
+  font-weight: 400;
+}
 
-        float: left;
-        margin-top: 0.15rem;
-        font-size: 0.15rem;
-        margin-left: 0.1rem;
-        color: #333;
-        font-weight: 400;
-    }
+.uz2 {
+  float: right;
+  margin-top: 0.13rem;
+  margin-left: 0.5rem;
+  font-size: 0.2rem;
+  color: #ddd;
+}
 
-    .us2 {
-        float: right;
-        margin-top: 0.13rem;
-        margin-left: 0.5rem;
-        font-size: 0.2rem;
-        color: #999;
-    }
+.sp {
+  border-top: 1px solid #ddd;
+  padding: 0.1rem;
 
-    .uz {
+  font-size: 0.08rem;
+}
 
-        border-top: 1px solid #ddd;
-        height: 0.4rem;
-        width: 3rem;
-        overflow: hidden;
-        background: #fff;
-    }
+.fou {
+  height: 0.42rem;
+  border-top: 1px solid #ddd;
+  overflow: hidden;
+  background: #fff;
+}
 
-    .uz1 {
-        float: left;
-        margin-top: 0.15rem;
-        font-size: 0.15rem;
-        margin-left: 0.1rem;
-        color: #333;
-        font-weight: 400;
-    }
+.fo {
+  height: 0.42rem;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  overflow: hidden;
+  background: #fff;
+}
 
-    .uz2 {
-        float: right;
-        margin-top: 0.13rem;
-        margin-left: 0.5rem;
-        font-size: 0.2rem;
-        color: #ddd;
-    }
+.fou1 {
+  margin-top: 0.1rem;
+  float: left;
+}
 
-    .sp {
-        border-top: 1px solid #ddd;
-        padding: 0.1rem;
+.fou2 {
+  color: #ddd;
+  float: right;
+  margin-right: 0.2rem;
+  margin-top: 0.1rem;
+}
 
-        font-size: 0.08rem;
-    }
+.fou3 {
+  height: 0.25rem;
+  width: 0.25rem;
+  float: left;
+  margin-left: 0.1rem;
+}
 
-    .fou {
-        height: 0.42rem;
-        border-top: 1px solid #ddd;
-        overflow: hidden;
-        background: #fff;
-    }
+.fou4 {
+  float: right;
+  margin-top: 0.02rem;
+  margin-left: 0.05rem;
+}
 
-    .fo {
-        height: 0.42rem;
-        border-top: 1px solid #ddd;
-        border-bottom: 1px solid #ddd;
-        overflow: hidden;
-        background: #fff;
-    }
+.fo1 {
+  line-height: 0.44rem;
+  margin-left: 0.1rem;
+  float: left;
+  font-size: 0.12rem;
+  color: #333;
+  font-weight: 500;
+}
 
-    .fou1 {
-        margin-top: 0.1rem;
-        float: left;
-    }
+.but {
+  width: 3rem;
+  height: 0.3rem;
+  background: #d8584a;
+  margin-left: 0.1rem;
+  margin-top: 0.15rem;
+  border-radius: 0.05rem;
+  color: #fff;
+  border: none;
+  outline: none;
+}
 
-    .fou2 {
-        color: #ddd;
-        float: right;
-        margin-right: 0.2rem;
-        margin-top: 0.1rem;
-    }
+.big {
+  height: 3rem;
+  width: 2.9rem;
+  text-align: center;
+  position: absolute;
+  background: #ddd;
+  left: 0.15rem;
+  top: 1rem;
+  overflow: hidden;
+  background: #fff;
+}
 
-    .fou3 {
-        height: 0.25rem;
-        width: 0.25rem;
-        float: left;
-        margin-left: 0.1rem;
+.warning {
+  height: 0.9rem;
+  width: 0.9rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  fill: #f8bb86;
+}
 
-    }
+.big > p {
+  width: 100%;
+  font-size: 0.3rem;
+  color: #5f5f5f;
+  /*margin-left: 0.18rem;*/
+}
 
-    .fou4 {
-        float: right;
-        margin-top: 0.02rem;
-        margin-left: 0.05rem;
-    }
+.bu1 {
+  width: 2rem;
+  margin-left: 0.5rem;
+  margin-top: 0.65rem;
+}
 
-    .fo1 {
-        line-height: .44rem;
-        margin-left: 0.1rem;
-        float: left;
-        font-size: .12rem;
-        color: #333;
-        font-weight: 500;
-    }
+.bu2 {
+  float: left;
+  height: 0.33rem;
+  width: 0.8rem;
+  background: #c1c1c1;
+  border-radius: 5px;
+  color: #fff;
+}
 
-    .but {
-        width: 3rem;
-        height: 0.3rem;
-        background: #d8584a;
-        margin-left: 0.1rem;
-        margin-top: 0.15rem;
-        border-radius: 0.05rem;
-        color: #fff;
-    }
+.bu3 {
+  height: 0.33rem;
+  float: right;
+  width: 0.9rem;
+  background: #dd6b55;
+  border-radius: 5px;
+  color: #fff;
+}
 
-    .big {
-        height: 3rem;
-        width: 2.9rem;
-        text-align: center;
-        position: absolute;
-        background: #ddd;
-        left: 0.15rem;
-        top: 1rem;
-        overflow: hidden;
-        background: #fff;
-    }
+.bou1 {
+  height: 0.4rem;
+  width: 2.4rem;
+  text-align: center;
+  background-color: #4cd964;
+  color: #fff;
+}
 
-    .warning {
-        height: 0.9rem;
-        width: 0.9rem;
-        margin-top: 0.2rem;
-        margin-bottom: 0.2rem;
-        fill: #f8bb86;
-    }
+#wit {
+  height: 1.58rem;
+  width: 2.4rem;
 
-    .big > p {
-        width: 100%;
-        font-size: 0.3rem;
-        color: #5f5f5f;
-        /*margin-left: 0.18rem;*/
-    }
+  background: white;
+  margin-left: 0.4rem;
+  position: absolute;
+  left: 0;
+  top: 1.6rem;
+  margin-bottom: 0.2rem;
+}
 
-    .bu1 {
-        width: 2.0rem;
-        margin-left: 0.5rem;
-        margin-top: 0.65rem;
+.p {
+  text-align: center;
+  margin-bottom: 0.2rem;
+  margin-top: 0.2rem;
+}
 
-    }
+.p1 {
+  height: 0.6rem;
+  width: 0.6rem;
+}
 
-    .bu2 {
-        float: left;
-        height: 0.33rem;
-        width: 0.8rem;
-        background: #c1c1c1;
-        border-radius: 5px;
-        color: #fff;
-    }
+.p3 {
+  text-align: center;
+  margin-left: 0.1rem;
+}
 
-    .bu3 {
-        height: 0.33rem;
-        float: right;
-        width: 0.9rem;
-        background: #dd6b55;
-        border-radius: 5px;
-        color: #fff;
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
 
-    }
+/* .bounce-leave-active { */
+/*animation: bounce-in .5s reverse;*/
+/* } */
 
-    .bou1 {
+@keyframes bounce-in {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(0.8);
+  }
+  70% {
+    transform: scale(1.1);
+  }
 
-        height: 0.4rem;
-        width: 2.4rem;
-        text-align: center;
-        background-color: #4cd964;
-        color: #fff;
-
-    }
-
-    #wit {
-
-        height: 1.58rem;
-        width: 2.4rem;
-
-        background: white;
-        margin-left: 0.4rem;
-        position: absolute;
-        left: 0;
-        top: 1.6rem;
-        margin-bottom: 0.2rem;
-    }
-
-    .p {
-        text-align: center;
-        margin-bottom: 0.2rem;
-        margin-top: 0.2rem;
-    }
-
-    .p1 {
-        height: 0.6rem;
-        width: 0.6rem;
-    }
-
-    .p3 {
-        text-align: center;
-        margin-left: 0.1rem;
-
-    }
-
-    .bounce-enter-active {
-        animation: bounce-in .5s;
-    }
-
-    .bounce-leave-active {
-        /*animation: bounce-in .5s reverse;*/
-    }
-
-    @keyframes bounce-in {
-        0% {
-            transform: scale(1);
-        }
-        35% {
-            transform: scale(.8);
-        }
-        70% {
-            transform: scale(1.1);
-        }
-
-        100% {
-            transform: scale(1);
-        }
-    }
-
-
+  100% {
+    transform: scale(1);
+  }
+}
 </style>

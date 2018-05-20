@@ -106,7 +106,7 @@
                 <div class="one" @click="addRemark">
                     <div class="left">订单备注</div>
                     <div class="right">
-                        <span>口味、偏好等</span>
+                        <span>{{remark}}</span>
                         <span></span>
                     </div>
                 </div>
@@ -185,10 +185,11 @@ export default {
   data() {
     return {
       shop: {},
-      img_path: "//elm.cangdu.org/img/",
+      img_path: "https://elm.cangdu.org/img/",
       show: false,
       location: {},
-      login: false
+      login: false,
+      remark: "口味、偏好等"
     };
   },
   components: {},
@@ -253,10 +254,7 @@ export default {
         this.shop = this.$route.params.shop;
         localStorage.shop = JSON.stringify(this.shop);
         localStorage.location
-          ? (this.locationlocation = JSON.parse(localStorage.location))
-          : "";
-        localStorage.remark
-          ? (this.remark = JSON.parse(localStorage.remark))
+          ? (this.location = JSON.parse(localStorage.location))
           : "";
       } else if (this.$route.params.location) {
         this.location = this.$route.params.location;
@@ -295,9 +293,9 @@ export default {
   animation: bounce-in 0.5s;
 }
 
-.bounce-leave-active {
+// .bounce-leave-active {
   /*animation: bounce-in .5s reverse;*/
-}
+// }
 
 @keyframes bounce-in {
   0% {
@@ -618,15 +616,19 @@ export default {
           white-space: nowrap;
         }
         .right {
-          .size(2.92rem, 0.42rem);
+          .size(2.72rem, 0.42rem);
+          margin-left: .2rem;
           span {
             &:first-child {
-              .size(2.22rem, 0.4rem);
+              .size(2.04rem, 0.4rem);
               font-size: 0.12rem;
               color: #aaa;
               display: inline-block;
               text-align: right;
               vertical-align: middle;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
             }
             &:last-child {
               .size(0.06rem, 0.06rem);

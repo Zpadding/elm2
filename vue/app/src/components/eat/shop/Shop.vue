@@ -65,7 +65,7 @@ export default {
   data() {
     return {
       mess: [],
-      img_url: "//elm.cangdu.org/img/"
+      img_url: "https://elm.cangdu.org/img/"
     };
   },
   components: {},
