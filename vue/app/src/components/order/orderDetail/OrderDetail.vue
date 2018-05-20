@@ -82,7 +82,12 @@ export default {
   components: {},
   created() {
     console.log(this.$route.params);
-    this.order = this.$route.params;
+    if (Object.keys(this.$route.params).length) {
+      this.order = this.$route.params;
+      sessionStorage.order = JSON.stringify(this.order);
+    } else {
+      this.order = JSON.parse(sessionStorage.order);
+    }
   }
 };
 </script>

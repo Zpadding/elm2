@@ -270,13 +270,13 @@ export default {
         localStorage.remark = JSON.stringify(this.remark);
         localStorage.shop ? (this.shop = JSON.parse(localStorage.shop)) : "";
         localStorage.location
-          ? (this.locationlocation = JSON.parse(localStorage.location))
+          ? (this.location = JSON.parse(localStorage.location))
           : "";
       }
     } else {
       localStorage.shop ? (this.shop = JSON.parse(localStorage.shop)) : "";
       localStorage.location
-        ? (this.locationlocation = JSON.parse(localStorage.location))
+        ? (this.location = JSON.parse(localStorage.location))
         : "";
       localStorage.remark
         ? (this.remark = JSON.parse(localStorage.remark))

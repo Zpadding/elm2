@@ -38,8 +38,8 @@ let mutations = {
     isPay(state, data) {
         state.isPay = data;
     },
-    animation(state) {
-        state.animation = false;
+    animation(state, data) {
+        state.animation = data;
     }
 
 }

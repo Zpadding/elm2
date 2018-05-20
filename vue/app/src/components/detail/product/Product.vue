@@ -122,8 +122,6 @@
         created() {
             if (this.$route.params.id) {
                 var id = this.$route.params.id;
-                console.log(localStorage.id);
-                console.log(id);
                 if (localStorage.id != id) {
                     this.receive(id);
                 }
@@ -132,7 +130,7 @@
                 var id = localStorage.id;
             }
 
-            console.log(!this.isPay && Object.keys(JSON.parse(localStorage.allFood)).length && localStorage.user);
+            // console.log(!this.isPay && Object.keys(JSON.parse(localStorage.allFood)).length && localStorage.user);
             if (!this.isPay && Object.keys(JSON.parse(localStorage.allFood)).length && localStorage.user) {
                 console.log("本地取出");
                 this.$store.commit("allFood", JSON.parse(localStorage.allFood));

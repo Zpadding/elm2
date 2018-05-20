@@ -5,7 +5,7 @@
             <span class="hep2">下载</span>
         </div>
         <div class="img">
-            <img src="../../../assets/w1-3.jpeg" alt="">
+            <img :src="logo" alt="">
             <p class="el">下载饿了么APP</p>
         </div>
         <div @click="show=!show">
@@ -38,11 +38,13 @@
 </template>
 
 <script>
+import logo from "../../../assets/w1-3.jpeg";
     export default {
         name: "Down",
         data() {
             return {
-                show: true
+                show: true,
+                logo: logo
             }
 
         }

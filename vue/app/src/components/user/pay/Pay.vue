@@ -92,6 +92,7 @@
           }, 1000)
         },
         pay() {
+          this.$store.commit("isPay", true);
           this.$router.push({name: "Order"});
         }
       },
@@ -193,9 +194,6 @@
     position: fixed;
     left: 2.8rem;
     margin-top: 0.2rem;
-
-
-
   }
   .psb{
     float: left;
@@ -219,6 +217,7 @@
     color: #fff;
     border-radius: 0.1rem;
     margin-left: 0.15rem;
+    border: none;
   }
   .fu{
     text-align: center;
