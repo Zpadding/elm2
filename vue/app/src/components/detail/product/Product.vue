@@ -446,7 +446,7 @@
         },
         watch: {
             num() {
-                if (this.foods.length && this.foods.length > 7) {
+                if (this.allFood.length && this.allFood.length > 7) {
                     let fontSize = parseFloat(document.documentElement.style.fontSize);
                     setTimeout(() => {
                         let mark = document.querySelector(".classify");
