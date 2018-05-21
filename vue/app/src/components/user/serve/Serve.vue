@@ -62,7 +62,7 @@
                 }
                 infor.splice(23);
                 infor.reverse();
-                console.log(infor);
+                // console.log(infor);
                 this.txts = infor;
 
 

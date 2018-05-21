@@ -142,9 +142,9 @@
         computed: {
             ...mapState(["head_url", "car", "price", "allFood", "isPay"]),
             image_url() {
-                if (Object.keys(this.foods).length) {
-                    //console.log(this.foods);
-                    let image_url = this.foods.map((value, index) => {
+                if (Object.keys(this.allFood).length) {
+                    console.log(this.allFood);
+                    let image_url = this.allFood.map((value, index) => {
                         let img_url = img_path(value.icon_url);
                         return img_url;
                     });
@@ -446,7 +446,7 @@
         },
         watch: {
             num() {
-                if (this.foods.length && this.foods.length > 7) {
+                if (this.allFood.length && this.allFood.length > 7) {
                     let fontSize = parseFloat(document.documentElement.style.fontSize);
                     setTimeout(() => {
                         let mark = document.querySelector(".classify");
