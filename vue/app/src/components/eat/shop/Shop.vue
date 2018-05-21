@@ -318,7 +318,6 @@ export default {
 
 .three .right {
   transform: scale(0.9);
-  white-space: nowrap;
   margin-right: .03rem;
 }
 
