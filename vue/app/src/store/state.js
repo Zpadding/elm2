@@ -1,7 +1,7 @@
 let state = {
     domain: "http://cangdu.org",
     port: "8001",
-    head_url: "http://cangdu.org:8001",
+    head_url: "https://elm.cangdu.org",
     order: "",
     classify: [],
     shopDetail: {},

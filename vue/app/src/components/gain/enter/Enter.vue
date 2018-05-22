@@ -74,7 +74,7 @@ export default {
   },
 
   created() {
-    let url = "https://elm.cangdu.org/v1/captchas";
+    let url = this.head_url + "/v1/captchas";
     var data = {};
     Vue.postLogin(url, data, res => {
       this.pic = res.code;
@@ -85,7 +85,7 @@ export default {
       if (this.name) {
         if (this.word) {
           if (this.code) {
-            let url = "https://elm.cangdu.org/v2/login";
+            let url = this.head_url + "/v2/login";
             let data = {
               username: this.name,
               password: this.word,
@@ -114,7 +114,7 @@ export default {
     },
 
     change() {
-      let url = "https://elm.cangdu.org/v1/captchas";
+      let url = this.head_url + "/v1/captchas";
       var data = {};
       Vue.postLogin(url, data, res => {
         this.pic = res.code;

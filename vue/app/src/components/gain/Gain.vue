@@ -73,17 +73,17 @@ export default {
     };
   },
   created() {
-    let url2 = "http://cangdu.org:8001/v1/cities?type=guess";
+    let url2 = this.head_url + "/v1/cities?type=guess";
     this.$http.get(url2).then(res => {
       // console.log(res.data);
       this.guessCity = res.data;
     });
-    let url = "http://cangdu.org:8001/v1/cities?type=hot";
+    let url = this.head_url + "/v1/cities?type=hot";
     this.$http.get(url).then(res => {
       // console.log(res.data);
       this.hotCity = res.data;
     });
-    let url1 = "http://cangdu.org:8001/v1/cities?type=group";
+    let url1 = this.head_url + "/v1/cities?type=group";
     this.$http.get(url1).then(res => {
       // console.log(res.data);
       this.groupCity = objKeySort(res.data);
@@ -99,7 +99,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["isLogin"])
+    ...mapState(["isLogin", "head_url"])
   }
 };
 
